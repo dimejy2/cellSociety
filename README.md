@@ -1,4 +1,5 @@
 cellsociety
 ===========
 
-Members: Ethan Chang, Dimeji Abidoye, Sandy Lee
+Members:
+Dimeji Abidoye, Ethan Chang, Sandy Lee
