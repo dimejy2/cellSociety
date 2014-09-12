@@ -1,4 +1,4 @@
 cellsociety
 ===========
 
-Empty repository for CellSociety project
+Members: Ethan Chang, Dimeji Abidoye, Sandy Lee
