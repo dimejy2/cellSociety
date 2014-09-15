@@ -12,4 +12,8 @@
 hs_err_pid*
 /bin/
 .project
+<<<<<<< HEAD
 .classpath
+=======
+.classpath
+>>>>>>> c58122bd9a2c77bff722f0e0871e7d8de8dbf31b
