@@ -9,12 +9,15 @@ public class Cell  {
 	private ArrayList<Integer> myState; 
 	private int stateIndex =0; 
 	
-	public Cell ( double x, double y, ArrayList<Integer> state){
+
+	
+	public Cell ( float x, float y, ArrayList<Integer> state){
 		myXPosition = x; 
 		myYPosition = y; 
 		myState = state; 
 		stateIndexChecker(); 
 	}
+
 
 	public double getXPosition(){
 		return myXPosition; 
