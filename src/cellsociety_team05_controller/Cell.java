@@ -1,15 +1,13 @@
-package models;
+package cellsociety_team05_controller;
 
 import java.util.ArrayList;
 
 public class Cell  {
 	
-	private double myXPosition;
-	private double myYPosition;
+	private float myXPosition;
+	private float myYPosition;
 	private ArrayList<Integer> myState; 
 	private int stateIndex =0; 
-	
-
 	
 	public Cell ( float x, float y, ArrayList<Integer> state){
 		myXPosition = x; 
@@ -18,12 +16,11 @@ public class Cell  {
 		stateIndexChecker(); 
 	}
 
-
-	public double getXPosition(){
+	public float getXPosition(){
 		return myXPosition; 
 	}
 	
-	public double getYPosition(){
+	public float getYPosition(){
 		return myYPosition; 
 	}
 	
