@@ -4,23 +4,23 @@ import java.util.ArrayList;
 
 public class Cell  {
 	
-	private float myXPosition;
-	private float myYPosition;
+	private double myXPosition;
+	private double myYPosition;
 	private ArrayList<Integer> myState; 
 	private int stateIndex =0; 
 	
-	public Cell ( float x, float y, ArrayList<Integer> state){
+	public Cell ( double x, double y, ArrayList<Integer> state){
 		myXPosition = x; 
 		myYPosition = y; 
 		myState = state; 
 		stateIndexChecker(); 
 	}
 
-	public float getXPosition(){
+	public double getXPosition(){
 		return myXPosition; 
 	}
 	
-	public float getYPosition(){
+	public double getYPosition(){
 		return myYPosition; 
 	}
 	
