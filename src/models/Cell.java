@@ -2,28 +2,35 @@ package models;
 
 import java.util.ArrayList;
 
+import views.CellView;
+
 public class Cell  {
 	
-	private double myXPosition;
-	private double myYPosition;
+	private int myXPosition;
+	private int myYPosition;
 	private ArrayList<Integer> myState; 
 	private int stateIndex =0; 
+	private CellView myCellView;
 	
 
 	
-	public Cell ( float x, float y, ArrayList<Integer> state){
+	public Cell ( int x, int y, ArrayList<Integer> state){
 		myXPosition = x; 
 		myYPosition = y; 
 		myState = state; 
+		myCellView = new CellView(50, 50);
 		stateIndexChecker(); 
 	}
 
-
-	public double getXPosition(){
+	public CellView getCellView() {
+		return myCellView;
+	}
+	
+	public int getXPosition(){
 		return myXPosition; 
 	}
 	
-	public double getYPosition(){
+	public int getYPosition(){
 		return myYPosition; 
 	}
 	

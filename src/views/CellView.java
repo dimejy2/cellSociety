@@ -14,6 +14,9 @@ public class CellView {
 		myRectangle.setFill(color);		
 	}
 	
+	public Rectangle getRectangle() {
+		return myRectangle;
+	}
 	
 	
 }

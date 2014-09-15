@@ -9,44 +9,34 @@ public class Board extends Canvas {
 
 	private int row;
 	private int column;
-	private int cellSize;
 	private GridPane gridPane;
+	private ArrayList<Cell> myCells;
 
 	//might not need cellSize
-	public Board(int row, int column, int cellSize, GridPane gridPane) {
+	public Board(int row, int column, GridPane gridPane) {
 		this.row = row;
 		this.column = column;
-		this.cellSize = cellSize;
 		this.gridPane = gridPane;
+		myCells = new ArrayList<>();
 	}
 
 	public void buildBoard() {
-		int numCol = column/cellSize;
-		int numRow = row/cellSize;
+
 		ArrayList<Integer> state = new ArrayList<Integer>();
-		for (int x = 0; x < numCol; x++) {
-			for (int y = 0; y < numRow; y++) {
+		for (int x = 0; x < row; x++) {
+			for (int y = 0; y < column; y++) {
 				Cell cell = new Cell(x, y, state);
-//				gridPane.add();
+				myCells.add(cell);
+				gridPane.add(cell.getCellView().getRectangle(), x, y);
 			}
 		}
 	}
 
-	public void drawBoard() {
-		this.getGraphicsContext2D().clearRect(0, 0, column,
-				row);
-		this.getGraphicsContext2D().setFill(Color.BLACK);
-		for (int y = 0; y < column; y++) {
-			for (int x = 0; x < row; x++) {
-					drawCell(x, y);
-				}
-			}
-		}
-
-	private void drawCell(int x, int y) {
-		this.getGraphicsContext2D().fillRect(x * cellSize, y * cellSize,
-				cellSize, cellSize);
+	public ArrayList<Cell> getCells() {
+		return myCells;
 	}
+	
+
 
 	public void setRow(int row) {
 		this.row = row;

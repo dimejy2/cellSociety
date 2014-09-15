@@ -2,17 +2,14 @@ package cellsociety_team05_controller;
 
 import java.util.ArrayList;
 
+import models.Board;
 import models.Cell;
 import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -26,16 +23,15 @@ abstract class SimulationRules {
 
 		// Create a place to see the shapes
 		Scene scene = new Scene(grid, width, height, Color.WHITE);
-		myCellController = new CellController(); // Your simulation's CellController
-		myBoard = board;
-
+		myCellController = new DummyCellController(); // Your simulation's CellController
 		return scene;
 	}
 	
     private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent evt) {
-			updateCells(myBoard);
+			checkCells(myBoard);
+			updateBoard(myBoard);
 		}
 	};
 	
