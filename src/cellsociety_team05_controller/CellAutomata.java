@@ -1,5 +1,7 @@
 package cellsociety_team05_controller;
 
+import java.util.Random;
+
 import models.Board;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;

@@ -30,14 +30,15 @@ public class Board extends Canvas {
 //				gridPane.add();
 			}
 		}
+		drawBoard();
 	}
 
 	public void drawBoard() {
 		this.getGraphicsContext2D().clearRect(0, 0, column,
 				row);
 		this.getGraphicsContext2D().setFill(Color.BLACK);
-		for (int y = 0; y < column; y++) {
-			for (int x = 0; x < row; x++) {
+		for (int x = 0; x < column; x++) {
+			for (int y = 0; y < row; y++) {
 					drawCell(x, y);
 				}
 			}
