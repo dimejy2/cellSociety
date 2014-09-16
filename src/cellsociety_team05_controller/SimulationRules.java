@@ -16,8 +16,12 @@ import javafx.util.Duration;
 abstract class SimulationRules {
 	
 	private Board myBoard;
-	private ArrayList<Cell> nextBoardCells;
-	private CellController myCellController;
+	protected Cell[][] myCells; //i added
+	protected Cell[][] nextBoardCells;
+	protected CellController myCellController;
+	protected static final int[][] neighbourMap = { { -1, -1 }, { 0, -1 },
+		{ 1, -1 }, { -1, 0 }, { +1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
+
 	
 	public Scene init (Stage s, int width, int height, GridPane grid) {
 
@@ -30,12 +34,14 @@ abstract class SimulationRules {
     private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent evt) {
-			checkCells(myBoard);
+//			checkCells(myBoard);
 			updateBoard(myBoard);
 		}
 	};
 	
-	protected abstract void checkCells(Board board);
+	protected abstract int checkCells(Cell cell, Cell neighbour);
+	
+	public abstract int nextState(int alikeNeighbours);
 	
 	protected abstract void updateBoard(Board board);
 	
