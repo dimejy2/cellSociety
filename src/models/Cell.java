@@ -11,7 +11,8 @@ public class Cell  {
 	private ArrayList<Integer> myState; 
 	private int stateIndex =0; 
 	private CellView myCellView;
-	
+	private int myResources;
+	private int framesAlive;
 
 	
 	public Cell ( int x, int y, ArrayList<Integer> state){
@@ -20,6 +21,7 @@ public class Cell  {
 		myState = state; 
 		myCellView = new CellView(50, 50);
 		stateIndexChecker(); 
+		framesAlive = 0;
 	}
 
 	public CellView getCellView() {
@@ -32,6 +34,33 @@ public class Cell  {
 	
 	public int getYPosition(){
 		return myYPosition; 
+	}
+	
+	public void setResources(int resources) {
+		myResources = resources;
+	}
+	
+	public void updateResources(int change) {
+		myResources += change;
+	}
+	
+	public boolean isAlive() {
+		if(myResources > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public int getFramesAlive() {
+		return framesAlive;
+	}
+	
+	public void incrementFramesAlive() {
+		framesAlive++;
+	}
+	
+	public void resetFramesAlive() {
+		framesAlive = 0;
 	}
 	
 	public int getState(){
