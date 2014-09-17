@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cellularautomata type = "DummyRules">
+	<grid xValue="10" yValue="10">
+	<!-- DEFAULT GRID -->
+		<row values="0010020021"></row>
+		<row values="0010020021"></row>
+		<row values="0010020021"></row>
+		<row values="0010020021"></row>
+		<row values="0010020021"></row>
+		<row values="0010020021"></row>
+		<row values="0010020021"></row>
+		<row values="0010020021"></row>
+		<row values="1010020021"></row>
+		<row values="1010020021"></row>
+	</grid>
+</cellularautomata>

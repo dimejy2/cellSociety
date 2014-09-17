@@ -1,9 +1,11 @@
 package cellsociety_team05_controller;
 
+import java.util.ArrayList;
+
 import javafx.scene.paint.Color;
 import models.Cell;
 
-public class DummyCellController extends CellController {
+public class PredatorPreyCellController extends CellController {
 	
 //	ArrayList<Cell> cells;
 

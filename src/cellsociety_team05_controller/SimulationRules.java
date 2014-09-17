@@ -1,5 +1,8 @@
 package cellsociety_team05_controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.Board;
 import models.Cell;
 import javafx.animation.KeyFrame;
@@ -37,35 +40,47 @@ abstract class SimulationRules {
 		}
 	};
 
-	protected abstract int checkCells(Cell cell, Cell neighbour);
+	/*
+	 * Adds alive neighbors to a list.  
+	 */
+	protected abstract List<Cell> checkCells(Cell cell, Cell neighbour);
 
-	public abstract int nextState(int aliveNeighbours, int cellState);
+	public abstract int nextState(int i, List<Cell> aliveNeighbours);
 
-	//deal with corner cases...
 	public void updateBoard(Board board) {
+		// TODO Auto-generated method stub
 		myCells = board.getCells();
 		nextBoardCells = new Cell[board.getRow()][board.getColumn()];
-		//change this deal with corner cases
 		for (int i = 0; i < board.getRow(); i++) {
 			for (int j = 0; j < board.getColumn(); j++) {
 				Cell cell = myCells[i][j];
 				for (int[] n : neighbourMap) {
 					Cell neighbour = myCells[cell.getXPosition() + n[0]][cell
 							.getYPosition() + n[1]];
-					int liveNeighbours = checkCells(cell, neighbour);
-					int nextState = nextState(liveNeighbours, cell.getState());
-					// associate color with state maybe? method below
-					Color color = stateToColor(nextState);
-					Cell updatedCell = myCellController.updateCell(cell, nextState, color);
-					nextBoardCells[i][j] = updatedCell;
+					List<Cell> aliveNeighbours = checkCells(cell, neighbour);
+					int nextState = nextState(cell.getState(), aliveNeighbours);
+					// myCellController.updateCell(cell, nextState, color)
+					// associate color with state maybe? below to another method
+					// maybe
+					Color color = cell.getCellView().stateToColor(nextState);
+					updateCell(cell, nextState, color);
 				}
 			}
 		}
 	}
 	
+	/*
+	 * Based on number of neighbors, potentially change the state. Updating the color will occur
+	 * in this method
+	 */
+	public Cell updateCell(Cell c, int nextState, Color color){
+			// TODO Auto-generated method stub
+			c.setState(nextState);
+			c.getCellView().setColor(color);		
+			return null;
+		}
+	
 
-	//might want to move this to cellView class later
-	protected abstract Color stateToColor(int state);
 
 	public KeyFrame start() {
 		return new KeyFrame(Duration.millis(1000 / 60), oneFrame);

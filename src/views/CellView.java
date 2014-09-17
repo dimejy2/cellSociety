@@ -6,9 +6,10 @@ import javafx.scene.shape.Rectangle;
 public class CellView {
 
 	private Rectangle myRectangle; 
-	public CellView(double width , double height){
+	public CellView(double width , double height, int state){
 		
 		myRectangle  = new Rectangle(width, height); 
+		stateToColor(state);
 	}
 	public void setColor(Color color){
 		myRectangle.setFill(color);		
@@ -16,6 +17,14 @@ public class CellView {
 	
 	public Rectangle getRectangle() {
 		return myRectangle;
+	}
+	
+	//just an example. color for each state should be dealt with in cellview?
+	public Color stateToColor(int state) {
+		if (state == 0) {
+			return Color.RED;
+		}
+		return Color.GREEN;
 	}
 	
 	
