@@ -1,7 +1,5 @@
 package cellsociety_team05_controller;
 
-import java.util.ArrayList;
-
 import javafx.scene.paint.Color;
 import models.Cell;
 
