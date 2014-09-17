@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
+import javafx.scene.paint.Color;
 import views.CellView;
 
 public class Cell  {
