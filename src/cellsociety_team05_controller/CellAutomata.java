@@ -22,10 +22,8 @@ public class CellAutomata extends Application {
 		xmlParser.parseXML("dummyxml.xml", grid);
 		s.setTitle("Cellular Automata");
 		mySimulation = xmlParser.getSimRules(); // Your simulation's class
-//		Board board = createBoard(xml); For when we get XML working
-
-		Scene scene = mySimulation.init(s, 400, 400, grid);
-//		board.buildBoard();
+		Board board = xmlParser.getBoard();
+		Scene scene = mySimulation.init(s, 400, 400, grid, board);
 		s.setScene(scene);
 		s.show();
 		
@@ -34,7 +32,7 @@ public class CellAutomata extends Application {
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
-//		animation.play();
+		animation.play();
 	}
 	
 	/**

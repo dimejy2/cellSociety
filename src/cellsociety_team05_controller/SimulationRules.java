@@ -23,12 +23,13 @@ abstract class SimulationRules {
 	protected static final int[][] neighbourMap = { { -1, -1 }, { 0, -1 },
 			{ 1, -1 }, { -1, 0 }, { +1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
 
-	public Scene init(Stage s, int width, int height, GridPane grid) {
+	public Scene init(Stage s, int width, int height, GridPane grid, Board board) {
 
 		// Create a place to see the shapes
 		Scene scene = new Scene(grid, width, height, Color.WHITE);
 		myCellController = new DummyCellController(); // Your simulation's
 														// CellController
+		myBoard = board;
 		return scene;
 	}
 

@@ -76,6 +76,7 @@ public class XMLParser extends DefaultHandler {
 			for(int i=0; i<row.length(); i++) {
 				Cell cell = new Cell(i, rowNumber, Character.getNumericValue(row.charAt(i)), resources);
 				board.addCell(cell);
+				System.out.println("Added");
 			}
 			rowNumber++;
 		}
@@ -99,5 +100,9 @@ public class XMLParser extends DefaultHandler {
 	
 	public SimulationRules getSimRules() {
 		return mySimulation;
+	}
+	
+	public Board getBoard() {
+		return board;
 	}
 }
