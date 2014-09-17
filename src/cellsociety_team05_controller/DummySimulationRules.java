@@ -19,11 +19,17 @@ public class DummySimulationRules extends SimulationRules {
 	}
 
 	@Override
-	public int nextState(int alikeNeighbours) {
+	public int nextState(int alikeNeighbours, int state) {
 		if (alikeNeighbours > 3) {
 			return 0; // some state that you want to turn it into (index #)
 		}
 		return 1; // your original state (index #)
+	}
+
+	@Override
+	protected Color stateToColor(int state) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 		
 	

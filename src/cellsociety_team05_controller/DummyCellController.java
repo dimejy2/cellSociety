@@ -1,7 +1,5 @@
 package cellsociety_team05_controller;
 
-import java.util.ArrayList;
-
 import javafx.scene.paint.Color;
 import models.Cell;
 
@@ -14,7 +12,7 @@ public class DummyCellController extends CellController {
 		// TODO Auto-generated method stub
 		c.setState(nextState);
 		c.getCellView().setColor(color);		
-		return null;
+		return c;
 	}
 
 }
