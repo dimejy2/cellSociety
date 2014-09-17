@@ -79,6 +79,13 @@ public class XMLParser extends DefaultHandler {
 			}
 			rowNumber++;
 		}
+		
+		if(qName.equalsIgnoreCase("property")) {
+			if(attributes.getValue("name").equals("resources")) {
+				resources = Integer.parseInt(attributes.getValue("value"));
+				System.out.print("worked");
+			}
+		}
 	}
 
 	/*
@@ -87,10 +94,7 @@ public class XMLParser extends DefaultHandler {
 	public void endElement(String uri, String localName,
 			String qName, Attributes attributes) throws SAXException {
 
-	}
-	
-	public Board getBoard() {
-		return board;
+
 	}
 	
 	public SimulationRules getSimRules() {
