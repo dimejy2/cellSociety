@@ -13,17 +13,17 @@ public class DummySimulationRules extends SimulationRules {
 	}
 
 	@Override
-	public int nextState(List<Cell> aliveNeighbours) {
+	public int nextState(int cellState, List<Cell> aliveNeighbours) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public Cell updateCell(Cell c) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+//	@Override
+//	public Cell updateCell(Cell c) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
 
 		
 	
