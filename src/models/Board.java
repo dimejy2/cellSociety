@@ -52,6 +52,14 @@ public class Board{
 	public Cell[][] getCells() {
 		return myCells;
 	}
+	
+	public GridPane getGP() {
+            return gridPane;
+    }
+	
+	public void setCells(Cell[][] cells) {
+            myCells = cells;
+    }
 
 	public void setRow(int row) {
 		this.row = row;
