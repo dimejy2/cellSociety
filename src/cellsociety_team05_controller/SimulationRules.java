@@ -1,7 +1,11 @@
 package cellsociety_team05_controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import models.Board;
 import models.Cell;
 import javafx.animation.KeyFrame;
@@ -13,89 +17,75 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
 abstract class SimulationRules {
 
-    private Board myBoard;
-    protected Cell[][] myCells;
-    protected Cell[][] nextBoardCells;
-    protected CellController myCellController;
-    protected static final int[][] neighbourMap = { { -1, -1 }, { 0, -1 },
-                                                   { 1, -1 }, { -1, 0 }, { +1, 0 }, { -1, 1 },
-                                                   { 0, 1 }, { 1, 1 } };
+	private Board myBoard;
+	protected Cell[][] myCells;
+	protected Cell[][] nextBoardCells;
+	protected Board nextBoard;
+	protected CellController myCellController;
+	protected static final int[][] neighbourMap = { { -1, -1 }, { 0, -1 },
+			{ 1, -1 }, { -1, 0 }, { +1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
+	protected GridPane myGrid;
+	
 
-    public Scene init (Stage s, int width, int height, GridPane grid, Board board) {
+	public Scene init(Stage s, int width, int height, GridPane grid, Board board) {
 
-        // Create a place to see the shapes
-        Scene scene = new Scene(grid, width, height, Color.WHITE);
-        myCellController = new DummyCellController(); // Your simulation's
-                                                      // CellController
-        myBoard = board;
-        return scene;
-    }
+		// Create a place to see the shapes
+		Scene scene = new Scene(grid, width, height, Color.WHITE);
+		myCellController = new DummyCellController(); // Your simulation's
+														// CellController
+		myBoard = board;
+		myCells = myBoard.getCells();
+		myGrid = grid;
+		return scene;
+	}
+	
 
-    private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
-        @Override
-        public void handle (ActionEvent evt) {
-            // checkCells(myBoard);
-            updateBoard(myBoard);
-        }
-    };
+	private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent evt) {
+			checkCells();
+			switchBoards();
+		}
+	};
 
-    /*
-     * Adds alive neighbors to a list.
-     */
-    protected abstract List<Cell> checkCells (Cell cell, Cell neighbour);
+	
+	public abstract void updateNextBoard(Cell cell, HashMap<Integer, ArrayList<Cell>> aliveNeighbours);
 
-    public abstract int nextState (int i, List<Cell> aliveNeighbours);
+	
+	public void switchBoards() {
+//		public Board(int row, int column, GridPane gridPane, int states) {
+		myGrid.getChildren().clear();
+		for(Cell[] subCellArray : nextBoardCells) {
+			for(Cell cell : subCellArray ){
+				myGrid.add(cell.getCellView().getRectangle(),cell.getRow(), cell.getColumn());
+			}
+		}
+		myCells = nextBoardCells;
+		myBoard.setCells(nextBoardCells);
+	}
+	
+	public void checkCells() {
+		// TODO Auto-generated method stub
+		nextBoardCells = new Cell[myCells.length][myCells[0].length];
+		for (int row = 0; row < myCells.length; row++) {
+			for (int column = 0; column < myCells[0].length; column++) {
+				Cell cell = myCells[row][column];
+				HashMap<Integer, ArrayList<Cell>> neighborMap = myBoard.saveNeighborStates(cell);
+				updateNextBoard(cell, neighborMap);				
+			}
+		}
+	}
+	
+	/*
+	 * Based on number of neighbors, potentially change the state. Updating the color will occur
+	 * in this method
+	 */
+	
 
-    public void updateBoard (Board board) {
-        // TODO Auto-generated method stub
-        myCells = board.getCells();
-        nextBoardCells = new Cell[board.getRow()][board.getColumn()];
-        // for (int i = 0; i < board.getRow(); i++) {
-        // for (int j = 0; j < board.getColumn(); j++) {
-        for (int i = 1; i < board.getRow() - 1; i++) {
-            for (int j = 1; j < board.getColumn() - 1; j++) {
-                Cell cell = myCells[i][j];
-                for (int[] n : neighbourMap) {
-                    Cell neighbour = myCells[cell.getXPosition() + n[0]][cell
-                            .getYPosition() + n[1]];
-                    List<Cell> aliveNeighbours = checkCells(cell, neighbour);
-                    int nextState = nextState(cell.getState(), aliveNeighbours);
-                    // myCellController.updateCell(cell, nextState, color)
-                    // associate color with state maybe? below to another method
-                    // maybe
-                    Color color = cell.getCellView().stateToColor(nextState);
-                    Cell updatedCell = updateCell(cell, nextState, color);
-                    nextBoardCells[i][j] = updatedCell;
-                }
-            }
-        }
-        myCells = nextBoardCells;
-        board.setCells(myCells);
-        nextBoardCells = new Cell[board.getRow()][board.getColumn()];
-    }
-    
-//    public void checkNeighbours (int row, int col) {
-//        if (column == 0 && row == 0){
-//            Cell cell = myCells[col+1][row+1]
-//        }
-//    
-//    }
 
-    /*
-     * Based on number of neighbors, potentially change the state. Updating the
-     * color will occur in this method
-     */
-    public Cell updateCell (Cell c, int nextState, Color color) {
-        // TODO Auto-generated method stub
-        c.setState(nextState);
-        c.getCellView().setColor(color);
-        return c;
-    }
-
-    public KeyFrame start () {
-        return new KeyFrame(Duration.millis(1000 / 60), oneFrame);
-    }
+	public KeyFrame start() {
+		return new KeyFrame(Duration.millis(1000), oneFrame);
+	}
 }

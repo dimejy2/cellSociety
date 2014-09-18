@@ -1,34 +1,43 @@
 package cellsociety_team05_controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+
+import javafx.scene.paint.Color;
 import models.Cell;
 
-
-// state 0 = dead, 1 = alive
+//state 0 = dead, 1 = alive
 public class glifeSimulation extends SimulationRules {
 
-    @Override
-    protected List<Cell> checkCells (Cell cell, Cell neighbour) {
-        // TODO Auto-generated method stub
-        List<Cell> aliveNeighbours = new ArrayList<Cell>();
-        if (neighbour != null && (neighbour.getState() == 1)) {
-            aliveNeighbours.add(neighbour);
-        }
-        return aliveNeighbours;
-    }
+        @Override
+        public void updateNextBoard(Cell cell,
+                        HashMap<Integer, ArrayList<Cell>> neighbourMap) {
+                // TODO Auto-generated method stub
+                int nextState = 0;
 
-    @Override
-    public int nextState (int cellState, List<Cell> aliveNeighbours) {
-        // TODO Auto-generated method stub
-        if ((cellState == 1) && (aliveNeighbours.size() < 2)) {
-            return 0;
+                if (!neighbourMap.get(1).isEmpty()){
+                        int numAlive = neighbourMap.get(1).size();
+                        if ((cell.getState() == 1) && (numAlive < 2)) {
+                                nextState = 0;
+                        } else if ((cell.getState() == 1) && (numAlive > 3))
+                                nextState = 0;
+                        else if ((cell.getState() == 0) && (numAlive == 3))
+                                nextState = 1;
+                        else
+                                nextState = cell.getState();    
+                        Color color;
+                        if(nextState == 0) {
+                                color = Color.WHITE;
+                        }
+                        else {
+                                color = Color.BLACK;
+                        }
+                }
+                Cell nextCell = cell.nextCell(cell.getRow(), cell.getColumn(), nextState);
+                nextBoardCells[nextCell.getRow()][nextCell.getColumn()] = nextCell;
         }
-        else if ((cellState == 1) && (aliveNeighbours.size() > 3))
-            return 0;
-        else if ((cellState == 0) && (aliveNeighbours.size() == 3))
-            return 1;
-        else return cellState;
-    }
+
 
 }

@@ -2,27 +2,25 @@ package models;
 
 import java.util.ArrayList;
 
-import javafx.scene.paint.Color;
 import views.CellView;
 
 public class Cell  {
-	
-	private int myXPosition;
-	private int myYPosition;
+
+	private int myRow;
+	private int myColumn;
 	private int myState; 
-//	private int stateIndex =0; 
 	private CellView myCellView;
 	private int myResources;
 	private int framesAlive;
+	private double cellDim;
 
-	
-	public Cell ( int x, int y, int state, int resources){
-		myXPosition = x; 
-		myYPosition = y; 
+
+
+	public Cell ( int row, int column, int state){
+		myRow = row; 
+		myColumn = column; 
 		myState = state; 
-		myCellView = new CellView(50, 50, state);
-//		stateIndexChecker(); 
-		myResources = resources;
+		myCellView = new CellView(40, 40, state);
 		framesAlive = 0;
 	}
 
@@ -30,64 +28,59 @@ public class Cell  {
 		return myCellView;
 	}
 	
-	public int getXPosition(){
-		return myXPosition; 
+	public void setCellView() {
+		myCellView = new CellView(cellDim, cellDim, myState);
 	}
-	
-	public int getYPosition(){
-		return myYPosition; 
+
+	public void createCellView(int height, int state) {
+		myCellView = new CellView(height, height, state);
 	}
-	
+
+	public int getRow(){
+		return myRow; 
+	}
+
+	public int getColumn(){
+		return myColumn; 
+	}
+
 	public void updateResources(int change) {
 		myResources += change;
 	}
 	
+	public void setCellDim(Double dim) {
+		cellDim = dim; 
+	}
+
 	public boolean isAlive() {
 		if(myResources > 0) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public int getFramesAlive() {
 		return framesAlive;
 	}
-	
+
 	public void incrementFramesAlive() {
 		framesAlive++;
 	}
-	
+
 	public void resetFramesAlive() {
 		framesAlive = 0;
 	}
-	
+
 	public int getState(){
-//		if(stateIndexChecker()) return stateIndex; 
-//		System.out.println("your cell has more than one state");
-//		return 0; 
 		return myState;
-		}  
-		
+	}  
+
 	public void setState(int state){
 		myState = state;
-//		if(stateIndexChecker()){
-//			myState.set(stateIndex, 0); 
-//			stateIndex = state; 
-//			myState.set(stateIndex, 1); 
-//			if(stateIndexChecker()) return; 	
-//		}
-//		System.out.println("Changing the state failed"); 
 	}
 	
-//	private boolean stateIndexChecker(){
-//		int sum = 0 ;  
-//		for(int i : myState){
-//			sum += i; 
-//			if(myState.get(i) == 1 ) stateIndex = i; 
-//		}
-//		if(sum == 1 ) return true; 
-//		return false; 
-//	} 
-	
-	
+	public Cell nextCell(int row, int column, int nextState) {
+		return new Cell(row, column, nextState);
+	}
+
 }
