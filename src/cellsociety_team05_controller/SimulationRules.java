@@ -8,16 +8,18 @@ import java.util.Set;
 
 import models.Board;
 import models.Cell;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-abstract class SimulationRules {
+public abstract class SimulationRules {
 
 	private Board myBoard;
 	protected Cell[][] myCells;
@@ -27,18 +29,19 @@ abstract class SimulationRules {
 	protected static final int[][] neighbourMap = { { -1, -1 }, { 0, -1 },
 			{ 1, -1 }, { -1, 0 }, { +1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
 	protected GridPane myGrid;
+	protected Animation myAnimation; 
 	
 
-	public Scene init(Stage s, int width, int height, GridPane grid, Board board) {
+	public void init(GridPane grid, Board board) {
 
 		// Create a place to see the shapes
-		Scene scene = new Scene(grid, width, height, Color.WHITE);
+//		Scene scene = new Scene(borderPane, width, height, Color.WHITE);
 		myCellController = new DummyCellController(); // Your simulation's
 														// CellController
 		myBoard = board;
 		myCells = myBoard.getCells();
 		myGrid = grid;
-		return scene;
+//		return scene;
 	}
 	
 
@@ -78,12 +81,21 @@ abstract class SimulationRules {
 		}
 	}
 	
-	/*
-	 * Based on number of neighbors, potentially change the state. Updating the color will occur
-	 * in this method
-	 */
+	public void setAnimation(Animation animation) {
+		myAnimation = animation;
+	}
 	
-
+	public void stop() {
+		myAnimation.stop();
+	}
+	
+	public void play() {
+		myAnimation.play();
+	}
+	
+	public void pause() {
+		myAnimation.pause();
+	}
 
 	public KeyFrame start() {
 		return new KeyFrame(Duration.millis(1000), oneFrame);
