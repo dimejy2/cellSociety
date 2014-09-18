@@ -9,6 +9,7 @@ import cellsociety_team05_controller.SimulationRules;
 import cellsociety_team05_controller.XMLParser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,7 +21,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class BoardView {
-	public static final Dimension DEFAULT_SIZE = new Dimension(600, 800);
+	public static final Dimension DEFAULT_SIZE = new Dimension(600, 400);
+	public static final Dimension BUTTON_SIZE = new Dimension(150, 50);
+	public static final Insets BUTTON_PADDING = new Insets(100, 20, 100, 0);
+	public static final int BUTTON_SPACING = 20;
 	private Scene myScene;
 	private Stage myStage;
 	private Button myPlayButton;
@@ -56,7 +60,8 @@ public class BoardView {
 	}
 
 	private Node makeControlPanel() {
-		VBox result = new VBox();
+		VBox result = new VBox(BUTTON_SPACING);
+		result.setPadding(BUTTON_PADDING);
 		myPlayButton = makeButton("Play", new EventHandler<ActionEvent>() {
 			@Override
 			public void handle (ActionEvent event) {
@@ -96,6 +101,7 @@ public class BoardView {
 		Button result = new Button();
 		result.setText(label);
 		result.setOnAction(handler);
+		result.setPrefSize(BUTTON_SIZE.width, BUTTON_SIZE.height);
 		return result;
 	}
 

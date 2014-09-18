@@ -35,13 +35,11 @@ public abstract class SimulationRules {
 	public void init(GridPane grid, Board board) {
 
 		// Create a place to see the shapes
-//		Scene scene = new Scene(borderPane, width, height, Color.WHITE);
 		myCellController = new DummyCellController(); // Your simulation's
 														// CellController
 		myBoard = board;
 		myCells = myBoard.getCells();
 		myGrid = grid;
-//		return scene;
 	}
 	
 
@@ -58,7 +56,6 @@ public abstract class SimulationRules {
 
 	
 	public void switchBoards() {
-//		public Board(int row, int column, GridPane gridPane, int states) {
 		myGrid.getChildren().clear();
 		for(Cell[] subCellArray : nextBoardCells) {
 			for(Cell cell : subCellArray ){
