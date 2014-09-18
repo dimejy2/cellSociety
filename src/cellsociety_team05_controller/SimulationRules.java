@@ -1,7 +1,10 @@
 package cellsociety_team05_controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import models.Board;
 import models.Cell;
@@ -22,6 +25,7 @@ abstract class SimulationRules {
 	protected CellController myCellController;
 	protected static final int[][] neighbourMap = { { -1, -1 }, { 0, -1 },
 			{ 1, -1 }, { -1, 0 }, { +1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
+	
 
 	public Scene init(Stage s, int width, int height, GridPane grid, Board board) {
 
@@ -32,6 +36,7 @@ abstract class SimulationRules {
 		myBoard = board;
 		return scene;
 	}
+	
 
 	private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
 		@Override
@@ -41,11 +46,35 @@ abstract class SimulationRules {
 		}
 	};
 
+	
 	/*
 	 * Adds alive neighbors to a list.  
 	 */
-	protected abstract List<Cell> checkCells(Cell cell, Cell neighbour);
-
+	protected void checkCells(Cell cell) {
+		ArrayList<Cell> neighbors = new ArrayList<Cell>();
+		ArrayList<Cell> empty = new ArrayList<Cell>();
+		if(cell.getRow()==0);
+	}
+	
+	protected void checkNeighbors(Cell cell) {
+		int[] xDelta = {1, -1, 0, 0};
+		int[] yDelta = {0, 0, 1, -1};
+		for(int xcoord : xDelta) {
+			for(int ycoord : yDelta) {
+				if (isOutOfBounds(cell, xcoord, ycoord)) continue;
+				
+			}
+		}
+	}
+	
+	
+	
+	private boolean isOutOfBounds(Cell cell, int xDelta, int yDelta) {
+		
+		return (cell.getRow() + xDelta < 0 || cell.getRow() + xDelta > myCells.length - 1) 
+				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
+	}
+	
 	public abstract int nextState(int i, List<Cell> aliveNeighbours);
 
 	public void updateBoard(Board board) {
@@ -55,17 +84,11 @@ abstract class SimulationRules {
 		for (int i = 0; i < board.getRow(); i++) {
 			for (int j = 0; j < board.getColumn(); j++) {
 				Cell cell = myCells[i][j];
-				for (int[] n : neighbourMap) {
-					Cell neighbour = myCells[cell.getXPosition() + n[0]][cell
-							.getYPosition() + n[1]];
-					List<Cell> aliveNeighbours = checkCells(cell, neighbour);
-					int nextState = nextState(cell.getState(), aliveNeighbours);
-					// myCellController.updateCell(cell, nextState, color)
-					// associate color with state maybe? below to another method
-					// maybe
-					Color color = cell.getCellView().stateToColor(nextState);
-					updateCell(cell, nextState, color);
-				}
+				checkCells(cell);
+				int nextState = nextState(cell.getState(), aliveNeighbours);
+				Color color = cell.getCellView().stateToColor(nextState);
+				updateCell(cell, nextState, color);
+				
 			}
 		}
 	}
@@ -84,6 +107,6 @@ abstract class SimulationRules {
 
 
 	public KeyFrame start() {
-		return new KeyFrame(Duration.millis(1000 / 60), oneFrame);
+		return new KeyFrame(Duration.millis(1000), oneFrame);
 	}
 }

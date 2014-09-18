@@ -9,7 +9,7 @@ import models.Cell;
 public class glifeSimulation extends SimulationRules {
 
 	@Override
-	protected List<Cell> checkCells(Cell cell, Cell neighbour) {
+	protected List<Cell> checkCells(Cell cell) {
 		// TODO Auto-generated method stub
 		List<Cell> aliveNeighbours = new ArrayList<Cell>();
 		if (neighbour != null && (neighbour.getState() == 1)) {

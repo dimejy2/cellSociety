@@ -22,6 +22,7 @@ public class XMLParser extends DefaultHandler {
 	private int rowNumber;
 	private int resources;
 	private SimulationRules mySimulation;
+	private int numCellStates;
 
 
 	/** The main method sets things up for parsing */
@@ -62,7 +63,7 @@ public class XMLParser extends DefaultHandler {
 		if (qName.equalsIgnoreCase("grid")) {
 			String x = attributes.getValue("xValue");
 			String y = attributes.getValue("yValue");
-			board = new Board(Integer.parseInt(x), Integer.parseInt(y), grid);
+			board = new Board(Integer.parseInt(x), Integer.parseInt(y), grid, numCellStates);
 		}
 		
 		if (qName.equalsIgnoreCase("cellularautomata")) {
@@ -73,10 +74,9 @@ public class XMLParser extends DefaultHandler {
 		
 		if (qName.equalsIgnoreCase("row")) {
 			String row = attributes.getValue("values");   
-			for(int i=0; i<row.length(); i++) {
-				Cell cell = new Cell(i, rowNumber, Character.getNumericValue(row.charAt(i)), resources);
+			for(int j=0; j<row.length(); j++) {
+				Cell cell = new Cell(rowNumber, j, Character.getNumericValue(row.charAt(j)));
 				board.addCell(cell);
-				System.out.println("Added");
 			}
 			rowNumber++;
 		}
@@ -84,7 +84,10 @@ public class XMLParser extends DefaultHandler {
 		if(qName.equalsIgnoreCase("property")) {
 			if(attributes.getValue("name").equals("resources")) {
 				resources = Integer.parseInt(attributes.getValue("value"));
-				System.out.print("worked");
+			}
+			
+			if(attributes.getValue("name").equals("numCellStates")) {
+				numCellStates = Integer.parseInt(attributes.getValue("value"));
 			}
 		}
 	}
