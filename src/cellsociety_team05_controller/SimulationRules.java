@@ -59,7 +59,7 @@ public abstract class SimulationRules {
 		myGrid.getChildren().clear();
 		for(Cell[] subCellArray : nextBoardCells) {
 			for(Cell cell : subCellArray ){
-				myGrid.add(cell.getCellView().getRectangle(),cell.getRow(), cell.getColumn());
+				myGrid.add(cell.getCellView().getRectangle(), cell.getColumn(),cell.getRow());
 			}
 		}
 		myCells = nextBoardCells;

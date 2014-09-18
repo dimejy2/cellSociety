@@ -39,7 +39,7 @@ public class Board{
 
 	public void addCell(Cell cell) {
 		myCells[cell.getRow()][cell.getColumn()] = cell;
-		gridPane.add(cell.getCellView().getRectangle(),cell.getRow(), cell.getColumn());
+		gridPane.add(cell.getCellView().getRectangle(), cell.getColumn(),cell.getRow());
 	}
 
 	public void setUpGrid() {

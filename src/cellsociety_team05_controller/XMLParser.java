@@ -1,5 +1,6 @@
 package cellsociety_team05_controller;
 
+import java.awt.Dimension;
 import java.io.IOException;
 
 import javafx.scene.layout.GridPane;
@@ -24,7 +25,9 @@ public class XMLParser extends DefaultHandler {
 	private int resources;
 	private SimulationRules mySimulation;
 	private int numCellStates;
-	private int numberofCells = 0;
+	public static final Dimension GRID_SIZE = new Dimension(400, 400);
+	public int cellDim;
+
 
 
 	/** The main method sets things up for parsing */
@@ -65,6 +68,7 @@ public class XMLParser extends DefaultHandler {
 		if (qName.equalsIgnoreCase("grid")) {
 			String x = attributes.getValue("xValue");
 			String y = attributes.getValue("yValue");
+			cellDim = GRID_SIZE.width / Math.max(Integer.parseInt(x), Integer.parseInt(y));
 
 			board = new Board(Integer.parseInt(x), Integer.parseInt(y), grid, numCellStates);
 		}
@@ -78,9 +82,8 @@ public class XMLParser extends DefaultHandler {
 		if (qName.equalsIgnoreCase("row")) {
 			String row = attributes.getValue("values");   
 			for(int j=0; j<row.length(); j++) {
-				Cell cell = new Cell(rowNumber, j, Character.getNumericValue(row.charAt(j)));
+				Cell cell = new Cell(rowNumber, j, Character.getNumericValue(row.charAt(j)), cellDim);
 				board.addCell(cell);
-				numberofCells ++;
 				
 			}
 			rowNumber++;
