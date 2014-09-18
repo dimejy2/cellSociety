@@ -19,7 +19,7 @@ public class CellAutomata extends Application {
 		// TODO Auto-generated method stub
 		GridPane grid = new GridPane();
 		XMLParser xmlParser = new XMLParser();
-		xmlParser.parseXML("glifexml.xml", grid);
+		xmlParser.parseXML("dummyxml.xml", grid);
 		s.setTitle("Cellular Automata");
 		mySimulation = xmlParser.getSimRules(); // Your simulation's class
 		Board board = xmlParser.getBoard();
