@@ -69,7 +69,10 @@ public class Board{
 	public Cell[][] getCells() {
 		return myCells;
 	}
-
+	
+	public void setCells(Cell[][] newCells) {
+		myCells = newCells;
+	}
 
 	public void generateMyStateMap() {
 		myStateMap =  genericStateMap(numStates); 

@@ -20,7 +20,7 @@ public class Cell  {
 		myRow = row; 
 		myColumn = column; 
 		myState = state; 
-		myCellView = new CellView(133, 133, state);
+		myCellView = new CellView(40, 40, state);
 		framesAlive = 0;
 	}
 

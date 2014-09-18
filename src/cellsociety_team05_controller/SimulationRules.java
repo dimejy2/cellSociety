@@ -63,6 +63,7 @@ abstract class SimulationRules {
 			}
 		}
 		myCells = nextBoardCells;
+		myBoard.setCells(nextBoardCells);
 	}
 	
 	public void checkCells() {
