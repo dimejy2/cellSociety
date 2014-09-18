@@ -1,11 +1,11 @@
 package models;
 
+import java.awt.print.Printable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -78,13 +78,13 @@ public class Board{
 		myStateMap =  genericStateMap(numStates); 
 		for(Cell[] subCellArray : myCells) {
 			for(Cell cell : subCellArray ){
-				//System.out.println(cell);
-	
 			myStateMap.get(cell.getState()).add(cell);
 			}
 		}
 
 	}
+	
+	
 	
 	public int getNumStates() {
 		return numStates;
@@ -99,6 +99,7 @@ public class Board{
 		
 		for(int i =0; i < n-1; i++){
 			toReturn.put(i, new ArrayList<Cell>()); 
+			
 			
 		}
 		

@@ -19,7 +19,7 @@ import javafx.util.Duration;
 
 abstract class SimulationRules {
 
-	private Board myBoard;
+	protected Board myBoard;
 	protected Cell[][] myCells;
 	protected Cell[][] nextBoardCells;
 	protected Board nextBoard;
