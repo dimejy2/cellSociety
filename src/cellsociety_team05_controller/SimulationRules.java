@@ -33,6 +33,7 @@ public abstract class SimulationRules {
 	protected GridPane myGrid;
 	protected Animation myAnimation;
 	protected Slider mySpeedSlider;
+	protected Map<Integer, Color> stateToColorMap;
 	
 
 	public void init(GridPane grid, Board board) {
@@ -70,7 +71,6 @@ public abstract class SimulationRules {
 	}
 	
 	public void checkCells() {
-		// TODO Auto-generated method stub
 		nextBoardCells = new Cell[myCells.length][myCells[0].length];
 		for (int row = 0; row < myCells.length; row++) {
 			for (int column = 0; column < myCells[0].length; column++) {
@@ -103,5 +103,9 @@ public abstract class SimulationRules {
 	
 	public void setSpeedSlider(Slider slider) {
 		mySpeedSlider = slider;
+	}
+	
+	public void setColorMap(Map<Integer, Color> colorMap) {
+		stateToColorMap = colorMap;
 	}
 }

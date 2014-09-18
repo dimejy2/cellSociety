@@ -4,7 +4,11 @@
 	<properties>
 		<!-- Parameters for gamemode -->
 		<property name="resources" value="10"></property>
-		<property name ="numCellStates" value ="3"></property>
+		<property name ="numCellStates" value ="2"></property>
+		<colors>
+			<color state="0" color = "white"></color>
+			<color state="1" color = "black"></color>
+		</colors>
 	</properties>
 	<grid xValue="10" yValue="10">
 	<!-- DEFAULT GRID -->

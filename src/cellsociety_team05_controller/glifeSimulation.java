@@ -27,15 +27,9 @@ public class glifeSimulation extends SimulationRules {
 				nextState = 1;
 			else
 				nextState = cell.getState();	
-			Color color;
-			if(nextState == 0) {
-				color = Color.WHITE;
-			}
-			else {
-				color = Color.BLACK;
-			}
 		}
 		Cell nextCell = cell.nextCell(cell.getRow(), cell.getColumn(), nextState);
+		nextCell.getCellView().setColor(stateToColorMap.get(nextState));
 		nextBoardCells[nextCell.getRow()][nextCell.getColumn()] = nextCell;
 	}
 

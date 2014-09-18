@@ -2,8 +2,11 @@ package cellsociety_team05_controller;
 
 import java.awt.Dimension;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -27,6 +30,7 @@ public class XMLParser extends DefaultHandler {
 	private int numCellStates;
 	public static final Dimension GRID_SIZE = new Dimension(400, 400);
 	public int cellDim;
+	private Map<Integer, Color> stateToColorMap;
 
 
 
@@ -39,6 +43,7 @@ public class XMLParser extends DefaultHandler {
         try {
             SAXParser parser = factory.newSAXParser();
             parser.parse(file_path, this);
+
         } catch (ParserConfigurationException e) {
             System.out.println("ParserConfig error");
         } catch (SAXException e) {
@@ -83,8 +88,8 @@ public class XMLParser extends DefaultHandler {
 			String row = attributes.getValue("values");   
 			for(int j=0; j<row.length(); j++) {
 				Cell cell = new Cell(rowNumber, j, Character.getNumericValue(row.charAt(j)), cellDim);
+				cell.getCellView().setColor(stateToColorMap.get(Character.getNumericValue(row.charAt(j))));
 				board.addCell(cell);
-				
 			}
 			rowNumber++;
 		}
@@ -98,6 +103,26 @@ public class XMLParser extends DefaultHandler {
 				numCellStates = Integer.parseInt(attributes.getValue("value"));
 			}
 		}
+		
+		if(qName.equalsIgnoreCase("colors")) {
+			stateToColorMap = new HashMap<Integer, Color>();
+        	mySimulation.setColorMap(stateToColorMap);
+
+		}
+		
+		if(qName.equalsIgnoreCase("color")) {
+			int state = Integer.parseInt(attributes.getValue("state"));
+			stateToColorMap.put(state, stringToColor(attributes.getValue("color")));
+
+		}
+	}
+	
+	private Color stringToColor(String color) {
+		if(color.equals("white"))
+			return Color.WHITE;
+		if(color.equals("black"))
+			return Color.BLACK;
+		return Color.BLACK;
 	}
 
 	/*
@@ -105,7 +130,6 @@ public class XMLParser extends DefaultHandler {
 	 */
 	public void endElement(String uri, String localName,
 			String qName, Attributes attributes) throws SAXException {
-
 
 	}
 	
@@ -116,4 +140,5 @@ public class XMLParser extends DefaultHandler {
 	public Board getBoard() {
 		return board;
 	}
+
 }

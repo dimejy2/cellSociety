@@ -32,9 +32,9 @@ public class Board{
 		numStates = states;
 		cellDim = WINDOW_SIZE/Math.max(row, column);
 		setUpGrid();
-//		 
-//		generateMyStateMap();
-//		
+		//		 
+		//		generateMyStateMap();
+		//		
 	}
 
 	public void addCell(Cell cell) {
@@ -69,23 +69,21 @@ public class Board{
 	public Cell[][] getCells() {
 		return myCells;
 	}
-	
+
 	public void setCells(Cell[][] newCells) {
 		myCells = newCells;
 	}
 
 	public void generateMyStateMap() {
-		myStateMap =  genericStateMap(numStates); 
+		myStateMap = genericStateMap(numStates); 
 		for(Cell[] subCellArray : myCells) {
 			for(Cell cell : subCellArray ){
-				//System.out.println(cell);
-	
-			myStateMap.get(cell.getState()).add(cell);
+				myStateMap.get(cell.getState()).add(cell);
 			}
 		}
 
 	}
-	
+
 	public int getNumStates() {
 		return numStates;
 	}
@@ -93,21 +91,21 @@ public class Board{
 	public Map<Integer, ArrayList<Cell>> getStateMap(){
 		return myStateMap; 		
 	}
-	
+
 	private HashMap<Integer, ArrayList<Cell>> genericStateMap(int n){
+		
 		HashMap<Integer, ArrayList<Cell>> toReturn = new HashMap<>(); 
-		
-		for(int i =0; i < n-1; i++){
+		for(int i =0; i < n; i++){
 			toReturn.put(i, new ArrayList<Cell>()); 
-			
+
 		}
-		
+
 		return toReturn; 
 	}
-	
+
 	public HashMap<Integer, ArrayList<Cell>> saveNeighborStates(Cell cell) {
 		HashMap<Integer, ArrayList<Cell>> neighborStateMap = genericStateMap(numStates);  
-		
+
 		int[] xDelta = {-1, 0 , 1, -1, 1, -1, 0 ,1};
 		int[] yDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
 		for(int i=0;i<xDelta.length;i++) {
@@ -118,11 +116,11 @@ public class Board{
 		}
 		return neighborStateMap;
 	}
-	
 
-	
+
+
 	private boolean isOutOfBounds(Cell cell, int xDelta, int yDelta) {
-		
+
 		return (cell.getRow() + xDelta < 0 || cell.getRow() + xDelta > myCells.length - 1) 
 				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
 	}
