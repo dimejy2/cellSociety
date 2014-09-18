@@ -2,6 +2,7 @@ package cellsociety_team05_controller;
 
 import java.util.Random;
 
+import views.BoardView;
 import models.Board;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,22 +18,11 @@ public class CellAutomata extends Application {
 	@Override
 	public void start(Stage s) throws Exception {
 		// TODO Auto-generated method stub
-		GridPane grid = new GridPane();
-		XMLParser xmlParser = new XMLParser();
-		xmlParser.parseXML("dummyxml.xml", grid);
 		s.setTitle("Cellular Automata");
-		mySimulation = xmlParser.getSimRules(); // Your simulation's class
-		Board board = xmlParser.getBoard();
-		Scene scene = mySimulation.init(s, 400, 400, grid, board);
+		BoardView boardView = new BoardView(s);
+		Scene scene = boardView.getScene();
 		s.setScene(scene);
 		s.show();
-		
-		// sets the game's loop 
-		KeyFrame frame = mySimulation.start();
-		Timeline animation = new Timeline();
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
 	}
 	
 	/**

@@ -6,18 +6,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import views.BoardView;
 import models.Board;
 import models.Cell;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-abstract class SimulationRules {
+public abstract class SimulationRules {
 
 	protected Board myBoard;
 	protected Cell[][] myCells;
@@ -27,18 +31,19 @@ abstract class SimulationRules {
 	protected static final int[][] neighbourMap = { { -1, -1 }, { 0, -1 },
 			{ 1, -1 }, { -1, 0 }, { +1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
 	protected GridPane myGrid;
+	protected Animation myAnimation;
+	protected Slider mySpeedSlider;
+	protected Map<Integer, Color> stateToColorMap;
 	
 
-	public Scene init(Stage s, int width, int height, GridPane grid, Board board) {
+	public void init(GridPane grid, Board board) {
 
 		// Create a place to see the shapes
-		Scene scene = new Scene(grid, width, height, Color.WHITE);
 		myCellController = new DummyCellController(); // Your simulation's
 														// CellController
 		myBoard = board;
 		myCells = myBoard.getCells();
 		myGrid = grid;
-		return scene;
 	}
 	
 
@@ -55,11 +60,10 @@ abstract class SimulationRules {
 
 	
 	public void switchBoards() {
-//		public Board(int row, int column, GridPane gridPane, int states) {
 		myGrid.getChildren().clear();
 		for(Cell[] subCellArray : nextBoardCells) {
 			for(Cell cell : subCellArray ){
-				myGrid.add(cell.getCellView().getRectangle(),cell.getRow(), cell.getColumn());
+				myGrid.add(cell.getCellView().getRectangle(), cell.getColumn(),cell.getRow());
 			}
 		}
 		myCells = nextBoardCells;
@@ -67,7 +71,6 @@ abstract class SimulationRules {
 	}
 	
 	public void checkCells() {
-		// TODO Auto-generated method stub
 		nextBoardCells = new Cell[myCells.length][myCells[0].length];
 		for (int row = 0; row < myCells.length; row++) {
 			for (int column = 0; column < myCells[0].length; column++) {
@@ -78,14 +81,31 @@ abstract class SimulationRules {
 		}
 	}
 	
-	/*
-	 * Based on number of neighbors, potentially change the state. Updating the color will occur
-	 * in this method
-	 */
+	public void setAnimation(Animation animation) {
+		myAnimation = animation;
+	}
 	
+	public void stop() {
+		myAnimation.stop();
+	}
+	
+	public void play() {
+		myAnimation.play();
+	}
+	
+	public void pause() {
+		myAnimation.pause();
+	}
 
-
-	public KeyFrame start() {
+	public KeyFrame frame() {
 		return new KeyFrame(Duration.millis(1000), oneFrame);
+	}
+	
+	public void setSpeedSlider(Slider slider) {
+		mySpeedSlider = slider;
+	}
+	
+	public void setColorMap(Map<Integer, Color> colorMap) {
+		stateToColorMap = colorMap;
 	}
 }

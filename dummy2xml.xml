@@ -10,19 +10,13 @@
 			<color state="1" color = "black"></color>
 		</colors>
 	</properties>
-	<grid xValue="10" yValue="10">
+	<grid xValue="3" yValue="3">
 	<!-- DEFAULT GRID -->
 	<!-- Each digit represents a cell with its value being
 	its initial state. -->
-		<row values="1100000000"></row>
-		<row values="1100000000"></row>
-		<row values="0000000000"></row>
-		<row values="0000000000"></row>
-		<row values="0110000000"></row>
-		<row values="0100000000"></row>
-		<row values="0000100000"></row>
-		<row values="0001100000"></row>
-		<row values="0000000111"></row>
-		<row values="0000000000"></row>
+		<row values="010"></row>
+		<row values="010"></row>
+		<row values="010"></row>
+
 	</grid>
 </cellularautomata>
