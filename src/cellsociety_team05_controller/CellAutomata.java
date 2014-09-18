@@ -18,9 +18,8 @@ public class CellAutomata extends Application {
 	@Override
 	public void start(Stage s) throws Exception {
 		// TODO Auto-generated method stub
-		GridPane grid = new GridPane();
 		s.setTitle("Cellular Automata");
-		BoardView boardView = new BoardView(s, grid);
+		BoardView boardView = new BoardView(s);
 		Scene scene = boardView.getScene();
 		s.setScene(scene);
 		s.show();

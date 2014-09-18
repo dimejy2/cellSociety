@@ -29,9 +29,6 @@ public class Cell  {
 		return myCellView;
 	}
 	
-	public void setCellView() {
-		myCellView = new CellView(myCellDim, myCellDim, myState);
-	}
 
 	public void createCellView(int height, int state) {
 		myCellView = new CellView(height, height, state);

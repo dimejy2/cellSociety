@@ -10,6 +10,7 @@ public class CellView {
 		
 		myRectangle  = new Rectangle(width, height); 
 		myRectangle.setFill(stateToColor(state));
+		myRectangle.setStroke(Color.GRAY);
 	}
 	public void setColor(Color color){
 		myRectangle.setFill(color);		
@@ -22,10 +23,10 @@ public class CellView {
 	//just an example. color for each state should be dealt with in cellview?
 	public Color stateToColor(int state) {
 		if (state == 0) {
-			return Color.BLACK;
+			return Color.WHITE;
 		}
 		if (state == 1) {
-			return Color.WHITE;
+			return Color.BLACK;
 		}
 		return Color.BLACK;
 	}

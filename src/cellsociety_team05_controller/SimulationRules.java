@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import views.BoardView;
 import models.Board;
 import models.Cell;
 import javafx.animation.Animation;
@@ -13,6 +14,7 @@ import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -21,7 +23,7 @@ import javafx.util.Duration;
 
 public abstract class SimulationRules {
 
-	private Board myBoard;
+	protected Board myBoard;
 	protected Cell[][] myCells;
 	protected Cell[][] nextBoardCells;
 	protected Board nextBoard;
@@ -29,7 +31,8 @@ public abstract class SimulationRules {
 	protected static final int[][] neighbourMap = { { -1, -1 }, { 0, -1 },
 			{ 1, -1 }, { -1, 0 }, { +1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
 	protected GridPane myGrid;
-	protected Animation myAnimation; 
+	protected Animation myAnimation;
+	protected Slider mySpeedSlider;
 	
 
 	public void init(GridPane grid, Board board) {
@@ -94,7 +97,11 @@ public abstract class SimulationRules {
 		myAnimation.pause();
 	}
 
-	public KeyFrame start() {
+	public KeyFrame frame() {
 		return new KeyFrame(Duration.millis(1000), oneFrame);
+	}
+	
+	public void setSpeedSlider(Slider slider) {
+		mySpeedSlider = slider;
 	}
 }
