@@ -22,9 +22,11 @@ abstract class SimulationRules {
 	private Board myBoard;
 	protected Cell[][] myCells;
 	protected Cell[][] nextBoardCells;
+	protected Board nextBoard;
 	protected CellController myCellController;
 	protected static final int[][] neighbourMap = { { -1, -1 }, { 0, -1 },
 			{ 1, -1 }, { -1, 0 }, { +1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
+	protected GridPane myGrid;
 	
 
 	public Scene init(Stage s, int width, int height, GridPane grid, Board board) {
@@ -34,6 +36,8 @@ abstract class SimulationRules {
 		myCellController = new DummyCellController(); // Your simulation's
 														// CellController
 		myBoard = board;
+		myCells = myBoard.getCells();
+		myGrid = grid;
 		return scene;
 	}
 	
@@ -41,54 +45,34 @@ abstract class SimulationRules {
 	private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent evt) {
-			// checkCells(myBoard);
-			updateBoard(myBoard);
+			checkCells();
+			switchBoards();
 		}
 	};
 
 	
-	/*
-	 * Adds alive neighbors to a list.  
-	 */
-	protected void checkCells(Cell cell) {
-		ArrayList<Cell> neighbors = new ArrayList<Cell>();
-		ArrayList<Cell> empty = new ArrayList<Cell>();
-		if(cell.getRow()==0);
-	}
+	public abstract void updateNextBoard(Cell cell, HashMap<Integer, ArrayList<Cell>> aliveNeighbours);
+
 	
-	protected void checkNeighbors(Cell cell) {
-		int[] xDelta = {1, -1, 0, 0};
-		int[] yDelta = {0, 0, 1, -1};
-		for(int xcoord : xDelta) {
-			for(int ycoord : yDelta) {
-				if (isOutOfBounds(cell, xcoord, ycoord)) continue;
-				
+	public void switchBoards() {
+//		public Board(int row, int column, GridPane gridPane, int states) {
+		myGrid.getChildren().clear();
+		for(Cell[] subCellArray : nextBoardCells) {
+			for(Cell cell : subCellArray ){
+				myGrid.add(cell.getCellView().getRectangle(),cell.getRow(), cell.getColumn());
 			}
 		}
+		myCells = nextBoardCells;
 	}
 	
-	
-	
-	private boolean isOutOfBounds(Cell cell, int xDelta, int yDelta) {
-		
-		return (cell.getRow() + xDelta < 0 || cell.getRow() + xDelta > myCells.length - 1) 
-				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
-	}
-	
-	public abstract int nextState(int i, List<Cell> aliveNeighbours);
-
-	public void updateBoard(Board board) {
+	public void checkCells() {
 		// TODO Auto-generated method stub
-		myCells = board.getCells();
-		nextBoardCells = new Cell[board.getRow()][board.getColumn()];
-		for (int i = 0; i < board.getRow(); i++) {
-			for (int j = 0; j < board.getColumn(); j++) {
-				Cell cell = myCells[i][j];
-				checkCells(cell);
-				int nextState = nextState(cell.getState(), aliveNeighbours);
-				Color color = cell.getCellView().stateToColor(nextState);
-				updateCell(cell, nextState, color);
-				
+		nextBoardCells = new Cell[myCells.length][myCells[0].length];
+		for (int row = 0; row < myCells.length; row++) {
+			for (int column = 0; column < myCells[0].length; column++) {
+				Cell cell = myCells[row][column];
+				HashMap<Integer, ArrayList<Cell>> neighborMap = myBoard.saveNeighborStates(cell);
+				updateNextBoard(cell, neighborMap);				
 			}
 		}
 	}
@@ -97,12 +81,6 @@ abstract class SimulationRules {
 	 * Based on number of neighbors, potentially change the state. Updating the color will occur
 	 * in this method
 	 */
-	public Cell updateCell(Cell c, int nextState, Color color){
-			// TODO Auto-generated method stub
-			c.setState(nextState);
-			c.getCellView().setColor(color);		
-			return null;
-		}
 	
 
 

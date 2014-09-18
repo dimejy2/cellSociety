@@ -1,6 +1,7 @@
 package cellsociety_team05_controller;
 
 import java.io.IOException;
+
 import javafx.scene.layout.GridPane;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,6 +24,7 @@ public class XMLParser extends DefaultHandler {
 	private int resources;
 	private SimulationRules mySimulation;
 	private int numCellStates;
+	private int numberofCells = 0;
 
 
 	/** The main method sets things up for parsing */
@@ -63,12 +65,13 @@ public class XMLParser extends DefaultHandler {
 		if (qName.equalsIgnoreCase("grid")) {
 			String x = attributes.getValue("xValue");
 			String y = attributes.getValue("yValue");
+
 			board = new Board(Integer.parseInt(x), Integer.parseInt(y), grid, numCellStates);
 		}
 		
 		if (qName.equalsIgnoreCase("cellularautomata")) {
 			if(attributes.getValue("type").equals("DummyRules")) {
-				mySimulation = new DummySimulationRules();
+				mySimulation = new glifeSimulation();
 			}
 		}
 		
@@ -77,6 +80,8 @@ public class XMLParser extends DefaultHandler {
 			for(int j=0; j<row.length(); j++) {
 				Cell cell = new Cell(rowNumber, j, Character.getNumericValue(row.charAt(j)));
 				board.addCell(cell);
+				numberofCells ++;
+				
 			}
 			rowNumber++;
 		}

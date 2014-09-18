@@ -21,11 +21,11 @@ public class CellView {
 	
 	//just an example. color for each state should be dealt with in cellview?
 	public Color stateToColor(int state) {
-		if (state == 1) {
-			return Color.RED;
+		if (state == 0) {
+			return Color.BLACK;
 		}
-		if (state == 2) {
-			return Color.GREEN;
+		if (state == 1) {
+			return Color.WHITE;
 		}
 		return Color.BLACK;
 	}

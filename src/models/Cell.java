@@ -12,6 +12,7 @@ public class Cell  {
 	private CellView myCellView;
 	private int myResources;
 	private int framesAlive;
+	private double cellDim;
 
 
 
@@ -19,12 +20,16 @@ public class Cell  {
 		myRow = row; 
 		myColumn = column; 
 		myState = state; 
-		myCellView = new CellView(50, 50, state);
+		myCellView = new CellView(133, 133, state);
 		framesAlive = 0;
 	}
 
 	public CellView getCellView() {
 		return myCellView;
+	}
+	
+	public void setCellView() {
+		myCellView = new CellView(cellDim, cellDim, myState);
 	}
 
 	public void createCellView(int height, int state) {
@@ -41,6 +46,10 @@ public class Cell  {
 
 	public void updateResources(int change) {
 		myResources += change;
+	}
+	
+	public void setCellDim(Double dim) {
+		cellDim = dim; 
 	}
 
 	public boolean isAlive() {
@@ -69,4 +78,9 @@ public class Cell  {
 	public void setState(int state){
 		myState = state;
 	}
+	
+	public Cell nextCell(int row, int column, int nextState) {
+		return new Cell(row, column, nextState);
+	}
+
 }

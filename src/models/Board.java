@@ -13,24 +13,28 @@ import javafx.scene.paint.Color;
 
 public class Board{
 
-	private int row;
-	private int column;
+	private int numRows;
+	private int numColumns;
 	private GridPane gridPane;
 	private Cell[][] myCells;
 	private static final int WINDOW_SIZE = 400;
 	private ArrayList<Cell> emptyCells;
 	private int cellDim;
-	private Map<Integer, Set<Cell>> myStateMap;
+	private int numStates;
+	private Map<Integer, ArrayList<Cell>> myStateMap;
 
 	// might not need cellSize
 	public Board(int row, int column, GridPane gridPane, int states) {
-		this.row = row;
-		this.column = column;
+		numRows = row;
+		numColumns = column;
 		this.gridPane = gridPane;
 		myCells = new Cell[row][column];
+		numStates = states;
 		cellDim = WINDOW_SIZE/Math.max(row, column);
-		setUpGrid(gridPane);
-		generatemyStateMap(); 
+		setUpGrid();
+//		 
+//		generateMyStateMap();
+//		
 	}
 
 	public void addCell(Cell cell) {
@@ -38,12 +42,12 @@ public class Board{
 		gridPane.add(cell.getCellView().getRectangle(),cell.getRow(), cell.getColumn());
 	}
 
-	public void setUpGrid(GridPane grid) {
-		for(int i=0; i < row; i++) {
-			grid.getColumnConstraints().add(new ColumnConstraints(cellDim));
+	public void setUpGrid() {
+		for(int i=0; i < numRows; i++) {
+			gridPane.getColumnConstraints().add(new ColumnConstraints(cellDim));
 		}
-		for(int i=0; i< column; i++) {
-			grid.getRowConstraints().add(new RowConstraints(cellDim));
+		for(int i=0; i< numColumns; i++) {
+			gridPane.getRowConstraints().add(new RowConstraints(cellDim));
 		}
 	}
 
@@ -66,39 +70,57 @@ public class Board{
 		return myCells;
 	}
 
-	public void setRow(int row) {
-		this.row = row;
-	}
 
-	public int getColumn() {
-		return column;
-	}
-
-	public int getRow() {
-		return row;
-	}
-
-	public void setColumn(int column) {
-		this.column = column;
-	}
-
-
-	private void generatemyStateMap() {
-		myStateMap = new HashMap<>(); 
+	public void generateMyStateMap() {
+		myStateMap =  genericStateMap(numStates); 
 		for(Cell[] subCellArray : myCells) {
 			for(Cell cell : subCellArray ){
-				if(!myStateMap.keySet().contains(cell.getState())){ 
-					myStateMap.put(cell.getState(), new HashSet<Cell>()); 
-					myStateMap.get(cell.getState()).add(cell); 
-				}
-				else{myStateMap.get(cell.getState()).add(cell); }
+				//System.out.println(cell);
+	
+			myStateMap.get(cell.getState()).add(cell);
 			}
 		}
 
 	}
+	
+	public int getNumStates() {
+		return numStates;
+	}
 
-	public Map<Integer, Set<Cell>> getStateMap(){
+	public Map<Integer, ArrayList<Cell>> getStateMap(){
 		return myStateMap; 		
 	}
 	
+	private HashMap<Integer, ArrayList<Cell>> genericStateMap(int n){
+		HashMap<Integer, ArrayList<Cell>> toReturn = new HashMap<>(); 
+		
+		for(int i =0; i < n-1; i++){
+			toReturn.put(i, new ArrayList<Cell>()); 
+			
+		}
+		
+		return toReturn; 
+	}
+	
+	public HashMap<Integer, ArrayList<Cell>> saveNeighborStates(Cell cell) {
+		HashMap<Integer, ArrayList<Cell>> neighborStateMap = genericStateMap(numStates);  
+		
+		int[] xDelta = {-1, 0 , 1, -1, 1, -1, 0 ,1};
+		int[] yDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
+		for(int i=0;i<xDelta.length;i++) {
+			if (!isOutOfBounds(cell, xDelta[i], yDelta[i])){	
+				Cell neighborCell = myCells[cell.getRow() + xDelta[i]][cell.getColumn() + yDelta[i]];
+				neighborStateMap.get(neighborCell.getState()).add(cell); 				
+			}			
+		}
+		return neighborStateMap;
+	}
+	
+
+	
+	private boolean isOutOfBounds(Cell cell, int xDelta, int yDelta) {
+		
+		return (cell.getRow() + xDelta < 0 || cell.getRow() + xDelta > myCells.length - 1) 
+				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
+	}
 }

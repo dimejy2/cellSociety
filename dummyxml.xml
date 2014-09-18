@@ -6,19 +6,13 @@
 		<property name="resources" value="10"></property>
 		<property name ="numCellStates" value ="3"></property>
 	</properties>
-	<grid xValue="10" yValue="5">
+	<grid xValue="3" yValue="3">
 	<!-- DEFAULT GRID -->
 	<!-- Each digit represents a cell with its value being
 	its initial state. -->
-		<row values="0010020021"></row>
-		<row values="0010020021"></row>
-		<row values="0010020021"></row>
-		<row values="0010020021"></row>
-		<row values="0010020021"></row>
-		<row values="0010020021"></row>
-		<row values="0010020021"></row>
-		<row values="0010020021"></row>
-		<row values="1010020021"></row>
-		<row values="1010020021"></row>
+		<row values="000"></row>
+		<row values="111"></row>
+		<row values="000"></row>
+
 	</grid>
 </cellularautomata>
