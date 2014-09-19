@@ -14,7 +14,7 @@ public class FireSimulation extends SimulationRules {
 		int isDead = 0; 
 		int isTree = 1; 
 		int isBurning = 2;   
-		int burnProbability = 20; // some integer between 0 and 99
+		int burnProbability = 5; // some integer between 0 and 99
 
 		if(cell.getState()== isDead){ 
 			nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
