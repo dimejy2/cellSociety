@@ -20,7 +20,6 @@ public abstract class SimulationRules {
 	protected Board myBoard;
 	protected Cell[][] myCells;
 	protected Cell[][] nextBoardCells;
-	protected Board nextBoard;
 	protected CellController myCellController;
 	protected GridPane myGrid;
 	protected Animation myAnimation;
