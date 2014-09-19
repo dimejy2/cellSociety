@@ -58,10 +58,11 @@ public class BoardView {
 		root.setLeft(myGrid);
 		XMLParser xmlParser = new XMLParser();
 		xmlParser.parseXML(xmlFile, myGrid);
+		int numStates = xmlParser.getNumStates();
 		myBoard = xmlParser.getBoard();
 		mySimulation = xmlParser.getSimRules();
 		mySimulation.setSpeedSlider(mySpeedSlider);
-		mySimulation.init(myGrid, myBoard);
+		mySimulation.init(myGrid, myBoard, numStates);
 		mySimulationController.setUpSimulation(mySimulation);
 
 	}

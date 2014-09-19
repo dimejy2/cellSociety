@@ -140,5 +140,9 @@ public class XMLParser extends DefaultHandler {
 	public Board getBoard() {
 		return board;
 	}
+	
+	public int getNumStates() {
+		return numCellStates;
+	}
 
 }

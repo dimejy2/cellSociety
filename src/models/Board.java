@@ -89,7 +89,7 @@ public class Board{
 		return myStateMap; 		
 	}
 
-	private HashMap<Integer, ArrayList<Cell>> genericStateMap(int n){
+	public HashMap<Integer, ArrayList<Cell>> genericStateMap(int n){
 
 		HashMap<Integer, ArrayList<Cell>> toReturn = new HashMap<>(); 
 		for(int i =0; i < n; i++){

@@ -1,16 +1,12 @@
 package cellsociety_team05_controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-
-import javafx.scene.paint.Color;
 import models.Cell;
 
 //state 0 = dead, 1 = alive
 public class glifeSimulation extends SimulationRules {
-
+	private int[] xDelta = {-1, 0 , 1, -1, 1, -1, 0 ,1};
+	private int[] yDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
+	
 	@Override
 	public void updateNextBoard(Cell cell) {
 		int nextState = 0;
@@ -30,6 +26,9 @@ public class glifeSimulation extends SimulationRules {
 		cell.getCellView().setColor(stateToColorMap.get(nextState));
 		nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
 	}
-
-
+	
+	@Override
+	public void saveNeighborStates(Cell cell) {
+		super.saveNeighborStates(cell);
+	}
 }
