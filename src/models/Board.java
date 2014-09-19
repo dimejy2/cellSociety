@@ -93,7 +93,7 @@ public class Board{
 	}
 
 	private HashMap<Integer, ArrayList<Cell>> genericStateMap(int n){
-		
+
 		HashMap<Integer, ArrayList<Cell>> toReturn = new HashMap<>(); 
 		for(int i =0; i < n; i++){
 			toReturn.put(i, new ArrayList<Cell>()); 
@@ -104,6 +104,7 @@ public class Board{
 	}
 
 	public HashMap<Integer, ArrayList<Cell>> saveNeighborStates(Cell cell) {
+		
 		HashMap<Integer, ArrayList<Cell>> neighborStateMap = genericStateMap(numStates);  
 
 		int[] xDelta = {-1, 0 , 1, -1, 1, -1, 0 ,1};
