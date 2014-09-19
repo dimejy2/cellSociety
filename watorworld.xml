@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Type is the type of simulation -->
+<cellularautomata type="WaTorWorld">
+	<properties>
+		<!-- Parameters for gamemode -->
+		<property name="resources" value="10"></property>
+		<property name="numCellStates" value="3"></property>
+		<property name="decrement" value="-1"></property>
+		<property name="increment" value="2"></property>
+		<colors>
+			<color state="0" color="blue"></color>
+			<color state="1" color="green"></color>
+			<color state="2" color="orange"></color>
+		</colors>
+	</properties>
+	<grid xValue="3" yValue="3">
+		<!-- DEFAULT GRID -->
+		<!-- Each digit represents a cell with its value being its initial state. -->
+		<row values="120"></row>
+		<row values="120"></row>
+		<row values="100"></row>
+
+
+	</grid>
+</cellularautomata>

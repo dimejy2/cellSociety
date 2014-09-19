@@ -92,9 +92,9 @@ public class XMLParser extends DefaultHandler {
 //			else if(attributes.getValue("type").equals("Segregation")) {
 //				mySimulation = new SegregationSimulation()
 //			}
-//			else if(attributes.getValue("type").equals("WaTorWorld")) {
-//				mySimulation = new PredatorPreySimulation();
-//			}
+			else if(attributes.getValue("type").equals("WaTorWorld")) {
+				mySimulation = new PredatorPreySimulation();
+			}
 		}
 		
 		if (qName.equalsIgnoreCase("row")) {
@@ -147,6 +147,12 @@ public class XMLParser extends DefaultHandler {
 			return Color.WHITE;
 		if(color.equals("black"))
 			return Color.BLACK;
+		if(color.equals("green"))
+			return Color.GREEN;
+		if(color.equals("orange"))
+			return Color.ORANGE;
+		if(color.equals("blue"))
+			return Color.BLUE;
 		return Color.BLACK;
 	}
 

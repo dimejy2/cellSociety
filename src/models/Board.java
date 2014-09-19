@@ -108,12 +108,12 @@ public class Board{
 	public void saveNeighborStates(Cell cell) {
 		
 		HashMap<Integer, ArrayList<Cell>> neighborStateMap = genericStateMap(numStates);  
-		int[] xDelta = {-1, 0 , 1, -1, 1, -1, 0 ,1};
-		int[] yDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
+		int[] xDelta = {-0, -1, 1, 0 };
+		int[] yDelta = {-1, 0, 0, 1};
 		for(int i=0;i<xDelta.length;i++) {
 			if (!isOutOfBounds(cell, xDelta[i], yDelta[i])){	
 				Cell neighborCell = myCells[cell.getRow() + xDelta[i]][cell.getColumn() + yDelta[i]];
-				neighborStateMap.get(neighborCell.getState()).add(cell); 				
+				neighborStateMap.get(neighborCell.getState()).add(neighborCell); 				
 			}			
 		}
 		cell.setNeighborMap(neighborStateMap);

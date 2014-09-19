@@ -3,6 +3,7 @@ package cellsociety_team05_controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import models.Board;
 import models.Cell;
@@ -29,7 +30,9 @@ public abstract class SimulationRules {
 	protected int myNumStates;
 	protected int[] xDelta;
 	protected int[] yDelta;
-
+	protected ArrayList<Cell> invalidCellChoices;
+	protected Random rand = new Random();
+	
 	public void init(GridPane grid, Board board, int numStates) {
 
 		// Create a place to see the shapes
@@ -58,7 +61,7 @@ public abstract class SimulationRules {
 		myGrid.getChildren().clear();
 		for(Cell[] subCellArray : nextBoardCells) {
 			for(Cell cell : subCellArray ){
-				myGrid.add(cell.getCellView().getRectangle(), cell.getColumn(),cell.getRow());
+				myGrid.add(cell.getCellView().getRectangle(), cell.getColumn(), cell.getRow());
 			}
 		}
 		myCells = nextBoardCells;
@@ -67,6 +70,7 @@ public abstract class SimulationRules {
 	
 	public void checkCells() {
 		nextBoardCells = new Cell[myCells.length][myCells[0].length];
+		invalidCellChoices = new ArrayList<>();
 		for (int row = 0; row < myCells.length; row++) {
 			for (int column = 0; column < myCells[0].length; column++) {
 				Cell cell = myCells[row][column];

@@ -85,12 +85,27 @@ public class Cell  {
 		
 	}
 	
+	public int getResources() {
+		return myResources;
+	}
+	
 	public HashMap<Integer, ArrayList<Cell>> getNeighborMap(){
 		return myNeighborStateMap; 
 	}
 	
+	public double getCellDim() {
+		return myCellDim;
+	}
 	public void setIncrementDecrementValues(int increment, int decrement) {
 		incrementValue = increment;
 		decrementValue = decrement;
+	}
+	
+	public void setRow(int row) {
+		myRow = row;
+	}
+	
+	public void setColumn(int column) {
+		myColumn = column;
 	}
 }
