@@ -24,13 +24,13 @@ public class PredatorPreySimulation extends SimulationRules {
 		else if(cell.getState()==fish) {
 			ArrayList<Cell> emptyNeighbors = cell.getNeighborMap().get(empty); // get all the neighbor cells that are empty
 			if(emptyNeighbors.size() > 0) {
-				int randomNum = rand.nextInt(emptyNeighbors.size()); // generate a random integer bounded by the number of empty neighbors
+				int randomNum = chance.nextInt(emptyNeighbors.size()); // generate a random integer bounded by the number of empty neighbors
 				while(emptyNeighbors.size() >0 && invalidCellChoices.contains(emptyNeighbors.get(randomNum))) {
 					emptyNeighbors.remove(randomNum);
 					if(emptyNeighbors.size() ==0) {
 						break;
 					}
-					randomNum = rand.nextInt(emptyNeighbors.size());
+					randomNum = chance.nextInt(emptyNeighbors.size());
 				}
 				if(emptyNeighbors.size() > 0) {
 					Cell newCell;
@@ -64,14 +64,14 @@ public class PredatorPreySimulation extends SimulationRules {
 		else if(cell.getState()==shark) {
 			ArrayList<Cell> fishNeighbors = cell.getNeighborMap().get(fish);
 			if(fishNeighbors.size() >0) {
-				int randomNum = rand.nextInt(fishNeighbors.size());
+				int randomNum = chance.nextInt(fishNeighbors.size());
 				Cell fishCell = fishNeighbors.get(randomNum);
 				while(fishNeighbors.size() > 0 && invalidCellChoices.contains(fishCell)) {
 					fishNeighbors.remove(randomNum);
 					if(fishNeighbors.size() <=0) {
 						break;
 					}
-					randomNum = rand.nextInt(fishNeighbors.size());
+					randomNum = chance.nextInt(fishNeighbors.size());
 
 				}
 				if(fishNeighbors.size()>0) {
@@ -109,13 +109,13 @@ public class PredatorPreySimulation extends SimulationRules {
 
 			if(cell.getNeighborMap().get(empty).size() > 0 && fishNeighbors.size()<1) {
 				ArrayList<Cell> emptyNeighbors = cell.getNeighborMap().get(empty);
-				int randomNum = rand.nextInt(emptyNeighbors.size());
+				int randomNum = chance.nextInt(emptyNeighbors.size());
 				while(emptyNeighbors.size() >0 && invalidCellChoices.contains(emptyNeighbors.get(randomNum))) {
 					emptyNeighbors.remove(randomNum);
 					if(emptyNeighbors.size() ==0) {
 						break;
 					}
-					randomNum = rand.nextInt(emptyNeighbors.size());
+					randomNum = chance.nextInt(emptyNeighbors.size());
 				}
 				if(emptyNeighbors.size()>0) {
 					Cell newCell;
@@ -161,5 +161,24 @@ public class PredatorPreySimulation extends SimulationRules {
 	@Override
 	public void saveNeighborStates(Cell cell) {
 		super.saveNeighborStates(cell);
+	}
+
+
+	@Override
+	public void checkCells() {
+		nextBoardCells = new Cell[myCells.length][myCells[0].length];
+		invalidCellChoices = new ArrayList<>();
+		for (int row = 0; row < myCells.length; row++) {
+			for (int column = 0; column < myCells[0].length; column++) {
+				Cell cell = myCells[row][column];
+				myBoard.saveNeighborStates(cell, x4Delta, y4Delta);
+			}
+		}
+		for (int row = 0; row < myCells.length; row++) {
+			for (int column = 0; column < myCells[0].length; column++) {
+				Cell cell = myCells[row][column];
+				updateNextBoard(cell);				
+			}
+		}
 	}
 }

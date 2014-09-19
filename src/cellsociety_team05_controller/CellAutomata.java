@@ -12,7 +12,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class CellAutomata extends Application {
-	SimulationRules mySimulation;
+        SimulationRules mySimulation;
+
 
 	
 	@Override

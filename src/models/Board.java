@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 
 public class Board{
 
+
 	private int numRows;
 	private int numColumns;
 	private GridPane gridPane;
@@ -21,9 +22,11 @@ public class Board{
 	private ArrayList<Cell> emptyCells;
 	private int cellDim;
 	private int numStates;
-	private double myProbability;
+	private int myProbability;
 	private Map<Integer, ArrayList<Cell>> myStateMap;
 
+	
+	
 	public Board(int row, int column, GridPane gridPane, int states) {
 		numRows = row;
 		numColumns = column;
@@ -32,11 +35,11 @@ public class Board{
 		numStates = states;
 		cellDim = WINDOW_SIZE/Math.max(row, column);
 		setUpGrid();
-
 	}
 
-	public void setProbability(double probability) {
+	public void setProbability(int probability) {
 		myProbability = probability;
+		System.out.println("myProbabilty is " + myProbability); 
 	}
 	
 	public void addCell(Cell cell) {
@@ -105,11 +108,10 @@ public class Board{
 		return toReturn; 
 	}
 
-	public void saveNeighborStates(Cell cell) {
+	public void saveNeighborStates(Cell cell, int[] xDelta, int[] yDelta) {
 		
 		HashMap<Integer, ArrayList<Cell>> neighborStateMap = genericStateMap(numStates);  
-		int[] xDelta = {-0, -1, 1, 0 };
-		int[] yDelta = {-1, 0, 0, 1};
+
 		for(int i=0;i<xDelta.length;i++) {
 			if (!isOutOfBounds(cell, xDelta[i], yDelta[i])){	
 				Cell neighborCell = myCells[cell.getRow() + xDelta[i]][cell.getColumn() + yDelta[i]];
@@ -123,5 +125,9 @@ public class Board{
 
 		return (cell.getRow() + xDelta < 0 || cell.getRow() + xDelta > myCells.length - 1) 
 				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
+	}
+	
+	public int getProbablity(){
+		return  myProbability;
 	}
 }

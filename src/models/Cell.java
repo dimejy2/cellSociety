@@ -7,6 +7,7 @@ import views.CellView;
 
 public class Cell  {
 
+
 	private int myRow;
 	private int myColumn;
 	private int myState; 
@@ -17,7 +18,7 @@ public class Cell  {
 	private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
 	private int decrementValue;
 	private int incrementValue;
-
+	
 
 	public Cell ( int row, int column, int state, double cellDim){
 		myRow = row; 
@@ -108,4 +109,5 @@ public class Cell  {
 	public void setColumn(int column) {
 		myColumn = column;
 	}
+
 }
