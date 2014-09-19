@@ -41,6 +41,7 @@ public abstract class SimulationRules {
 		myCells = myBoard.getCells();
 		myGrid = grid;
 		myNumStates = numStates;
+		chance = new Random(); 
 	}
 	
 
