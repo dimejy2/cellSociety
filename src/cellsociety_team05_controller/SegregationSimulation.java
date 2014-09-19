@@ -43,7 +43,7 @@ public class SegregationSimulation extends SimulationRules {
             if ((numAlike / numNeighbours) >= 0.5) { return cell.getState(); }
             return 0;
         }
-        return cell.getState();
+        return 0;
     }
 
 }
