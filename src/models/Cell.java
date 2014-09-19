@@ -15,6 +15,8 @@ public class Cell  {
 	private int framesAlive;
 	private double myCellDim;
 	private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
+	private int decrementValue;
+	private int incrementValue;
 
 
 	public Cell ( int row, int column, int state, double cellDim){
@@ -43,7 +45,11 @@ public class Cell  {
 		return myColumn; 
 	}
 
-	public void updateResources(int change) {
+	public void setResources(int resources) {
+		myResources = resources;
+	}
+	
+	public void incrementResources(int change) {
 		myResources += change;
 	}
 
@@ -81,5 +87,10 @@ public class Cell  {
 	
 	public HashMap<Integer, ArrayList<Cell>> getNeighborMap(){
 		return myNeighborStateMap; 
+	}
+	
+	public void setIncrementDecrementValues(int increment, int decrement) {
+		incrementValue = increment;
+		decrementValue = decrement;
 	}
 }

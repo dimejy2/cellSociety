@@ -21,6 +21,7 @@ public class Board{
 	private ArrayList<Cell> emptyCells;
 	private int cellDim;
 	private int numStates;
+	private double myProbability;
 	private Map<Integer, ArrayList<Cell>> myStateMap;
 
 	public Board(int row, int column, GridPane gridPane, int states) {
@@ -34,6 +35,10 @@ public class Board{
 
 	}
 
+	public void setProbability(double probability) {
+		myProbability = probability;
+	}
+	
 	public void addCell(Cell cell) {
 		myCells[cell.getRow()][cell.getColumn()] = cell;
 		gridPane.add(cell.getCellView().getRectangle(), cell.getColumn(),cell.getRow());
