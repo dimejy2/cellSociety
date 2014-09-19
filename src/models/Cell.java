@@ -95,4 +95,8 @@ public class Cell  {
 		decrementValue = decrement;
 	}
 	
+	public int getResources(){
+		return myResources; 
+	}
+	
 }

@@ -15,29 +15,35 @@ public class FireSimulation extends SimulationRules {
 		int isTree = 1; 
 		int isBurning = 2;  
 		int nextState = 0 ; 
-		if (cell.getState() == isBurning) cell.setState(0);
+	
+	
 		
-		if ((!cell.getNeighborMap().get(2).isEmpty()) && (cell.getState()!=0)){
-			int numBurning = cell.getNeighborMap().get(1).size();
-			int catchesFire = numBurning 
-			if ((cell.getState() == 1) && (numAlive < 2)) {
-				nextState = 0;
-			} else if ((cell.getState() == 1) && (numAlive > 3))
-				nextState = 0;
-			else if ((cell.getState() == 0) && (numAlive == 3))
-				nextState = 1;
-			else
-				nextState = cell.getState();	
-		
+		if ((cell.getState() == isBurning) && (cell.getResources() == 0) ) {
+			cell.setState(isDead);
+			cell.getCellView().setColor(stateToColorMap.get(nextState));
+			nextBoardCells[cell.getRow()][cell.getColumn()] = cell;	
 		}
 		
-		
+		if ((!cell.getNeighborMap().get(isBurning).isEmpty()) && (cell.getState()!=isDead)){
+			int numBurning = cell.getNeighborMap().get(isBurning).size(); 
+			
+			if ((cell.getState() == isTree) && (numBurning >= 1) && (chance.nextDouble() < myBoard.getProbablity())) nextState = isBurning;
+			else nextState = isTree; 
+		} 
+			
+			cell.setState(nextState);
+			cell.getCellView().setColor(stateToColorMap.get(nextState));
+			nextBoardCells[cell.getRow()][cell.getColumn()] = cell;	
+			
+			if(cell.getState() == isBurning) cell.incrementResources(-1);
+	
 	}
+		
+	
+	
 
-    @Override
-    public void updateNextBoard (Cell cell) {
-        // TODO Auto-generated method stub
-        
-    }
+	public void saveNeighborStates(Cell cell) {
+		super.saveNeighborStates(cell);
+	}
 
 }

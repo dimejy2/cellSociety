@@ -145,11 +145,13 @@ public class XMLParser extends DefaultHandler {
 	}
 	
 	private Color stringToColor(String color) {
-		if(color.equals("white"))
-			return Color.WHITE;
-		if(color.equals("black"))
-			return Color.BLACK;
+		if(color.equals("white")) return Color.WHITE;
+		if(color.equals("black")) return Color.BLACK;
+		if(color.equals("red")) return Color.RED; 
+		if(color.equals("green")) return Color.GREEN; 
 		return Color.BLACK;
+		
+		
 	}
 
 	/*

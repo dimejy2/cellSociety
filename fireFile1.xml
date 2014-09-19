@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Type is the type of simulation -->
+<cellularautomata type="FireSimulation">
+	<properties>
+		<!-- Parameters for gamemode -->
+		<property name="resources" value="10"></property>
+		<property name="numCellStates" value="3"></property>
+		<propery name = "probability" value ="0.5"></propery>
+		<colors>
+			<color state="0" color="black"></color>
+			<color state="1" color="green"></color>
+			<color state="2" color="red"></color>
+		</colors>
+	</properties>
+	<grid xValue="15" yValue="15">
+		<!-- DEFAULT GRID -->
+		<!-- Each digit represents a cell with its value being its initial state. -->
+		<row values="110000000011111"></row>
+		<row values="110000000000000"></row>
+		<row values="000000200011111"></row>
+		<row values="000000000011211"></row>
+		<row values="011000200011211"></row>
+		<row values="010000000011111"></row>
+		<row values="000010220200101"></row>
+		<row values="000110000010101"></row>
+		<row values="000000011111011"></row>
+		<row values="000000200011001"></row>
+		<row values="010000200011111"></row>
+		<row values="000010000000101"></row>
+		<row values="000120000210101"></row>
+		<row values="002000021111011"></row>
+		<row values="000000000011001"></row>
+	</grid>
+</cellularautomata>

@@ -125,4 +125,8 @@ public class Board{
 		return (cell.getRow() + xDelta < 0 || cell.getRow() + xDelta > myCells.length - 1) 
 				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
 	}
+	
+	public double getProbablity(){
+		return  myProbability;
+	}
 }
