@@ -14,6 +14,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import java.util.Random; 
 
 public abstract class SimulationRules {
 
@@ -29,6 +30,7 @@ public abstract class SimulationRules {
 	protected int myNumStates;
 	protected int[] xDelta;
 	protected int[] yDelta;
+	protected Random chance; 
 
 	public void init(GridPane grid, Board board, int numStates) {
 
