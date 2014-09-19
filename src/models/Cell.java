@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import views.CellView;
 
@@ -13,7 +14,7 @@ public class Cell  {
 	private int myResources;
 	private int framesAlive;
 	private double myCellDim;
-
+	private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
 
 
 	public Cell ( int row, int column, int state, double cellDim){
@@ -77,4 +78,8 @@ public class Cell  {
 		return new Cell(row, column, nextState, myCellDim);
 	}
 
+	public void setNeighborMap(HashMap<Integer, ArrayList<Cell>> neighborMapToSet){
+		myNeighborStateMap = neighborMapToSet ; 
+		
+	}
 }
