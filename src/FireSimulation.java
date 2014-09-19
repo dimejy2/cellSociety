@@ -14,4 +14,10 @@ public class FireSimulation extends SimulationRules {
 
 	}
 
+    @Override
+    public void updateNextBoard (Cell cell) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

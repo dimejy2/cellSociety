@@ -14,22 +14,22 @@ import javafx.stage.Stage;
 public class CellAutomata extends Application {
         SimulationRules mySimulation;
 
-        
-        @Override
-        public void start(Stage s) throws Exception {
-                // TODO Auto-generated method stub
-                s.setTitle("Cellular Automata");
-                BoardView boardView = new BoardView(s);
-                Scene scene = boardView.getScene();
-                s.setScene(scene);
-                s.show();
-        }
-        
-        /**
-         * Start the program.
-         */
-        public static void main(String[] args)
-        {
-                launch(args);
-        }
+
+	
+	@Override
+	public void start(Stage s) throws Exception {
+		s.setTitle("Cellular Automata");
+		BoardView boardView = new BoardView(s);
+		Scene scene = boardView.getScene();
+		s.setScene(scene);
+		s.show();
+	}
+	
+	/**
+	 * Start the program.
+	 */
+	public static void main(String[] args)
+	{
+		launch(args);
+	}
 }

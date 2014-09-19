@@ -80,7 +80,9 @@ public class XMLParser extends DefaultHandler {
                 
                 if (qName.equalsIgnoreCase("cellularautomata")) {
                         if(attributes.getValue("type").equals("DummyRules")) {
-                                mySimulation = new glifeSimulation();
+//                                mySimulation = new glifeSimulation();
+                            mySimulation = new SegregationSimulation();
+
                         }
                 }
                 
@@ -122,6 +124,8 @@ public class XMLParser extends DefaultHandler {
                         return Color.WHITE;
                 if(color.equals("black"))
                         return Color.BLACK;
+                if(color.equals("yellow"))
+                    return Color.YELLOW;
                 return Color.BLACK;
         }
 
