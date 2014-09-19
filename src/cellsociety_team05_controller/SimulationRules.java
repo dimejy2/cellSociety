@@ -28,9 +28,11 @@ public abstract class SimulationRules {
 	protected Slider mySpeedSlider;
 	protected Map<Integer, Color> stateToColorMap;
 	protected int myNumStates;
-	protected int[] xDelta;
-	protected int[] yDelta;
-	protected Random chance; 
+	protected Random chance;
+	protected static final int[] xDelta = {-1, 0 , 1, -1, 1, -1, 0 ,1};
+	protected static final int[] yDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
+	protected static final int[] x4Delta = {0,0,1,-1}; 
+	protected static final int[] y4Delta = {1,-1,0,0}; 
 
 	public void init(GridPane grid, Board board, int numStates) {
 
@@ -68,21 +70,7 @@ public abstract class SimulationRules {
 		myBoard.setCells(nextBoardCells);
 	}
 	
-	public void checkCells() {
-		nextBoardCells = new Cell[myCells.length][myCells[0].length];
-		for (int row = 0; row < myCells.length; row++) {
-			for (int column = 0; column < myCells[0].length; column++) {
-				Cell cell = myCells[row][column];
-				myBoard.saveNeighborStates(cell);
-			}
-		}
-		for (int row = 0; row < myCells.length; row++) {
-			for (int column = 0; column < myCells[0].length; column++) {
-				Cell cell = myCells[row][column];
-				updateNextBoard(cell);				
-			}
-		}
-	}
+	protected abstract void checkCells();
 	
 	public void setAnimation(Animation animation) {
 		myAnimation = animation;
@@ -129,7 +117,6 @@ public abstract class SimulationRules {
 		return (cell.getRow() + xDelta < 0 || cell.getRow() + xDelta > myCells.length - 1) 
 				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
 	}
-
 
 	
 }

@@ -31,4 +31,24 @@ public class glifeSimulation extends SimulationRules {
 	public void saveNeighborStates(Cell cell) {
 		super.saveNeighborStates(cell);
 	}
+
+	@Override
+	protected void checkCells() {
+		 {
+				nextBoardCells = new Cell[myCells.length][myCells[0].length];
+				for (int row = 0; row < myCells.length; row++) {
+					for (int column = 0; column < myCells[0].length; column++) {
+						Cell cell = myCells[row][column];
+						myBoard.saveNeighborStates(cell, xDelta , yDelta);
+					}
+				}
+				for (int row = 0; row < myCells.length; row++) {
+					for (int column = 0; column < myCells[0].length; column++) {
+						Cell cell = myCells[row][column];
+						updateNextBoard(cell);				
+					}
+				}
+			}
+		
+	}
 }

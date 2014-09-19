@@ -25,6 +25,8 @@ public class Board{
 	private int myProbability;
 	private Map<Integer, ArrayList<Cell>> myStateMap;
 
+	
+	
 	public Board(int row, int column, GridPane gridPane, int states) {
 		numRows = row;
 		numColumns = column;
@@ -107,11 +109,10 @@ public class Board{
 		return toReturn; 
 	}
 
-	public void saveNeighborStates(Cell cell) {
+	public void saveNeighborStates(Cell cell, int[] xDelta, int[] yDelta) {
 		
 		HashMap<Integer, ArrayList<Cell>> neighborStateMap = genericStateMap(numStates);  
-		int[] xDelta = {-1, 0 , 1, -1, 1, -1, 0 ,1};
-		int[] yDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
+			
 		for(int i=0;i<xDelta.length;i++) {
 			if (!isOutOfBounds(cell, xDelta[i], yDelta[i])){	
 				Cell neighborCell = myCells[cell.getRow() + xDelta[i]][cell.getColumn() + yDelta[i]];
