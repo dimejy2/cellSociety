@@ -22,6 +22,7 @@ public class Board{
 	private ArrayList<Cell> emptyCells;
 	private int cellDim;
 	private int numStates;
+	private double myProbability;
 	private Map<Integer, ArrayList<Cell>> myStateMap;
 
 	public Board(int row, int column, GridPane gridPane, int states) {
@@ -35,6 +36,10 @@ public class Board{
 
 	}
 
+	public void setProbability(double probability) {
+		myProbability = probability;
+	}
+	
 	public void addCell(Cell cell) {
 		myCells[cell.getRow()][cell.getColumn()] = cell;
 		gridPane.add(cell.getCellView().getRectangle(), cell.getColumn(),cell.getRow());
@@ -90,7 +95,7 @@ public class Board{
 		return myStateMap; 		
 	}
 
-	private HashMap<Integer, ArrayList<Cell>> genericStateMap(int n){
+	public HashMap<Integer, ArrayList<Cell>> genericStateMap(int n){
 
 		HashMap<Integer, ArrayList<Cell>> toReturn = new HashMap<>(); 
 		for(int i =0; i < n; i++){

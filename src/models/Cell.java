@@ -7,79 +7,92 @@ import views.CellView;
 
 public class Cell  {
 
-        private int myRow;
-        private int myColumn;
-        private int myState; 
-        private CellView myCellView;
-        private int myResources;
-        private int framesAlive;
-        private double myCellDim;
-        private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
+
+	private int myRow;
+	private int myColumn;
+	private int myState; 
+	private CellView myCellView;
+	private int myResources;
+	private int framesAlive;
+	private double myCellDim;
+	private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
+	private int decrementValue;
+	private int incrementValue;
 
 
-        public Cell ( int row, int column, int state, double cellDim){
-                myRow = row; 
-                myColumn = column; 
-                myState = state; 
-                myCellDim = cellDim;
-                myCellView = new CellView(myCellDim, myCellDim, state);
-                framesAlive = 0;
-        }
+	public Cell ( int row, int column, int state, double cellDim){
+		myRow = row; 
+		myColumn = column; 
+		myState = state; 
+		myCellDim = cellDim;
+		myCellView = new CellView(myCellDim, myCellDim, state);
+		framesAlive = 0;
+	}
 
-        public CellView getCellView() {
-                return myCellView;
-        }
-        
+	public CellView getCellView() {
+		return myCellView;
+	}
+	
 
-        public void createCellView(int height, int state) {
-                myCellView = new CellView(height, height, state);
-        }
+	public void createCellView(int height, int state) {
+		myCellView = new CellView(height, height, state);
+	}
 
-        public int getRow(){
-                return myRow; 
-        }
+	public int getRow(){
+		return myRow; 
+	}
 
-        public int getColumn(){
-                return myColumn; 
-        }
+	public int getColumn(){
+		return myColumn; 
+	}
 
-        public void updateResources(int change) {
-                myResources += change;
-        }
+	public void setResources(int resources) {
+		myResources = resources;
+	}
+	
+	public void incrementResources(int change) {
+		myResources += change;
+	}
 
-        public boolean isAlive() {
-                if(myResources > 0) {
-                        return true;
-                }
-                return false;
-        }
+	public boolean isAlive() {
+		if(myResources > 0) {
+			return true;
+		}
+		return false;
+	}
 
-        public int getFramesAlive() {
-                return framesAlive;
-        }
+	public int getFramesAlive() {
+		return framesAlive;
+	}
 
-        public void incrementFramesAlive() {
-                framesAlive++;
-        }
+	public void incrementFramesAlive() {
+		framesAlive++;
+	}
 
-        public void resetFramesAlive() {
-                framesAlive = 0;
-        }
+	public void resetFramesAlive() {
+		framesAlive = 0;
+	}
 
-        public int getState(){
-                return myState;
-        }  
+	public int getState(){
+		return myState;
+	}  
 
-        public void setState(int state){
-                myState = state;
-        }
-        
-        public void setNeighborMap(HashMap<Integer, ArrayList<Cell>> neighborMapToSet){
-                myNeighborStateMap = neighborMapToSet ; 
-                
-        }
-        
-        public HashMap<Integer, ArrayList<Cell>> getNeighborMap(){
-                return myNeighborStateMap; 
-        }
+	public void setState(int state){
+		myState = state;
+	}
+	
+	public void setNeighborMap(HashMap<Integer, ArrayList<Cell>> neighborMapToSet){
+		myNeighborStateMap = neighborMapToSet ; 
+		
+	}
+	
+	public HashMap<Integer, ArrayList<Cell>> getNeighborMap(){
+		return myNeighborStateMap; 
+	}
+	
+	public void setIncrementDecrementValues(int increment, int decrement) {
+		incrementValue = increment;
+		decrementValue = decrement;
+	}
 }
+>>>>>>> 5520da7e851291cb2a023d02b52faf4f675158ae
