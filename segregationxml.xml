@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Type is the type of simulation -->
-<cellularautomata type = "DummyRules">
+<cellularautomata type = "Segregation">
 	<properties>
 		<!-- Parameters for gamemode -->
 		<property name="resources" value="10"></property>
