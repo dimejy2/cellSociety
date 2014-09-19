@@ -28,8 +28,6 @@ public abstract class SimulationRules {
 	protected Cell[][] nextBoardCells;
 	protected Board nextBoard;
 	protected CellController myCellController;
-	protected static final int[][] neighbourMap = { { -1, -1 }, { 0, -1 },
-			{ 1, -1 }, { -1, 0 }, { +1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
 	protected GridPane myGrid;
 	protected Animation myAnimation;
 	protected Slider mySpeedSlider;
@@ -56,7 +54,7 @@ public abstract class SimulationRules {
 	};
 
 	
-	public abstract void updateNextBoard(Cell cell, HashMap<Integer, ArrayList<Cell>> aliveNeighbours);
+	public abstract void updateNextBoard(Cell cell);
 
 	
 	public void switchBoards() {
@@ -75,8 +73,13 @@ public abstract class SimulationRules {
 		for (int row = 0; row < myCells.length; row++) {
 			for (int column = 0; column < myCells[0].length; column++) {
 				Cell cell = myCells[row][column];
-				HashMap<Integer, ArrayList<Cell>> neighborMap = myBoard.saveNeighborStates(cell);
-				updateNextBoard(cell, neighborMap);				
+				myBoard.saveNeighborStates(cell);
+			}
+		}
+		for (int row = 0; row < myCells.length; row++) {
+			for (int column = 0; column < myCells[0].length; column++) {
+				Cell cell = myCells[row][column];
+				updateNextBoard(cell);				
 			}
 		}
 	}

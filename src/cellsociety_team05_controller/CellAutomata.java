@@ -17,7 +17,6 @@ public class CellAutomata extends Application {
 	
 	@Override
 	public void start(Stage s) throws Exception {
-		// TODO Auto-generated method stub
 		s.setTitle("Cellular Automata");
 		BoardView boardView = new BoardView(s);
 		Scene scene = boardView.getScene();

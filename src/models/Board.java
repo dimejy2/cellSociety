@@ -23,7 +23,6 @@ public class Board{
 	private int numStates;
 	private Map<Integer, ArrayList<Cell>> myStateMap;
 
-	// might not need cellSize
 	public Board(int row, int column, GridPane gridPane, int states) {
 		numRows = row;
 		numColumns = column;
@@ -32,9 +31,7 @@ public class Board{
 		numStates = states;
 		cellDim = WINDOW_SIZE/Math.max(row, column);
 		setUpGrid();
-		//		 
-		//		generateMyStateMap();
-		//		
+
 	}
 
 	public void addCell(Cell cell) {
@@ -103,10 +100,9 @@ public class Board{
 		return toReturn; 
 	}
 
-	public HashMap<Integer, ArrayList<Cell>> saveNeighborStates(Cell cell) {
+	public void saveNeighborStates(Cell cell) {
 		
 		HashMap<Integer, ArrayList<Cell>> neighborStateMap = genericStateMap(numStates);  
-
 		int[] xDelta = {-1, 0 , 1, -1, 1, -1, 0 ,1};
 		int[] yDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
 		for(int i=0;i<xDelta.length;i++) {
@@ -116,10 +112,7 @@ public class Board{
 			}			
 		}
 		cell.setNeighborMap(neighborStateMap);
-		return neighborStateMap;
 	}
-
-
 
 	private boolean isOutOfBounds(Cell cell, int xDelta, int yDelta) {
 

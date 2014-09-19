@@ -9,7 +9,6 @@ public class DummyCellController extends CellController {
 
 	@Override
 	public Cell updateCell(Cell c, int nextState, Color color) {
-		// TODO Auto-generated method stub
 		c.setState(nextState);
 		c.getCellView().setColor(color);		
 		return null;

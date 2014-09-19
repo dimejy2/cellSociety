@@ -12,13 +12,11 @@ import models.Cell;
 public class glifeSimulation extends SimulationRules {
 
 	@Override
-	public void updateNextBoard(Cell cell,
-			HashMap<Integer, ArrayList<Cell>> neighbourMap) {
-		// TODO Auto-generated method stub
+	public void updateNextBoard(Cell cell) {
 		int nextState = 0;
 
-		if (!neighbourMap.get(1).isEmpty()){
-			int numAlive = neighbourMap.get(1).size();
+		if (!cell.getNeighborMap().get(1).isEmpty()){
+			int numAlive = cell.getNeighborMap().get(1).size();
 			if ((cell.getState() == 1) && (numAlive < 2)) {
 				nextState = 0;
 			} else if ((cell.getState() == 1) && (numAlive > 3))
@@ -28,9 +26,9 @@ public class glifeSimulation extends SimulationRules {
 			else
 				nextState = cell.getState();	
 		}
-		Cell nextCell = cell.nextCell(cell.getRow(), cell.getColumn(), nextState);
-		nextCell.getCellView().setColor(stateToColorMap.get(nextState));
-		nextBoardCells[nextCell.getRow()][nextCell.getColumn()] = nextCell;
+		cell.setState(nextState);
+		cell.getCellView().setColor(stateToColorMap.get(nextState));
+		nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
 	}
 
 

@@ -74,10 +74,6 @@ public class Cell  {
 		myState = state;
 	}
 	
-	public Cell nextCell(int row, int column, int nextState) {
-		return new Cell(row, column, nextState, myCellDim);
-	}
-
 	public void setNeighborMap(HashMap<Integer, ArrayList<Cell>> neighborMapToSet){
 		myNeighborStateMap = neighborMapToSet ; 
 		
