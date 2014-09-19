@@ -22,7 +22,7 @@ public class Board{
 	private ArrayList<Cell> emptyCells;
 	private int cellDim;
 	private int numStates;
-	private double myProbability;
+	private int myProbability;
 	private Map<Integer, ArrayList<Cell>> myStateMap;
 
 	public Board(int row, int column, GridPane gridPane, int states) {
@@ -36,8 +36,9 @@ public class Board{
 
 	}
 
-	public void setProbability(double probability) {
+	public void setProbability(int probability) {
 		myProbability = probability;
+		System.out.println("myProbabilty is " + myProbability); 
 	}
 	
 	public void addCell(Cell cell) {
@@ -126,7 +127,7 @@ public class Board{
 				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
 	}
 	
-	public double getProbablity(){
+	public int getProbablity(){
 		return  myProbability;
 	}
 }

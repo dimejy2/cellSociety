@@ -130,4 +130,6 @@ public abstract class SimulationRules {
 				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
 	}
 
+
+	
 }
