@@ -2,11 +2,7 @@ package cellsociety_team05_controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
-import javafx.scene.paint.Color;
 import models.Cell;
 
 
@@ -21,7 +17,6 @@ public class SegregationSimulation extends SimulationRules {
 
         myBoard.generateMyStateMap();
         ArrayList<Cell> emptyCells = myBoard.getStateMap().get(0);
-
 
         int nextState = 0;
         // getting the number of neighbours, very inefficient now
@@ -57,8 +52,9 @@ public class SegregationSimulation extends SimulationRules {
         if (!neighbourMap.get(cell.getState()).isEmpty()) {
             numAlike = neighbourMap.get(cell.getState()).size();
             if ((numAlike / numNeighbours) >= myBoard.getProbablity()) {
-                System.out.println(numAlike/numNeighbours);
-                return cell.getState(); }
+                System.out.println(numAlike / numNeighbours);
+                return cell.getState();
+            }
             return 0;
         }
         return 0;

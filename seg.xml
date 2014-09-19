@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Type is the type of simulation -->
+<cellularautomata type = "Segregation">
+	<properties>
+		<!-- Parameters for gamemode -->
+		<property name="resources" value="10"></property>
+		<property name ="numCellStates" value ="3"></property>
+		<colors>
+			<color state="0" color = "white"></color>
+			<color state="1" color = "black"></color>
+			<color state="2" color = "yellow"></color>
+		</colors>
+	</properties>
+	<grid xValue="10" yValue="10">
+	<!-- DEFAULT GRID -->
+	<!-- Each digit represents a cell with its value being
+	its initial state. -->
+		<row values="1122222220"></row>
+		<row values="1100022220"></row>
+		<row values="0000022200"></row>
+		<row values="0011110000"></row>
+		<row values="0111110000"></row>
+		<row values="0100000000"></row>
+		<row values="0000100000"></row>
+		<row values="0001100000"></row>
+		<row values="0001110111"></row>
+		<row values="0222112000"></row>
+	</grid>
+</cellularautomata>
