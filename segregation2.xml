@@ -5,6 +5,7 @@
 		<!-- Parameters for gamemode -->
 		<property name="resources" value="10"></property>
 		<property name ="numCellStates" value ="3"></property>
+		<property name ="probability" value ="5"></property>
 		<colors>
 			<color state="0" color = "white"></color>
 			<color state="1" color = "black"></color>
@@ -15,7 +16,7 @@
 	<!-- DEFAULT GRID -->
 	<!-- Each digit represents a cell with its value being
 	its initial state. -->
-		<row values="211"></row>
+		<row values="210"></row>
 		<row values="211"></row>
 		<row values="211"></row>
 

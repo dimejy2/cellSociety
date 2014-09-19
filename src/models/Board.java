@@ -35,7 +35,6 @@ public class Board{
 		numStates = states;
 		cellDim = WINDOW_SIZE/Math.max(row, column);
 		setUpGrid();
-
 	}
 
 	public void setProbability(int probability) {

@@ -34,29 +34,31 @@ public abstract class SimulationRules {
 	protected static final int[] x4Delta = {0,0,1,-1}; 
 	protected static final int[] y4Delta = {1,-1,0,0}; 
 
-	public void init(GridPane grid, Board board, int numStates) {
 
-		// Create a place to see the shapes
-		myCellController = new DummyCellController(); // Your simulation's
-														// CellController
-		myBoard = board;
-		myCells = myBoard.getCells();
-		myGrid = grid;
-		myNumStates = numStates;
-		chance = new Random(); 
-	}
-	
+        public void init(GridPane grid, Board board, int numStates) {
 
-	private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
-		@Override
-		public void handle(ActionEvent evt) {
-			checkCells();
-			switchBoards();
-		}
-	};
+                // Create a place to see the shapes
+                myCellController = new DummyCellController(); // Your simulation's
+                                                                                                                // CellController
+                myBoard = board;
+                myCells = myBoard.getCells();
+                myGrid = grid;
+                myNumStates = numStates;
+                chance = new Random(); 
+        }
+        
 
-	
-	public abstract void updateNextBoard(Cell cell);
+        private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent evt) {
+                        checkCells();
+                        switchBoards();
+                }
+        };
+
+        
+        public abstract void updateNextBoard(Cell cell);
+
 
 	
 	public void switchBoards() {
@@ -88,35 +90,42 @@ public abstract class SimulationRules {
 		myAnimation.pause();
 	}
 
-	public KeyFrame frame() {
-		return new KeyFrame(Duration.millis(1000), oneFrame);
-	}
-	
-	public void setSpeedSlider(Slider slider) {
-		mySpeedSlider = slider;
-	}
-	
-	public void setColorMap(Map<Integer, Color> colorMap) {
-		stateToColorMap = colorMap;
-	}
-	
-	public void saveNeighborStates(Cell cell) {
 
-		HashMap<Integer, ArrayList<Cell>> neighborStateMap = myBoard.genericStateMap(myNumStates);  
-		for(int i=0;i<xDelta.length;i++) {
-			if (!isOutOfBounds(cell, xDelta[i], yDelta[i])){	
-				Cell neighborCell = myCells[cell.getRow() + xDelta[i]][cell.getColumn() + yDelta[i]];
-				neighborStateMap.get(neighborCell.getState()).add(cell); 				
-			}			
-		}
-		cell.setNeighborMap(neighborStateMap);
-	}
-	
-	private boolean isOutOfBounds(Cell cell, int xDelta, int yDelta) {
 
-		return (cell.getRow() + xDelta < 0 || cell.getRow() + xDelta > myCells.length - 1) 
-				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
-	}
+        public KeyFrame frame() {
+                return new KeyFrame(Duration.millis(1000), oneFrame);
+        }
+        
+        public void setSpeedSlider(Slider slider) {
+                mySpeedSlider = slider;
+        }
+        
+        public void setColorMap(Map<Integer, Color> colorMap) {
+                stateToColorMap = colorMap;
+        }
+        
+        public void saveNeighborStates(Cell cell) {
 
-	
+                HashMap<Integer, ArrayList<Cell>> neighborStateMap = myBoard.genericStateMap(myNumStates);  
+                for(int i=0;i<xDelta.length;i++) {
+                        if (!isOutOfBounds(cell, xDelta[i], yDelta[i])){        
+                                Cell neighborCell = myCells[cell.getRow() + xDelta[i]][cell.getColumn() + yDelta[i]];
+                                neighborStateMap.get(neighborCell.getState()).add(cell);                                
+                        }                       
+                }
+                cell.setNeighborMap(neighborStateMap);
+        }
+        
+        private boolean isOutOfBounds(Cell cell, int xDelta, int yDelta) {
+
+                return (cell.getRow() + xDelta < 0 || cell.getRow() + xDelta > myCells.length - 1) 
+                                ||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
+        }
+
+
 }
+
+
+        
+
+
