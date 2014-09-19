@@ -89,12 +89,12 @@ public class XMLParser extends DefaultHandler {
 			else if(attributes.getValue("type").equals("FireSimulation")) {
 				mySimulation = new FireSimulation();
 			}
-			else if(attributes.getValue("type").equals("Segregation")) {
-				mySimulation = new SegregationSimulation()
-			}
-			else if(attributes.getValue("type").equals("WaTorWorld")) {
-				mySimulation = new PredatorPreySimulation();
-			}
+//			else if(attributes.getValue("type").equals("Segregation")) {
+//				mySimulation = new SegregationSimulation()
+//			}
+//			else if(attributes.getValue("type").equals("WaTorWorld")) {
+//				mySimulation = new PredatorPreySimulation();
+//			}
 		}
 		
 		if (qName.equalsIgnoreCase("row")) {
