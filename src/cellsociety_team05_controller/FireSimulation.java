@@ -14,6 +14,7 @@ public class FireSimulation extends SimulationRules {
 		int isDead = 0; 
 		int isTree = 1; 
 		int isBurning = 2;   
+		int burnProbability = 20; // some integer between 0 and 99
 
 		if(cell.getState()== isDead){ 
 			nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
@@ -35,7 +36,7 @@ public class FireSimulation extends SimulationRules {
 		if(cell.getState()== isTree){
 			if( !cell.getNeighborMap().get(isBurning).isEmpty() ){
 				 
-				if( chance.nextInt(100) < 5){
+				if( chance.nextInt(100) <= burnProbability){
 					cell.setState(isBurning);
 					cell.getCellView().setColor(stateToColorMap.get(isBurning));
 				}

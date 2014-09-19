@@ -18,7 +18,7 @@ public class Cell  {
 	private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
 	private int decrementValue;
 	private int incrementValue;
-
+	
 
 	public Cell ( int row, int column, int state, double cellDim){
 		myRow = row; 
@@ -94,4 +94,9 @@ public class Cell  {
 		incrementValue = increment;
 		decrementValue = decrement;
 	}
+	
+	public int getResources(){
+		return myResources; 
+	}
+	
 }
