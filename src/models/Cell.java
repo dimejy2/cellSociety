@@ -83,4 +83,8 @@ public class Cell  {
 		myNeighborStateMap = neighborMapToSet ; 
 		
 	}
+	
+	public HashMap<Integer, ArrayList<Cell>> getNeighborMap(){
+		return myNeighborStateMap; 
+	}
 }
