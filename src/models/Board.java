@@ -115,6 +115,7 @@ public class Board{
 				neighborStateMap.get(neighborCell.getState()).add(cell); 				
 			}			
 		}
+		cell.setNeighborMap(neighborStateMap);
 		return neighborStateMap;
 	}
 
