@@ -91,9 +91,9 @@ public class XMLParser extends DefaultHandler {
                         else if(attributes.getValue("type").equals("FireSimulation")) {
                                 mySimulation = new FireSimulation();
                         }
-//                      else if(attributes.getValue("type").equals("Segregation")) {
-//                              mySimulation = new SegregationSimulation()
-//                      }
+                      else if(attributes.getValue("type").equals("Segregation")) {
+                              mySimulation = new SegregationSimulation();
+                      }
 //                      else if(attributes.getValue("type").equals("WaTorWorld")) {
 //                              mySimulation = new PredatorPreySimulation();
 //                      }
@@ -123,6 +123,7 @@ public class XMLParser extends DefaultHandler {
                         if(attributes.getValue("name").equals("probability")) {
                                 probability = Integer.parseInt(attributes.getValue("value")); 
                         }
+                  
                         if(attributes.getValue("name").equals("decrement")) {
                                 decrementValue = Integer.parseInt(attributes.getValue("value"));
                         }
@@ -149,6 +150,7 @@ public class XMLParser extends DefaultHandler {
                 if(color.equals("black")) return Color.BLACK;
                 if(color.equals("orange")) return Color.ORANGE; 
                 if(color.equals("green")) return Color.GREEN; 
+                if(color.equals("yellow")) return Color.YELLOW; 
                 return Color.BLACK;
                 
                 
