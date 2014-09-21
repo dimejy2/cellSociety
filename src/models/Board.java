@@ -22,7 +22,7 @@ public class Board{
 	private ArrayList<Cell> emptyCells;
 	private int cellDim;
 	private int numStates;
-	private int myProbability;
+	private double myProbability;
 	private Map<Integer, ArrayList<Cell>> myStateMap;
 
 	
@@ -37,7 +37,7 @@ public class Board{
 		setUpGrid();
 	}
 
-	public void setProbability(int probability) {
+	public void setProbability(double probability) {
 		myProbability = probability;
 		System.out.println("myProbabilty is " + myProbability); 
 	}
@@ -127,7 +127,7 @@ public class Board{
 				||(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length -1 ) ; 
 	}
 	
-	public int getProbablity(){
+	public double getProbablity(){
 		return  myProbability;
 	}
 }
