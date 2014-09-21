@@ -51,8 +51,12 @@ public class SegregationSimulation extends SimulationRules {
         double numAlike = 0.0;
         if (!neighbourMap.get(cell.getState()).isEmpty()) {
             numAlike = neighbourMap.get(cell.getState()).size();
+<<<<<<< HEAD
             if ((numAlike / numNeighbours) >= (myBoard.getProbablity()* 0.1)) {
             	System.out.println((myBoard.getProbablity()*0.01));
+=======
+            if ((numAlike / numNeighbours) >= myBoard.getProbablity()/100.0) {
+>>>>>>> final segregation simulation
                 System.out.println(numAlike / numNeighbours);
                 return cell.getState();
             }
