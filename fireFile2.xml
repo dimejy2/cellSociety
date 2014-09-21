@@ -5,9 +5,9 @@
 		<!-- Parameters for gamemode -->
 		<property name="resources" value="10"></property>
 		<property name="numCellStates" value="3"></property>
-		<propery name = "probability" value ="5"></propery>
-		<propery name = "increment" value ="3"></propery>
-		<propery name = "decrement" value ="-3"></propery>
+		<property name = "probability" value ="0.1"></property>
+		<property name = "increment" value ="3"></property>
+		<property name = "decrement" value ="-3"></property>
 		<colors>
 			<color state="0" color="black"></color>
 			<color state="1" color="green"></color>

@@ -32,7 +32,7 @@ public class XMLParser extends DefaultHandler {
         public static final Dimension GRID_SIZE = new Dimension(400, 400);
         public int cellDim;
         private Map<Integer, Color> stateToColorMap;
-        private int probability;
+        private double probability;
         private int decrementValue = 1;
         private int incrementValue = 1;
 
@@ -121,7 +121,8 @@ public class XMLParser extends DefaultHandler {
                         }
                         
                         if(attributes.getValue("name").equals("probability")) {
-                                probability = Integer.parseInt(attributes.getValue("value")); 
+                                probability = Double.parseDouble(attributes.getValue("value"));
+
                         }
                   
                         if(attributes.getValue("name").equals("decrement")) {
