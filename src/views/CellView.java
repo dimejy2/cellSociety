@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 public class CellView {
 
     private Rectangle myRectangle;
+    private Color myColor;
 
     public CellView (double width, double height, int state) {
 
@@ -19,7 +20,12 @@ public class CellView {
     }
 
     public void setColor (Color color) {
-        myRectangle.setFill(color);
+    	myColor = color;
+        myRectangle.setFill(myColor);
 
+    }
+    
+    public Color getColor() {
+    	return myColor;
     }
 }

@@ -22,129 +22,98 @@ public class PredatorPreySimulation extends SimulationRules {
 
 		}
 		else if(cell.getState()==fish) {
-			ArrayList<Cell> emptyNeighbors = cell.getNeighborMap().get(empty); // get all the neighbor cells that are empty
-			if(emptyNeighbors.size() > 0) {
-				int randomNum = chance.nextInt(emptyNeighbors.size()); // generate a random integer bounded by the number of empty neighbors
-				while(emptyNeighbors.size() >0 && invalidCellChoices.contains(emptyNeighbors.get(randomNum))) {
-					emptyNeighbors.remove(randomNum);
-					if(emptyNeighbors.size() ==0) {
-						break;
-					}
-					randomNum = chance.nextInt(emptyNeighbors.size());
-				}
-				if(emptyNeighbors.size() > 0) {
-					Cell newCell;
-					if(cell.getFramesAlive()==5) {
-						newCell =  new Cell(cell.getRow(), cell.getColumn(), cell.getState(), cell.getCellDim());
-						newCell.getCellView().setColor(stateToColorMap.get(cell.getState()));
-						cell.resetFramesAlive();
-					}
-					else {
-						newCell =  new Cell(cell.getRow(), cell.getColumn(), 0, cell.getCellDim());
-						newCell.getCellView().setColor(stateToColorMap.get(0));
-
-					}
-					nextBoardCells[cell.getRow()][cell.getColumn()] = newCell;
-					nextBoardCells[emptyNeighbors.get(randomNum).getRow()][emptyNeighbors.get(randomNum).getColumn()] = cell;
-					invalidCellChoices.add(emptyNeighbors.get(randomNum));
-					invalidCellChoices.add(newCell);
-					invalidCellChoices.add(cell);
-					cell.setRow(emptyNeighbors.get(randomNum).getRow());
-					cell.setColumn(emptyNeighbors.get(randomNum).getColumn());
+			ArrayList<Cell> emptyNeighbors = cell.getNeighborMap().get(empty);
+			Cell emptyNeighbor;
+			if((emptyNeighbor = getRandomNeighbor(emptyNeighbors)) != null) {
+				Cell newCell;
+				if(cell.getFramesAlive()==5) {
+					newCell = cell.replicateCell(cell, cell.getState());
+					newCell.getCellView().setColor(stateToColorMap.get(newCell.getState()));
+					cell.resetFramesAlive();
 				}
 				else {
-					nextBoardCells[cell.getRow()][cell.getColumn()] = cell;	
+					newCell = cell.replicateCell(cell, 0);
+					newCell.getCellView().setColor(stateToColorMap.get(0));
 				}
+				nextBoardCells[cell.getRow()][cell.getColumn()] = newCell;
+				nextBoardCells[emptyNeighbor.getRow()][emptyNeighbor.getColumn()] = cell;
+				invalidCellChoices.add(emptyNeighbor);
+				invalidCellChoices.add(newCell);
+				invalidCellChoices.add(cell);
+				cell.setRow(emptyNeighbor.getRow());
+				cell.setColumn(emptyNeighbor.getColumn());
 			}
 			else {
 				nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
 			}
 		}
 
+
 		else if(cell.getState()==shark) {
 			ArrayList<Cell> fishNeighbors = cell.getNeighborMap().get(fish);
-			if(fishNeighbors.size() >0) {
-				int randomNum = chance.nextInt(fishNeighbors.size());
-				Cell fishCell = fishNeighbors.get(randomNum);
-				while(fishNeighbors.size() > 0 && invalidCellChoices.contains(fishCell)) {
-					fishNeighbors.remove(randomNum);
-					if(fishNeighbors.size() <=0) {
-						break;
-					}
-					randomNum = chance.nextInt(fishNeighbors.size());
-
+			Cell fishNeighbor;
+			if((fishNeighbor = getRandomNeighbor(fishNeighbors)) != null) {
+				Cell newCell;
+				if(cell.getFramesAlive()>=5) {
+					newCell =  cell.replicateCell(cell, cell.getState());
+					newCell.getCellView().setColor(stateToColorMap.get(cell.getState()));
+					newCell.setResources(6);
+					cell.resetFramesAlive();
 				}
-				if(fishNeighbors.size()>0) {
-					Cell newCell;
-					if(cell.getFramesAlive()==5) {
-						newCell =  new Cell(cell.getRow(), cell.getColumn(), cell.getState(), cell.getCellDim());
-						newCell.getCellView().setColor(stateToColorMap.get(cell.getState()));
-						newCell.setResources(6);
-						cell.resetFramesAlive();
-					}
-					else {
-						newCell =  new Cell(cell.getRow(), cell.getColumn(), 0, cell.getCellDim());
-						newCell.getCellView().setColor(stateToColorMap.get(0));
-					}					
+				else {
+					newCell =  cell.replicateCell(cell, 0);
+					newCell.getCellView().setColor(stateToColorMap.get(0));
+				}					
 
-					nextBoardCells[cell.getRow()][cell.getColumn()] = newCell;
-					nextBoardCells[fishCell.getRow()][fishCell.getColumn()] = cell;
-					cell.setRow(fishCell.getRow());
-					cell.setColumn(fishCell.getColumn());
-					cell.incrementResources(2);
-					invalidCellChoices.add(fishCell);
-					invalidCellChoices.add(newCell);
-					invalidCellChoices.add(cell);
-				}
+				nextBoardCells[cell.getRow()][cell.getColumn()] = newCell;
+				nextBoardCells[fishNeighbor.getRow()][fishNeighbor.getColumn()] = cell;
+				cell.setRow(fishNeighbor.getRow());
+				cell.setColumn(fishNeighbor.getColumn());
+				cell.incrementResources(2);
+				invalidCellChoices.add(fishNeighbor);
+				invalidCellChoices.add(newCell);
+				invalidCellChoices.add(cell);
 			}
-			if(fishNeighbors.size()<1) {
+
+			else {
 				cell.incrementResources(-2);
 				if(cell.getResources() ==0) {
 					cell.setState(0);
 					cell.getCellView().setColor(stateToColorMap.get(cell.getState()));
 					invalidCellChoices.add(cell);
 					nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
+					return;
 				}
 			}
 
-			if(cell.getNeighborMap().get(empty).size() > 0 && fishNeighbors.size()<1) {
-				ArrayList<Cell> emptyNeighbors = cell.getNeighborMap().get(empty);
-				int randomNum = chance.nextInt(emptyNeighbors.size());
-				while(emptyNeighbors.size() >0 && invalidCellChoices.contains(emptyNeighbors.get(randomNum))) {
-					emptyNeighbors.remove(randomNum);
-					if(emptyNeighbors.size() ==0) {
-						break;
-					}
-					randomNum = chance.nextInt(emptyNeighbors.size());
-				}
-				if(emptyNeighbors.size()>0) {
-					Cell newCell;
-					if(cell.getFramesAlive()==5) {
-						newCell =  new Cell(cell.getRow(), cell.getColumn(), cell.getState(), cell.getCellDim());
-						newCell.getCellView().setColor(stateToColorMap.get(cell.getState()));
-						newCell.setResources(6);
-						cell.resetFramesAlive();
-					}
-					else {
-						newCell =  new Cell(cell.getRow(), cell.getColumn(), 0, cell.getCellDim());
-						newCell.getCellView().setColor(stateToColorMap.get(0));
-					}	
-					Cell emptyCell = emptyNeighbors.get(randomNum);
-					nextBoardCells[cell.getRow()][cell.getColumn()] = newCell;
-					nextBoardCells[emptyCell.getRow()][emptyCell.getColumn()] = cell;
-					invalidCellChoices.add(emptyCell);
-					invalidCellChoices.add(cell);
-					invalidCellChoices.add(newCell);
-					cell.setRow(emptyNeighbors.get(randomNum).getRow());
-					cell.setColumn(emptyNeighbors.get(randomNum).getColumn());
+			ArrayList<Cell> emptyNeighbors = cell.getNeighborMap().get(empty);
+			Cell emptyNeighbor;
+			if((emptyNeighbor = getRandomNeighbor(emptyNeighbors)) != null) {
+
+				Cell newCell;
+				if(cell.getFramesAlive()>=5) {
+					newCell =  new Cell(cell.getRow(), cell.getColumn(), cell.getState(), cell.getCellDim());
+					newCell.getCellView().setColor(stateToColorMap.get(cell.getState()));
+					newCell.setResources(6);
+					cell.resetFramesAlive();
 				}
 				else {
-					nextBoardCells[cell.getRow()][cell.getColumn()] = cell;	
-					invalidCellChoices.add(cell);
-				}
+					newCell =  new Cell(cell.getRow(), cell.getColumn(), 0, cell.getCellDim());
+					newCell.getCellView().setColor(stateToColorMap.get(0));
+				}	
+				Cell emptyCell = emptyNeighbor;
+				nextBoardCells[cell.getRow()][cell.getColumn()] = newCell;
+				nextBoardCells[emptyCell.getRow()][emptyCell.getColumn()] = cell;
+				invalidCellChoices.add(emptyCell);
+				invalidCellChoices.add(cell);
+				invalidCellChoices.add(newCell);
+				cell.setRow(emptyNeighbor.getRow());
+				cell.setColumn(emptyNeighbor.getColumn());
+
 			}
 			else {
 				nextBoardCells[cell.getRow()][cell.getColumn()] = cell;	
+				invalidCellChoices.add(cell);
 			}
 		}
 
@@ -154,8 +123,9 @@ public class PredatorPreySimulation extends SimulationRules {
 		else {
 			nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
 		}
-
 	}
+
+
 
 
 	@Override

@@ -18,6 +18,7 @@ public class Cell  {
 	private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
 	private int decrementValue;
 	private int incrementValue;
+	private int myReproductionTime;
 	
 
 	public Cell ( int row, int column, int state, double cellDim){
@@ -109,5 +110,13 @@ public class Cell  {
 	public void setColumn(int column) {
 		myColumn = column;
 	}
+	
+	public void setReproductionTime(int reproductionTime) {
+		myReproductionTime = reproductionTime;
+	}
 
+	public Cell replicateCell(Cell cell, int state) {
+		Cell newCell =  new Cell(cell.getRow(), cell.getColumn(), state, cell.getCellDim());
+		return newCell;
+	}
 }
