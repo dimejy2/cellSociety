@@ -130,4 +130,13 @@ public class Board{
 	public double getProbablity(){
 		return  myProbability;
 	}
+
+	public int getNumRows(){
+		return numRows;
+	}
+	
+	public int getColumns(){
+		return numColumns;
+	}
+
 }
