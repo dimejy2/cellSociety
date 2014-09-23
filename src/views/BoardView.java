@@ -43,6 +43,7 @@ public class BoardView {
 	private Board myBoard;
 	private BorderPane root;
 	private SimulationController mySimulationController;
+	private XMLParser xmlParser;
 
 	public BoardView(Stage stage) {
 		myStage = stage;
@@ -56,8 +57,21 @@ public class BoardView {
 		mySimulationController = new SimulationController();
 		myGrid = new GridPane();
 		root.setLeft(myGrid);
-		XMLParser xmlParser = new XMLParser();
+		xmlParser = new XMLParser();
+		try {
 		xmlParser.parseXML(xmlFile, myGrid);
+		}
+		catch{
+			
+		}
+		
+	}
+	
+	public void displayError(String s) {
+		
+	}
+	
+	public void simulationInit() {
 		int numStates = xmlParser.getNumStates();
 		myBoard = xmlParser.getBoard();
 		mySimulation = xmlParser.getSimRules();
@@ -67,7 +81,6 @@ public class BoardView {
 		PopulationGraph populationGraph = new PopulationGraph(numStates);
 		mySimulation.setPopulationGraph(populationGraph);
 		root.setBottom(populationGraph.getPopulationGraph());
-
 	}
 
 	private Node makeControlPanel() {
@@ -134,7 +147,7 @@ public class BoardView {
 		result.getChildren().add(myResetButton);
 		
 		mySpeedSlider = new Slider(1, 10, 1);
-		configureSlider();
+		configureSpeedSlider();
 		Label speedLabel = new Label("Speed level: ");
 		result.getChildren().add(speedLabel);
 		result.getChildren().add(mySpeedSlider);
@@ -150,7 +163,7 @@ public class BoardView {
 		return result;
 	}
 	
-	private void configureSlider() {
+	private void configureSpeedSlider() {
 		mySpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                     Number old_val, Number new_val) {
