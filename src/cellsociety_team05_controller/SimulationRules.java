@@ -11,11 +11,15 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+
 import java.util.Random; 
+
+import views.PopulationGraph;
 
 public abstract class SimulationRules {
 
@@ -30,11 +34,13 @@ public abstract class SimulationRules {
 	protected Map<Integer, Color> stateToColorMap;
 	protected int myNumStates;
 	protected Random chance;
+	protected PopulationGraph myPopulationGraph;
 	protected static final int[] xDelta = {-1, 0 , 1, -1, 1, -1, 0 ,1};
 	protected static final int[] yDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
 	protected static final int[] x4Delta = {0,0,1,-1}; 
 	protected static final int[] y4Delta = {1,-1,0,0}; 
 	protected ArrayList<Cell> invalidCellChoices;
+	protected int frames;
 
 	public void init(GridPane grid, Board board, int numStates) {
 
@@ -46,6 +52,7 @@ public abstract class SimulationRules {
 		myGrid = grid;
 		myNumStates = numStates;
 		chance = new Random(); 
+		frames = 0;
 	}
 
 
@@ -54,6 +61,8 @@ public abstract class SimulationRules {
 		public void handle(ActionEvent evt) {
 			checkCells();
 			switchBoards();
+			updatePopulationGraph();
+			frames++;
 		}
 	};
 
@@ -137,6 +146,19 @@ public abstract class SimulationRules {
 			neighbor = neighbors.get(randomNum);
 		}
 		return neighbor;
+	}
+	
+	protected void updatePopulationGraph() {
+		for(int state : myBoard.getStateMap().keySet()) {
+			if(state ==0) {
+				continue;
+			}
+			myPopulationGraph.addData(frames, myBoard.getStateMap().get(state).size(), state);
+		}
+	}
+	
+	public void setPopulationGraph(PopulationGraph populationGraph) {
+		myPopulationGraph = populationGraph;
 	}
 }
 

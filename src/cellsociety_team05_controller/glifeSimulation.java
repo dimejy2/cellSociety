@@ -6,7 +6,7 @@ import models.Cell;
 public class glifeSimulation extends SimulationRules {
 	private int[] xDelta = {-1, 0 , 1, -1, 1, -1, 0 ,1};
 	private int[] yDelta = {-1, -1, -1, 0, 0, 1, 1, 1};
-	
+
 	@Override
 	public void updateNextBoard(Cell cell) {
 		int nextState = 0;
@@ -26,7 +26,7 @@ public class glifeSimulation extends SimulationRules {
 		cell.getCellView().setColor(stateToColorMap.get(nextState));
 		nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
 	}
-	
+
 	@Override
 	public void saveNeighborStates(Cell cell) {
 		super.saveNeighborStates(cell);
@@ -34,21 +34,22 @@ public class glifeSimulation extends SimulationRules {
 
 	@Override
 	protected void checkCells() {
-		 {
-				nextBoardCells = new Cell[myCells.length][myCells[0].length];
-				for (int row = 0; row < myCells.length; row++) {
-					for (int column = 0; column < myCells[0].length; column++) {
-						Cell cell = myCells[row][column];
-						myBoard.saveNeighborStates(cell, xDelta , yDelta);
-					}
-				}
-				for (int row = 0; row < myCells.length; row++) {
-					for (int column = 0; column < myCells[0].length; column++) {
-						Cell cell = myCells[row][column];
-						updateNextBoard(cell);				
-					}
-				}
+        myBoard.generateMyStateMap();
+
+		nextBoardCells = new Cell[myCells.length][myCells[0].length];
+		for (int row = 0; row < myCells.length; row++) {
+			for (int column = 0; column < myCells[0].length; column++) {
+				Cell cell = myCells[row][column];
+				myBoard.saveNeighborStates(cell, xDelta , yDelta);
 			}
-		
+		}
+		for (int row = 0; row < myCells.length; row++) {
+			for (int column = 0; column < myCells[0].length; column++) {
+				Cell cell = myCells[row][column];
+				updateNextBoard(cell);				
+			}
+		}
 	}
+
+
 }

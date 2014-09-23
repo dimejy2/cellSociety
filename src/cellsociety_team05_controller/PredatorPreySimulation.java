@@ -19,7 +19,6 @@ public class PredatorPreySimulation extends SimulationRules {
 		int shark = 2;
 		cell.incrementFramesAlive(); //updates alive
 		if(invalidCellChoices.contains(cell)) {
-
 		}
 		else if(cell.getState()==fish) {
 			ArrayList<Cell> emptyNeighbors = cell.getNeighborMap().get(empty);
@@ -47,7 +46,6 @@ public class PredatorPreySimulation extends SimulationRules {
 				nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
 			}
 		}
-
 
 		else if(cell.getState()==shark) {
 			ArrayList<Cell> fishNeighbors = cell.getNeighborMap().get(fish);
@@ -117,25 +115,20 @@ public class PredatorPreySimulation extends SimulationRules {
 			}
 		}
 
-		else if(cell.getState() == empty) {
-			nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
-		}
 		else {
 			nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
 		}
 	}
-
-
-
 
 	@Override
 	public void saveNeighborStates(Cell cell) {
 		super.saveNeighborStates(cell);
 	}
 
-
 	@Override
 	public void checkCells() {
+        myBoard.generateMyStateMap();
+
 		nextBoardCells = new Cell[myCells.length][myCells[0].length];
 		invalidCellChoices = new ArrayList<>();
 		for (int row = 0; row < myCells.length; row++) {

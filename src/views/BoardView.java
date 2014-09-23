@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -24,9 +25,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class BoardView {
-	public static final Dimension DEFAULT_SIZE = new Dimension(600, 400);
+	public static final Dimension DEFAULT_SIZE = new Dimension(600, 600);
 	public static final Dimension BUTTON_SIZE = new Dimension(150, 50);
-	public static final Insets BUTTON_PADDING = new Insets(100, 20, 100, 0);
+	public static final Insets BUTTON_PADDING = new Insets(20, 20, 100, 0);
 	public static final int BUTTON_SPACING = 20;
 	private Scene myScene;
 	private Stage myStage;
@@ -34,6 +35,7 @@ public class BoardView {
 	private Button myPauseButton;
 	private Button myStopButton;
 	private Button myChooseFileButton;
+	private Button myResetButton;
 	private Slider mySpeedSlider;
 	private SimulationRules mySimulation;
 	private String xmlFile;
@@ -43,10 +45,8 @@ public class BoardView {
 	private SimulationController mySimulationController;
 
 	public BoardView(Stage stage) {
-//		mySimulation = simulationRules;
 		myStage = stage;
 		root = new BorderPane();
-//		myGrid = new GridPane();
 		root.setRight(makeControlPanel());
 		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height, Color.WHITE);
 
@@ -63,7 +63,10 @@ public class BoardView {
 		mySimulation = xmlParser.getSimRules();
 		mySimulation.setSpeedSlider(mySpeedSlider);
 		mySimulation.init(myGrid, myBoard, numStates);
-		mySimulationController.setUpSimulation(mySimulation);
+		mySimulationController.setUpSimulation(mySimulation);		
+		PopulationGraph populationGraph = new PopulationGraph(numStates);
+		mySimulation.setPopulationGraph(populationGraph);
+		root.setBottom(populationGraph.getPopulationGraph());
 
 	}
 
@@ -74,6 +77,7 @@ public class BoardView {
 			@Override
 			public void handle (ActionEvent event) {
 				mySimulation.play();
+				myPlayButton.setDisable(true);
 				myPauseButton.setDisable(false);
 				myStopButton.setDisable(false);
 				myChooseFileButton.setDisable(true);
@@ -96,6 +100,8 @@ public class BoardView {
 			public void handle (ActionEvent event) {
 				mySimulation.pause();
 				myPauseButton.setDisable(true);
+				myPlayButton.setDisable(false);
+				myResetButton.setDisable(false);
 			}
 		});
 		myPauseButton.setDisable(true);
@@ -108,13 +114,29 @@ public class BoardView {
 				myPlayButton.setDisable(true);
 				myPauseButton.setDisable(true);
 				myChooseFileButton.setDisable(false);
+				myResetButton.setDisable(false);
 			}
 		});
 		myStopButton.setDisable(true);
 		result.getChildren().add(myStopButton);
 		
+		myResetButton = makeButton("Reset", new EventHandler<ActionEvent>() {
+			@Override
+			public void handle (ActionEvent event) {
+				mySimulation.stop();
+				boardViewInit();
+				myPauseButton.setDisable(true);
+				myPlayButton.setDisable(false);
+				myChooseFileButton.setDisable(false);
+			}
+		});
+		myResetButton.setDisable(true);
+		result.getChildren().add(myResetButton);
+		
 		mySpeedSlider = new Slider(1, 10, 1);
 		configureSlider();
+		Label speedLabel = new Label("Speed level: ");
+		result.getChildren().add(speedLabel);
 		result.getChildren().add(mySpeedSlider);
 		return result;
 	}

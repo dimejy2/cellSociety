@@ -62,6 +62,8 @@ public class FireSimulation extends SimulationRules {
 
 	@Override
 	protected void checkCells()  {
+        myBoard.generateMyStateMap();
+
 		nextBoardCells = new Cell[myCells.length][myCells[0].length];
 		for (int row = 0; row < myCells.length; row++) {
 			for (int column = 0; column < myCells[0].length; column++) {
