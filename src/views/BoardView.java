@@ -7,7 +7,7 @@ import models.Board;
 import cellsociety_team05_controller.SimulationController;
 import cellsociety_team05_controller.SimulationRules;
 import cellsociety_team05_controller.XMLParser;
-import cellsociety_team05_controller.faultyXMLException;
+import cellsociety_team05_controller.xmlError;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -57,8 +57,16 @@ public class BoardView {
 	public void xmlInit() {
 		xmlParser = new XMLParser();
 		myGrid = new GridPane();
-		xmlParser.parseXML(xmlFile, myGrid);
-		simulationInit();
+		try {
+			xmlParser.parseXML(xmlFile, myGrid);
+			simulationInit();
+		} catch (xmlError e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			//Pop up dialogue saying that there is an error
+			System.out.println("Your XML file is janky");
+		}
+		
 
 	}
 

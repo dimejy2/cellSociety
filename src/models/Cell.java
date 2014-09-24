@@ -13,13 +13,11 @@ public class Cell  {
 	private int myState; 
 	private CellView myCellView;
 	private int myResources;
-	private int maxResources;
 	private int framesAlive;
 	private double myCellDim;
 	private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
 	private int decrementValue;
 	private int incrementValue;
-	private int myReproductionTime;
 	
 
 	public Cell ( int row, int column, int state, double cellDim){
@@ -111,19 +109,5 @@ public class Cell  {
 	public void setColumn(int column) {
 		myColumn = column;
 	}
-	
-	public void setReproductionTime(int reproductionTime) {
-		myReproductionTime = reproductionTime;
-	}
 
-	public Cell replicateCell(Cell cell, int state) {
-		Cell newCell =  new Cell(cell.getRow(), cell.getColumn(), state, cell.getCellDim());
-		newCell.setMaxResources(maxResources);
-		return newCell;
-	}
-	
-	public void setMaxResources(int resources) {
-		maxResources = resources;
-	}
-	
 }
