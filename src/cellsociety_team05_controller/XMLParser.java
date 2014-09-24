@@ -42,7 +42,11 @@ public class XMLParser extends DefaultHandler {
 	
 
 	/** The main method sets things up for parsing */
-	public void parseXML(String file_path, GridPane gridPane) throws xmlError{
+	public XMLParser (String file_path, GridPane gridPane){
+		parseXML(file_path, gridPane); 
+	}
+	
+	private void parseXML(String file_path, GridPane gridPane) throws xmlError{
 		// parse
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		rowNumber = 0;
@@ -149,6 +153,7 @@ public class XMLParser extends DefaultHandler {
 				if(Character.getNumericValue(row.charAt(j)) >= numCellStates) hasError = true; 
 				colNumber ++; 
 			}
+			
 			
 			if(colNumber != numCols ) hasError = true ; 
 			

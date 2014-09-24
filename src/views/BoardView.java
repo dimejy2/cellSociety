@@ -55,16 +55,16 @@ public class BoardView {
 	}
 
 	public void xmlInit() {
-		xmlParser = new XMLParser();
+		
 		myGrid = new GridPane();
 		try {
-			xmlParser.parseXML(xmlFile, myGrid);
+//			xmlParser.parseXML(xmlFile, myGrid);
+			xmlParser = new XMLParser(xmlFile, myGrid);
 			simulationInit();
 		} catch (xmlError e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			//Pop up dialogue saying that there is an error
-			System.out.println("Your XML file is janky");
+			SimpleDialog error = new SimpleDialog("Error Notification", "Your XML file has errors.\n Please fix them or choose another file to continue.", 300,300); 
+			error.show();
 		}
 		
 
