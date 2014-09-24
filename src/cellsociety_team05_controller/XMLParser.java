@@ -22,185 +22,161 @@ import org.xml.sax.helpers.DefaultHandler;
 public class XMLParser extends DefaultHandler {
 
 
-	private Board board;
-	private GridPane grid;
-	private String temp;
-	private int rowNumber;
-	private int colNumber; 
-	private int resources;
-	private SimulationRules mySimulation;
-	private int numCellStates;
-	public static final Dimension GRID_SIZE = new Dimension(400, 400);
-	public int cellDim;
-	private Map<Integer, Color> stateToColorMap;
-	private double probability;
-	private int decrementValue = 1;
-	private int incrementValue = 1;
-	private faultyXMLException faultyXML;  
-	private boolean hasError;  // I really wanted to call this isJanky, but Ethan is no fun. 
-
-
-	/** The main method sets things up for parsing */
-	public void parseXML(String file_path, GridPane gridPane)  throws faultyXMLException{
-		// parse
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		rowNumber = 0;
-		grid = gridPane;
-		
-		validate(); 
-		if(hasError) throw faultyXML; 
-		
-		try {
-			SAXParser parser = factory.newSAXParser();
-			parser.parse(file_path, this);
-
-		} catch (ParserConfigurationException e) {
-			System.out.println("ParserConfig error");
-		} catch (SAXException e) {
-			System.out.println("SAXException : xml not well formed");
-		} catch (IOException e) {
-			System.out.println("IO error");
-		}
+        private Board board;
+        private GridPane grid;
+        private String temp;
+        private int rowNumber;
+        private int resources;
+        private SimulationRules mySimulation;
+        private int numCellStates;
+        public static final Dimension GRID_SIZE = new Dimension(400, 400);
+        public int cellDim;
+        private Map<Integer, Color> stateToColorMap;
+        private double probability;
+        private int decrementValue = 1;
+        private int incrementValue = 1;
 
 
 
-	}
+        /** The main method sets things up for parsing */
+    public void parseXML(String file_path, GridPane gridPane) {
+        // parse
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        rowNumber = 0;
+        grid = gridPane;
+        try {
+            SAXParser parser = factory.newSAXParser();
+            parser.parse(file_path, this);
+
+        } catch (ParserConfigurationException e) {
+            System.out.println("ParserConfig error");
+        } catch (SAXException e) {
+            System.out.println("SAXException : xml not well formed");
+        } catch (IOException e) {
+            System.out.println("IO error");
+        }
+    }
 
 
 
-	/*
-	 * When the parser encounters plain text (not XML elements),
-	 * it calls(this method, which accumulates them in a string buffer
-	 */
-	public void characters(char[] buffer, int start, int length) {
-		temp = new String(buffer, start, length);
-	}
+        /*
+         * When the parser encounters plain text (not XML elements),
+         * it calls(this method, which accumulates them in a string buffer
+         */
+        public void characters(char[] buffer, int start, int length) {
+                temp = new String(buffer, start, length);
+        }
 
 
-	/*
-	 * Every time the parser encounters the beginning of a new element,
-	 * it calls this method, which resets the string buffer
-	 */ 
-	public void startElement(String uri, String localName,
-			String qName, Attributes attributes) throws SAXException {
-		temp = "";
-		if (qName.equalsIgnoreCase("grid")) {
-			String x = attributes.getValue("xValue");
-			String y = attributes.getValue("yValue");
-			cellDim = GRID_SIZE.width / Math.max(Integer.parseInt(x), Integer.parseInt(y));
+        /*
+         * Every time the parser encounters the beginning of a new element,
+         * it calls this method, which resets the string buffer
+         */ 
+        public void startElement(String uri, String localName,
+                        String qName, Attributes attributes) throws SAXException {
+                temp = "";
+                if (qName.equalsIgnoreCase("grid")) {
+                        String x = attributes.getValue("xValue");
+                        String y = attributes.getValue("yValue");
+                        cellDim = GRID_SIZE.width / Math.max(Integer.parseInt(x), Integer.parseInt(y));
 
-			board = new Board(Integer.parseInt(x), Integer.parseInt(y), grid, numCellStates);
-			board.setProbability(probability);
-		}
+                        board = new Board(Integer.parseInt(x), Integer.parseInt(y), grid, numCellStates);
+                        board.setProbability(probability);
+                }
+                
+                if (qName.equalsIgnoreCase("cellularautomata")) {
+                        if(attributes.getValue("type").equals("GameofLife")) {
+                                mySimulation = new glifeSimulation();
+                        }
+                        else if(attributes.getValue("type").equals("FireSimulation")) {
+                                mySimulation = new FireSimulation();
+                        }
+                      else if(attributes.getValue("type").equals("Segregation")) {
+                              mySimulation = new SegregationSimulation();
+                      }
+                      else if(attributes.getValue("type").equals("WaTorWorld")) {
+                              mySimulation = new PredatorPreySimulation();
+                      }
+                }
+                
+                if (qName.equalsIgnoreCase("row")) {
+                        String row = attributes.getValue("values");   
+                        for(int j=0; j<row.length(); j++) {
+                                Cell cell = new Cell(rowNumber, j, Character.getNumericValue(row.charAt(j)), cellDim);
+                                cell.getCellView().setColor(stateToColorMap.get(Character.getNumericValue(row.charAt(j))));
+                                board.addCell(cell);
+                                cell.setResources(resources);
+                                cell.setIncrementDecrementValues(incrementValue, decrementValue);
+                        }
+                        rowNumber++;
+                }
+                
+                if(qName.equalsIgnoreCase("property")) {
+                        if(attributes.getValue("name").equals("resources")) {
+                                resources = Integer.parseInt(attributes.getValue("value"));
+                        }
+                        
+                        if(attributes.getValue("name").equals("numCellStates")) {
+                                numCellStates = Integer.parseInt(attributes.getValue("value"));
+                        }
+                        
+                        if(attributes.getValue("name").equals("probability")) {
+                                probability = Double.parseDouble(attributes.getValue("value"));
 
-		if (qName.equalsIgnoreCase("cellularautomata")) {
-			if(attributes.getValue("type").equals("GameofLife")) {
-				mySimulation = new glifeSimulation();
-			}
-			else if(attributes.getValue("type").equals("FireSimulation")) {
-				mySimulation = new FireSimulation();
-			}
-			else if(attributes.getValue("type").equals("Segregation")) {
-				mySimulation = new SegregationSimulation();
-			}
-			else if(attributes.getValue("type").equals("WaTorWorld")) {
-				mySimulation = new PredatorPreySimulation();
-			}
-		}
+                        }
+                  
+                        if(attributes.getValue("name").equals("decrement")) {
+                                decrementValue = Integer.parseInt(attributes.getValue("value"));
+                        }
+                        if(attributes.getValue("name").equals("increment")) {
+                                incrementValue = Integer.parseInt(attributes.getValue("value"));
+                        }                       
+                }
+                
+                if(qName.equalsIgnoreCase("colors")) {
+                        stateToColorMap = new HashMap<Integer, Color>();
+                mySimulation.setColorMap(stateToColorMap);
 
-		if (qName.equalsIgnoreCase("row")) {
-			String row = attributes.getValue("values");   
-			for(int j=0; j<row.length(); j++) {
-				if( Character.getNumericValue(row.charAt(j)) < numCellStates){
-					Cell cell = new Cell(rowNumber, j, Character.getNumericValue(row.charAt(j)), cellDim);
-					cell.getCellView().setColor(stateToColorMap.get(Character.getNumericValue(row.charAt(j))));
-					board.addCell(cell);
-					cell.setResources(resources);
-					cell.setIncrementDecrementValues(incrementValue, decrementValue);
+                }
+                
+                if(qName.equalsIgnoreCase("color")) {
+                        int state = Integer.parseInt(attributes.getValue("state"));
+                        stateToColorMap.put(state, stringToColor(attributes.getValue("color")));
 
-				}
-				else{  hasError = true; } // your cells have been given an invalid state, select a valid xml file
-			}
-			if(colNumber == board.getColumns()){
-				colNumber = 0;
-				rowNumber++;
-				}
-			else {  hasError = true;   }// your
+                }
+        }
+        
+        private Color stringToColor(String color) {
+                if(color.equals("white")) return Color.WHITE;
+                if(color.equals("black")) return Color.BLACK;
+                if(color.equals("orange")) return Color.ORANGE; 
+                if(color.equals("green")) return Color.GREEN; 
+                if(color.equals("yellow")) return Color.YELLOW;
+                if(color.equals("blue")) return Color.BLUE;
+                return Color.BLACK;
+                
+                
+        }
 
+        /*
+         * When the parser encounters the end of an element, it calls this method
+         */
+        public void endElement(String uri, String localName,
+                        String qName, Attributes attributes) throws SAXException {
 
-		}
+        }
+        
+        public SimulationRules getSimRules() {
+                return mySimulation;
+        }
+        
+        public Board getBoard() {
+                return board;
+        }
+        
+        public int getNumStates() {
+                return numCellStates;
+        }
 
-		if(qName.equalsIgnoreCase("property")) {
-			if(attributes.getValue("name").equals("resources")) {
-				resources = Integer.parseInt(attributes.getValue("value"));
-			}
-
-			if(attributes.getValue("name").equals("numCellStates")) {
-				numCellStates = Integer.parseInt(attributes.getValue("value"));
-			}
-
-			if(attributes.getValue("name").equals("probability")) {
-				probability = Double.parseDouble(attributes.getValue("value"));
-
-			}
-
-			if(attributes.getValue("name").equals("decrement")) {
-				decrementValue = Integer.parseInt(attributes.getValue("value"));
-			}
-			if(attributes.getValue("name").equals("increment")) {
-				incrementValue = Integer.parseInt(attributes.getValue("value"));
-			}                       
-		}
-
-		if(qName.equalsIgnoreCase("colors")) {
-			stateToColorMap = new HashMap<Integer, Color>();
-			mySimulation.setColorMap(stateToColorMap);
-
-		}
-
-		if(qName.equalsIgnoreCase("color")) {
-			int state = Integer.parseInt(attributes.getValue("state"));
-			stateToColorMap.put(state, stringToColor(attributes.getValue("color")));
-
-		}
-	}
-
-	private Color stringToColor(String color) {
-		if(color.equals("white")) return Color.WHITE;
-		if(color.equals("black")) return Color.BLACK;
-		if(color.equals("orange")) return Color.ORANGE; 
-		if(color.equals("green")) return Color.GREEN; 
-		if(color.equals("yellow")) return Color.YELLOW;
-		if(color.equals("blue")) return Color.BLUE;
-		return Color.BLACK;
-
-
-	}
-
-	/*
-	 * When the parser encounters the end of an element, it calls this method
-	 */
-	public void endElement(String uri, String localName,
-			String qName, Attributes attributes) throws SAXException {
-
-	}
-
-	public SimulationRules getSimRules() {
-		return mySimulation;
-	}
-
-	public Board getBoard() {
-		return board;
-	}
-
-	public int getNumStates() {
-		return numCellStates;
-	}
-
-
-	private void validate(){
-
-		if ( !(rowNumber == board.getNumRows() ))  hasError = true ; // select valid xml file 
-		
-	}
+        
 }

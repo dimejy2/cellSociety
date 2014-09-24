@@ -42,7 +42,7 @@ public class SimulationController {
 		
 	}
 	
-	public void changeBreedTime(TextField breedTime) {
+	public void changeBreedTime(TextField breedTime, int state) {
 //		myAnimation.setRate(breedTime.getValue());
 	}
 
