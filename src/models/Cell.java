@@ -13,6 +13,7 @@ public class Cell  {
 	private int myState; 
 	private CellView myCellView;
 	private int myResources;
+	private int maxResources;
 	private int framesAlive;
 	private double myCellDim;
 	private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
@@ -117,6 +118,12 @@ public class Cell  {
 
 	public Cell replicateCell(Cell cell, int state) {
 		Cell newCell =  new Cell(cell.getRow(), cell.getColumn(), state, cell.getCellDim());
+		newCell.setMaxResources(maxResources);
 		return newCell;
 	}
+	
+	public void setMaxResources(int resources) {
+		maxResources = resources;
+	}
+	
 }

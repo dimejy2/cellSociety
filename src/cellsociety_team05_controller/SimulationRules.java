@@ -160,6 +160,14 @@ public abstract class SimulationRules {
 	public void setPopulationGraph(PopulationGraph populationGraph) {
 		myPopulationGraph = populationGraph;
 	}
+	
+	public void setMaxResources(int resources) {
+		//Will be implemented after graphs are
+	}
+	
+	public void setBoardProbability(double probability) {
+		myBoard.setProbability(probability);
+	}
 }
 
 

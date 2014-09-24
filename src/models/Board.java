@@ -39,7 +39,6 @@ public class Board{
 
 	public void setProbability(double probability) {
 		myProbability = probability;
-		System.out.println("myProbabilty is " + myProbability); 
 	}
 	
 	public void addCell(Cell cell) {

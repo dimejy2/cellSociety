@@ -7,6 +7,7 @@ import models.Board;
 import cellsociety_team05_controller.SimulationController;
 import cellsociety_team05_controller.SimulationRules;
 import cellsociety_team05_controller.XMLParser;
+import cellsociety_team05_controller.faultyXMLException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -52,26 +53,23 @@ public class BoardView {
 		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height, Color.WHITE);
 
 	}
-	
-	public void boardViewInit() {
-		mySimulationController = new SimulationController();
-		myGrid = new GridPane();
-		root.setLeft(myGrid);
+
+	public void xmlInit() {
 		xmlParser = new XMLParser();
-		try {
+		myGrid = new GridPane();
 		xmlParser.parseXML(xmlFile, myGrid);
-		}
-		catch{
-			
-		}
-		
+		simulationInit();
+
 	}
-	
+
 	public void displayError(String s) {
-		
+		Label errorLabel = new Label(s);
+		root.setLeft(errorLabel);
 	}
-	
+
 	public void simulationInit() {
+		mySimulationController = new SimulationController();
+		root.setLeft(myGrid);
 		int numStates = xmlParser.getNumStates();
 		myBoard = xmlParser.getBoard();
 		mySimulation = xmlParser.getSimRules();
@@ -132,12 +130,12 @@ public class BoardView {
 		});
 		myStopButton.setDisable(true);
 		result.getChildren().add(myStopButton);
-		
+
 		myResetButton = makeButton("Reset", new EventHandler<ActionEvent>() {
 			@Override
 			public void handle (ActionEvent event) {
 				mySimulation.stop();
-				boardViewInit();
+				simulationInit();
 				myPauseButton.setDisable(true);
 				myPlayButton.setDisable(false);
 				myChooseFileButton.setDisable(false);
@@ -145,7 +143,7 @@ public class BoardView {
 		});
 		myResetButton.setDisable(true);
 		result.getChildren().add(myResetButton);
-		
+
 		mySpeedSlider = new Slider(1, 10, 1);
 		configureSpeedSlider();
 		Label speedLabel = new Label("Speed level: ");
@@ -162,29 +160,29 @@ public class BoardView {
 		result.setPrefSize(BUTTON_SIZE.width, BUTTON_SIZE.height);
 		return result;
 	}
-	
+
 	private void configureSpeedSlider() {
 		mySpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                    Number old_val, Number new_val) {
-                        mySimulationController.changeSpeed(mySpeedSlider);
-                }
-            });
+			public void changed(ObservableValue<? extends Number> ov,
+					Number old_val, Number new_val) {
+				mySimulationController.changeSpeed(mySpeedSlider);
+			}
+		});
 	}
-	
+
 	private void chooseXMLFile () {
 		FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(myStage);
 		if(file!= null) {
 			xmlFile = file.getPath();
 		}
-		boardViewInit();
+		xmlInit();
 	}
-	
+
 	public SimulationRules getSimulationRules() {
 		return mySimulation;
 	}
-	
+
 	public Scene getScene() {
 		return myScene;
 	}
