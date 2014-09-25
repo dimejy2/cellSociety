@@ -20,7 +20,6 @@ public class TriangleBoard extends Board {
             cellShape = cell.getCellView().getUpTriangle();
         }
 
-
         double xCoord = cell.getColumn() * (cell.getCellDim() / 2);
         double yCoord =
                 (cell.getCellDim() * Math.sin(Math.PI / 3) / 2) + cell.getRow() *

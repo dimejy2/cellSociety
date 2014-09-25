@@ -1,7 +1,7 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GameOfLifeCell extends Cell {
 
@@ -10,8 +10,8 @@ public class GameOfLifeCell extends Cell {
 	}
 
 	@Override
-	public int getNextState(List<Patch> aliveNeighbors) {
-		int numAlive = aliveNeighbors.size();
+	public int getNextState(Map<Integer, List<Patch>> neighborsMap) {
+		int numAlive = neighborsMap.get(1).size();
 		int nextState;
 		if (numAlive < 2) {
 			nextState = 0;

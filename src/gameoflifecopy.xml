@@ -10,12 +10,12 @@
 			<color state="1" color="black"></color>
 		</colors>
 	</properties>
-	<grid xValue="15" yValue="16" gridType="TriangleBoard">
+	<grid xValue="15" yValue="15" gridType="SquareBoard">
 		<!-- DEFAULT GRID -->
 		<!-- Each digit represents a cell with its value being its initial state. -->
 		<row values="110000000011111"></row>
-		<row values="110000110000000"></row>
-		<row values="000000110011111"></row>
+		<row values="110000000000000"></row>
+		<row values="000000000011111"></row>
 		<row values="000000000011111"></row>
 		<row values="011000000011111"></row>
 		<row values="010000000011111"></row>
@@ -27,7 +27,6 @@
 		<row values="000010000000101"></row>
 		<row values="000110000010101"></row>
 		<row values="110000011111011"></row>
-		<row values="110000000011001"></row>
 		<row values="110000000011001"></row>
 	</grid>
 </cellularautomata>
