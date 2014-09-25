@@ -154,7 +154,7 @@ public class XMLParser extends DefaultHandler {
 				double patchResources = Integer.parseInt(attributes.getValue("value"));
 				patchProperties.put(attributes.getValue("name"),patchResources);
 			}
-			
+
 			if (attributes.getValue("name").equals("probability")) {
 				probability = Double.parseDouble(attributes.getValue("value"));
 				patchProperties.put(attributes.getValue("name"),probability);
@@ -171,19 +171,18 @@ public class XMLParser extends DefaultHandler {
 		if (qName.equalsIgnoreCase("row")) {
 			String row = attributes.getValue("values");
 			for (int j = 0; j < row.length(); j++) {
-
-				Cell cell =
-						new Cell(rowNumber, j, Character.getNumericValue(row.charAt(j)), cellDim);
-				cell.getCellView().setColor(stateToColorMap.get(Character.getNumericValue(row
-						.charAt(j))));
-				
 				Patch newPatch = PatchFactory.getPatch(criteria, rowNumber, j, patchProperties,cellDim);
-				newPatch.setCell(cell);
+				if(Character.getNumericValue(row.charAt(j))>0) {
+
+					Cell cell =
+							new Cell(Character.getNumericValue(row.charAt(j)));
+					cell.setResources(resources);
+					cell.setIncrementDecrementValues(incrementValue, decrementValue);
+					if (Character.getNumericValue(row.charAt(j)) >= numCellStates) hasError = true;
+					newPatch.setCell(cell);
+				}
 				board.addPatch(newPatch);
 
-				cell.setResources(resources);
-				cell.setIncrementDecrementValues(incrementValue, decrementValue);
-				if (Character.getNumericValue(row.charAt(j)) >= numCellStates) hasError = true;
 				colNumber++;
 			}
 

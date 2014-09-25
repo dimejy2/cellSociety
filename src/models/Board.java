@@ -47,7 +47,7 @@ public abstract class Board {
 		myGraph.add(patch);
 	}
 
-	protected void updatePatchViews() {
+	public void updatePatchViews() {
 		for(Patch patch : myGraph) {
 
 			putShapedPatch(patch);
@@ -73,7 +73,9 @@ public abstract class Board {
 	public void generateMyStateMap () {
 		myStateMap = genericStateMap(numStates);
 		for (Patch patch : myGraph) {
-			myStateMap.get(patch.getCell().getState()).add(patch.getCell());
+			if(patch.getCell() != null) {
+				myStateMap.get(patch.getCell().getState()).add(patch.getCell());
+			}
 		}
 	}
 
@@ -110,7 +112,6 @@ public abstract class Board {
 	public void saveNeighbors (Patch patch, int[] xDelta, int[] yDelta) {
 
 		List<Patch> neighborPatches = new ArrayList<Patch>();
-
 		for (int i = 0; i < xDelta.length; i++) {
 			if (!isOutOfBounds(patch, xDelta[i], yDelta[i])) {
 				Patch neighborPatch =

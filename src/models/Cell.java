@@ -22,12 +22,11 @@ public class Cell extends GridObject {
 	private Shape shape;
 	
 
-	public Cell ( int row, int column, int state, double cellDim){
-		myRow = row; 
-		myColumn = column; 
+	public Cell (int state){
+
 		myState = state; 
-		myCellDim = cellDim;
-		myCellView = new CellView(myCellDim, myCellDim, state);
+//		myCellDim = cellDim;
+//		myCellView = new CellView(myCellDim, myCellDim, state);
 		framesAlive = 0;
 	}
 
@@ -113,10 +112,10 @@ public class Cell extends GridObject {
 		myReproductionTime = reproductionTime;
 	}
 
-	public Cell replicateCell(Cell cell, int state) {
-		Cell newCell =  new Cell(cell.getRow(), cell.getColumn(), state, cell.getCellDim());
-		return newCell;
-	}
+//	public Cell replicateCell(Cell cell, int state) {
+//		Cell newCell =  new Cell(cell.getRow(), cell.getColumn(), state, cell.getCellDim());
+//		return newCell;
+//	}
 
 	@Override
 	public int getCellDim() {

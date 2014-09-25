@@ -55,6 +55,7 @@ public abstract class SimulationRules {
 		myCellController = new DummyCellController(); // Your simulation's
 		// CellController
 		myBoard = board;
+		myBoard.createNeighborhoods();
 		myPatches = myBoard.getPatches();
 		myBoardPane = boardPane;
 		myNumStates = numStates;
@@ -66,6 +67,7 @@ public abstract class SimulationRules {
 		@Override
 		public void handle (ActionEvent evt) {
 			myBoard.generateMyStateMap();
+			generateNeighborMaps();
 			checkCells();
 			switchBoards();
 			updatePopulationGraph();
@@ -73,29 +75,28 @@ public abstract class SimulationRules {
 		}
 	};
 
+	private void generateNeighborMaps() {
+		for(Patch patch : myPatches) {
+			patch.generateNeighborMap();
+		}
+	}
+
 	public abstract void updateNextBoard (Patch patch);
 
 	public void switchBoards () {
 		myBoardPane.getChildren().clear();
-		for(Patch patch : nextBoardObjects) {
-			myBoard.addPatch(patch);
-		}
-		myPatches = nextBoardObjects;
-//		myBoard.setCells(nextBoardCells);
+		myBoard.updatePatchViews();
 	}
 
 	public void checkCells ()
 	{
 		nextBoardObjects = new ArrayList<Patch>();
 		invalidCellChoices = new ArrayList<>();
-
-		myBoard.createNeighborhoods();
-
 		for (Patch patch : myPatches) {
 			updateNextBoard(patch);
 		}
 	}
-//	abstract void currentCellNeighbors(Cell cell);
+	//	abstract void currentCellNeighbors(Cell cell);
 
 	public void setAnimation (Animation animation) {
 		myAnimation = animation;
@@ -121,9 +122,9 @@ public abstract class SimulationRules {
 		mySpeedSlider = slider;
 	}
 
-//	public void setColorMap (Map<Integer, Color> colorMap) {
-//		stateToColorMap = colorMap;
-//	}
+	//	public void setColorMap (Map<Integer, Color> colorMap) {
+	//		stateToColorMap = colorMap;
+	//	}
 
 
 	protected Cell getRandomNeighbor (ArrayList<Cell> neighbors) {

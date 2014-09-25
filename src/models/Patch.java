@@ -105,6 +105,10 @@ public abstract class Patch {
 		return myPatchView;
 	}
 	
+	public void removeCell() {
+		myCell = null;
+	}
+	
 	public double getPatchDim() {
 		return myPatchDim;
 	}
