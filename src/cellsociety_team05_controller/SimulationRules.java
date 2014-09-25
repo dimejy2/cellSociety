@@ -27,137 +27,105 @@ import views.PopulationGraph;
 
 public abstract class SimulationRules {
 
-	protected Board myBoard;
-	protected List<Patch> myPatches;
-	protected List<Patch> nextBoardObjects;
-	protected Board nextBoard;
-	protected CellController myCellController;
-	protected Pane myBoardPane;
-	protected Animation myAnimation;
-	protected Slider mySpeedSlider;
-	protected Map<Integer, Color> stateToColorMap;
-	protected int myNumStates;
-	protected Random chance;
-	protected PopulationGraph myPopulationGraph;
-	// protected static final int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
-	// protected static final int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
-	// protected static final int[] x4Delta = { 0, 0, 1, -1 };
-	// protected static final int[] y4Delta = { 1, -1, 0, 0 };
-	// protected static final int[] hex_x_Delta = { 1, 1, 0, -1, -1, 0 };
-	// protected static final int[] hex_y_Delta = { 0, -1, -1, 0, 1, 1 };
+        protected Board myBoard;
+        protected List<Patch> myPatches;
+        protected List<Patch> nextBoardObjects;
+        protected Board nextBoard;
+        protected CellController myCellController;
+        protected Pane myBoardPane;
+        protected Animation myAnimation;
+        protected Slider mySpeedSlider;
+        protected Map<Integer, Color> stateToColorMap;
+        protected int myNumStates;
+        protected static Random rand = new Random();
+        protected PopulationGraph myPopulationGraph;
+        protected List<Patch> invalidPatchChoices;
+        protected int frames;
 
-	protected ArrayList<Cell> invalidCellChoices;
-	protected int frames;
+        public void init (Pane boardPane, Board board, int numStates) {
 
-	public void init (Pane boardPane, Board board, int numStates) {
+                myBoard = board;
+                myBoard.createNeighborhoods();
+                myPatches = myBoard.getPatches();
+                myBoardPane = boardPane;
+                myNumStates = numStates;
+                frames = 0;
+        }
 
-		// Create a place to see the shapes
-		myCellController = new DummyCellController(); // Your simulation's
-		// CellController
-		myBoard = board;
-		myBoard.createNeighborhoods();
-		myPatches = myBoard.getPatches();
-		myBoardPane = boardPane;
-		myNumStates = numStates;
-		chance = new Random();
-		frames = 0;
-	}
+        private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
+                @Override
+                public void handle (ActionEvent evt) {
+                        myBoard.generateMyStateMap();
+                        generateNeighborMaps();
+                        checkCells();
+                        switchBoards();
+                        updatePopulationGraph();
+                        frames++;
+                }
+        };
 
-	private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
-		@Override
-		public void handle (ActionEvent evt) {
-			myBoard.generateMyStateMap();
-			generateNeighborMaps();
-			checkCells();
-			switchBoards();
-			updatePopulationGraph();
-			frames++;
-		}
-	};
+        private void generateNeighborMaps() {
+                for(Patch patch : myPatches) {
+                        patch.generateNeighborMap();
+                }
+        }
 
-	private void generateNeighborMaps() {
-		for(Patch patch : myPatches) {
-			patch.generateNeighborMap();
-		}
-	}
+        public abstract void updateNextPatch (Patch patch);
 
-	public abstract void updateNextPatch (Patch patch);
+        public void switchBoards () {
+                myBoardPane.getChildren().clear();
+                myBoard.updatePatchViews();
+        }
 
-	public void switchBoards () {
-		myBoardPane.getChildren().clear();
-		myBoard.updatePatchViews();
-	}
+        public void checkCells ()
+        {
+                nextBoardObjects = new ArrayList<Patch>();
+                invalidPatchChoices = new ArrayList<>();
+                for (Patch patch : myPatches) {
+                        updateNextPatch(patch);
+                }
+        }
 
-	public void checkCells ()
-	{
-		nextBoardObjects = new ArrayList<Patch>();
-		invalidCellChoices = new ArrayList<>();
-		for (Patch patch : myPatches) {
-			updateNextPatch(patch);
-		}
-	}
-	//	abstract void currentCellNeighbors(Cell cell);
+        public void setAnimation (Animation animation) {
+                myAnimation = animation;
+        }
 
-	public void setAnimation (Animation animation) {
-		myAnimation = animation;
-	}
+        public void stop () {
+                myAnimation.stop();
+        }
 
-	public void stop () {
-		myAnimation.stop();
-	}
+        public void play () {
+                myAnimation.play();
+        }
 
-	public void play () {
-		myAnimation.play();
-	}
+        public void pause () {
+                myAnimation.pause();
+        }
 
-	public void pause () {
-		myAnimation.pause();
-	}
+        public KeyFrame frame () {
+                return new KeyFrame(Duration.millis(1000), oneFrame);
+        }
 
-	public KeyFrame frame () {
-		return new KeyFrame(Duration.millis(1000), oneFrame);
-	}
+        public void setSpeedSlider (Slider slider) {
+                mySpeedSlider = slider;
+        }
 
-	public void setSpeedSlider (Slider slider) {
-		mySpeedSlider = slider;
-	}
+        protected void updatePopulationGraph () {
+                for (int state : myBoard.getStateMap().keySet()) {
+                        if (state == 0) {
+                                continue;
+                        }
+                        myPopulationGraph.addData(frames, myBoard.getStateMap().get(state).size(), state);
+                }
+        }
 
-	//	public void setColorMap (Map<Integer, Color> colorMap) {
-	//		stateToColorMap = colorMap;
-	//	}
+        public void setPopulationGraph (PopulationGraph populationGraph) {
+                myPopulationGraph = populationGraph;
+        }
+
+        public void setMaxResources (int resources) {
+                // Will be implemented after graphs are
+        }
 
 
-	protected Cell getRandomNeighbor (ArrayList<Cell> neighbors) {
-		if (neighbors.size() == 0) { return null; }
-		int randomNum = chance.nextInt(neighbors.size());
-		Cell neighbor = neighbors.get(randomNum);
-		while (neighbors.size() > 0 && invalidCellChoices.contains(neighbor)) {
-			neighbors.remove(neighbor);
-			if (neighbors.size() == 0) { return null; }
-			randomNum = chance.nextInt(neighbors.size());
-			neighbor = neighbors.get(randomNum);
-		}
-		return neighbor;
-	}
-
-	protected void updatePopulationGraph () {
-		for (int state : myBoard.getStateMap().keySet()) {
-			if (state == 0) {
-				continue;
-			}
-			myPopulationGraph.addData(frames, myBoard.getStateMap().get(state).size(), state);
-		}
-	}
-
-	public void setPopulationGraph (PopulationGraph populationGraph) {
-		myPopulationGraph = populationGraph;
-	}
-
-	public void setMaxResources (int resources) {
-		// Will be implemented after graphs are
-	}
-
-	public void setBoardProbability (double probability) {
-		myBoard.setProbability(probability);
-	}
 }

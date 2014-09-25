@@ -2,28 +2,29 @@ package models;
 
 import java.util.Map;
 
-public class GameOfLifePatch extends Patch {
+public class FireSimulationPatch extends Patch {
 
-	public GameOfLifePatch(int row, int col, Map<String, Double> resources,
+	public FireSimulationPatch(int row, int col, Map<String, Double> resources,
 			double patchDim) {
 		super(row, col, resources, patchDim);
+		myProbability = resources.get("probability");
+		myResources = resources.get("patchResources");
 	}
 
 	@Override
 	public void generateNeighborMap() {
-		myNeighborMap = genericStateMap(2);
+		myNeighborMap = genericStateMap(3);
 		super.generateNeighborMap();
 	}
 
 	@Override
 	public void updateCell(int state) {
 		if(state != myCell.getState()) {
-			myCell = CellFactory.getCell("GameofLife", state);
+			myCell = CellFactory.getCell("FireSimulation", state);
 		}
 		if(myCell != null) {
 			myCell.setPatch(this);
 		}
 	}
-	
 
 }
