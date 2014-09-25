@@ -10,7 +10,7 @@ public class FireSimulationPatch extends Patch {
 		myProbability = resources.get("probability");
 		myResources = resources.get("patchResources");
 	}
-	
+
 	@Override
 	public void generateNeighborMap() {
 		myNeighborMap = genericStateMap(3);
@@ -19,7 +19,9 @@ public class FireSimulationPatch extends Patch {
 
 	@Override
 	public void updateCell(int state) {
-		myCell = CellFactory.getCell("FireSimulation", state);
+		if(state != myCell.getState()) {
+			myCell = CellFactory.getCell("FireSimulation", state);
+		}
 		if(myCell != null) {
 			myCell.setPatch(this);
 		}

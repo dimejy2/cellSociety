@@ -32,13 +32,12 @@ public abstract class Patch {
 		staticResources = resources; 
 		myPatchView = new CellView(patchDim, patchDim, 0);
 		myPatchDim = patchDim;
-	
 	}
 
 	public void setNumStates(int numStates) {
 		myNumStates = numStates;
 	}
-	
+
 	private void setProbability(double probability) {
 		myProbability = probability;
 	}
@@ -53,7 +52,9 @@ public abstract class Patch {
 
 	public void setCell(Cell cell) {
 		myCell = cell;
-		myCell.setPatch(this);
+		if(cell!=null) {
+			myCell.setPatch(this);
+		}
 	}
 
 
@@ -72,7 +73,7 @@ public abstract class Patch {
 	public List<Patch> getNeighborList() {
 		return myNeighborPatches;
 	}
-	
+
 	protected Map<Integer, List<Patch>> genericStateMap (int n) {
 
 		Map<Integer, List<Patch>> toReturn = new HashMap<>();
@@ -92,45 +93,45 @@ public abstract class Patch {
 			}
 		}
 	}
-	
+
 	public Map<Integer, List<Patch>> getNeighborMap() {
 		return myNeighborMap;
 	}
-	
+
 	public abstract void updateCell(int state);
-	
+
 	public int getCellsState() {
 		return myCell.getState();
 	}
-	
+
 	public void setShape(Shape shape) {
 		myShape = shape;
 	}
-	
+
 	public Shape getShape() {
 		return myShape;
 	}
-	
+
 	public CellView getPatchView() {
 		return myPatchView;
 	}
-	
+
 	public void removeCell() {
 		myCell = null;
 	}
-	
+
 	public double getPatchDim() {
 		return myPatchDim;
 	}
-	
+
 	public void updateFill(Color color) {
 		myPatchView.setColor(color);
 	}
-	
+
 	public void updateResources(int delta) {
 		myResources += delta;
 	}
-	
+
 	public boolean isAlive() {
 		return myResources>0;
 	}

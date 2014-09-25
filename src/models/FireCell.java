@@ -17,7 +17,7 @@ public class FireCell extends Cell {
 			nextState = 0;
 		}
 		else {
-			nextState = myPatch.getCellsState();
+			nextState = myState;
 		}
 		return nextState;
 	}

@@ -2,12 +2,10 @@ package cellsociety_team05_controller;
 
 import java.util.List;
 
-import models.Cell;
 import models.GameOfLifeCell;
 import models.Patch;
 
 
-// state 0 = dead, 1 = alive
 public class glifeSimulation extends SimulationRules {
 
 

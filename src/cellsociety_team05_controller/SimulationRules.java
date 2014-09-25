@@ -37,29 +37,18 @@ public abstract class SimulationRules {
 	protected Slider mySpeedSlider;
 	protected Map<Integer, Color> stateToColorMap;
 	protected int myNumStates;
-	protected Random chance;
+	protected static Random rand = new Random();
 	protected PopulationGraph myPopulationGraph;
-	// protected static final int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
-	// protected static final int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
-//	 protected static final int[] x4Delta = { 0, 0, 1, -1 };
-//	 protected static final int[] y4Delta = { 1, -1, 0, 0 };
-	// protected static final int[] hex_x_Delta = { 1, 1, 0, -1, -1, 0 };
-	// protected static final int[] hex_y_Delta = { 0, -1, -1, 0, 1, 1 };
-
-	protected ArrayList<Cell> invalidCellChoices;
+	protected List<Patch> invalidPatchChoices;
 	protected int frames;
 
 	public void init (Pane boardPane, Board board, int numStates) {
 
-		// Create a place to see the shapes
-		myCellController = new DummyCellController(); // Your simulation's
-		// CellController
 		myBoard = board;
 		myBoard.createNeighborhoods();
 		myPatches = myBoard.getPatches();
 		myBoardPane = boardPane;
 		myNumStates = numStates;
-		chance = new Random();
 		frames = 0;
 	}
 
@@ -91,12 +80,11 @@ public abstract class SimulationRules {
 	public void checkCells ()
 	{
 		nextBoardObjects = new ArrayList<Patch>();
-		invalidCellChoices = new ArrayList<>();
+		invalidPatchChoices = new ArrayList<>();
 		for (Patch patch : myPatches) {
 			updateNextPatch(patch);
 		}
 	}
-	//	abstract void currentCellNeighbors(Cell cell);
 
 	public void setAnimation (Animation animation) {
 		myAnimation = animation;
@@ -122,24 +110,6 @@ public abstract class SimulationRules {
 		mySpeedSlider = slider;
 	}
 
-	//	public void setColorMap (Map<Integer, Color> colorMap) {
-	//		stateToColorMap = colorMap;
-	//	}
-
-
-	protected Cell getRandomNeighbor (ArrayList<Cell> neighbors) {
-		if (neighbors.size() == 0) { return null; }
-		int randomNum = chance.nextInt(neighbors.size());
-		Cell neighbor = neighbors.get(randomNum);
-		while (neighbors.size() > 0 && invalidCellChoices.contains(neighbor)) {
-			neighbors.remove(neighbor);
-			if (neighbors.size() == 0) { return null; }
-			randomNum = chance.nextInt(neighbors.size());
-			neighbor = neighbors.get(randomNum);
-		}
-		return neighbor;
-	}
-
 	protected void updatePopulationGraph () {
 		for (int state : myBoard.getStateMap().keySet()) {
 			if (state == 0) {
@@ -157,7 +127,5 @@ public abstract class SimulationRules {
 		// Will be implemented after graphs are
 	}
 
-	public void setBoardProbability (double probability) {
-		myBoard.setProbability(probability);
-	}
+
 }

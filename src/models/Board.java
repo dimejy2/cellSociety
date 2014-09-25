@@ -21,14 +21,13 @@ public abstract class Board {
 	protected Map<Integer, Color> stateToColorMap;
 	protected int cellDim;
 	private int numStates;
-	private double myProbability;
 	private Map<Integer, ArrayList<Patch>> myStateMap;
 //	protected int[] myXDelta = { 1, 1, 0, -1, -1, 0 };
 //	protected int[] myYDelta = { 0, -1, -1, 0, 1, 1 };
-//	 protected int[] myXDelta = { -1, 0, 1, -1, 1, -1, 0, 1 }; //8
-//	 protected int[] myYDelta = { -1, -1, -1, 0, 0, 1, 1, 1 }; //8
-	 protected int[] myXDelta = { 0, 0, 1, -1 }; //4
-	 protected int[] myYDelta = { 1, -1, 0, 0 }; //4
+	 protected int[] myXDelta = { -1, 0, 1, -1, 1, -1, 0, 1 }; //8
+	 protected int[] myYDelta = { -1, -1, -1, 0, 0, 1, 1, 1 }; //8
+//	 protected int[] myXDelta = { 0, 0, 1, -1 }; //4
+//	 protected int[] myYDelta = { 1, -1, 0, 0 }; //4
 //	 protected int[] myXDelta = { 1, 1, 0, -1, -1, 0 }; //6
 //	 protected int[] myYDelta = { 0, -1, -1, 0, 1, 1 }; //6
 
@@ -44,9 +43,6 @@ public abstract class Board {
 		cellDim = WINDOW_SIZE / Math.max(row, column);
 	}
 
-	public void setProbability (double probability) {
-		myProbability = probability;
-	}
 
 
 	public void addPatch (Patch patch) {
@@ -139,9 +135,7 @@ public abstract class Board {
 				(patch.getColumn() + yDelta < 0 || patch.getColumn() + yDelta > myPatches[0].length - 1);
 	}
 
-	public double getProbablity () {
-		return myProbability;
-	}
+
 
 	public int getNumRows () {
 		return numRows;

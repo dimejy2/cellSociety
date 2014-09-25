@@ -16,6 +16,16 @@ public class CellFactory {
 			else
 				return new FireCell(state);
 		}
+		
+		if(criteria.equals("Segregation")) {
+			if(state ==1) {
+				return new RaceOneCell(state);
+			}
+			else{
+				return new RaceTwoCell(state);
+			}
+		}
+		
 		else
 			return null;
 	}

@@ -118,7 +118,6 @@ public class XMLParser extends DefaultHandler {
 				hasError = true; 
 			}
 			board.setColorMap(stateToColorMap);
-			board.setProbability(probability);
 
 		}
 

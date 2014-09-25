@@ -24,6 +24,8 @@ public abstract class Cell extends GridObject {
 	private int incrementValue;
 	private Shape shape;
 	protected Patch myPatch;
+	protected List<Patch> similarNeighbors;
+
 	protected static Random rand = new Random();
 	
 
