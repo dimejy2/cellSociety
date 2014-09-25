@@ -39,7 +39,7 @@ public abstract class SimulationRules {
     // protected static final int[] x4Delta = { 0, 0, 1, -1 };
     // protected static final int[] y4Delta = { 1, -1, 0, 0 };
     // protected static final int[] hex_x_Delta = { 1, 1, 0, -1, -1, 0 };
-    // protected static final int[] hex_y_Delta = { 0, -1, -1, 0, 1, 1 };
+    // protected static final int[] hex_y_Delta = { 0, 1, -1, 0, 1, 1 };
 
     protected ArrayList<Cell> invalidCellChoices;
     protected int frames;
