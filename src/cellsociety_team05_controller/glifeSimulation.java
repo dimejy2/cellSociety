@@ -17,7 +17,7 @@ public class glifeSimulation extends SimulationRules {
 		List<Patch> aliveNeighbors = patch.getNeighborMap().get(1);
 		int numAlive=aliveNeighbors.size();
 		if(patch.getCell() != null) {
-			nextState = patch.getCell().getNextState(aliveNeighbors);
+			nextState = patch.getCell().getNextState(patch.getNeighborMap());
 			patch.updateCell(nextState);
 		}
 		else {

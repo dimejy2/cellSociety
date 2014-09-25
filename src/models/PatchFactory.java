@@ -8,6 +8,9 @@ public class PatchFactory {
 		if(criteria.equals("GameofLife")) {
 			return new GameOfLifePatch(row, col, resources, cellDim);
 		}
+		else if(criteria.equals("FireSimulation")) {
+			return new FireSimulationPatch(row, col,resources,cellDim);
+		}
 		else{
 			return null;
 		}

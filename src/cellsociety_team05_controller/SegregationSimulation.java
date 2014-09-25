@@ -3,16 +3,17 @@ package cellsociety_team05_controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
 import models.Cell;
+import models.Patch;
 
 
 // state 0 = empty, 1 = raceOne, 2 = raceTwo
 public class SegregationSimulation extends SimulationRules {
-	private int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
-	private int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
+
 
 	@Override
-	public void updateNextBoard (Cell cell) {
+	public void updateNextPatch(Patch patch) {
 		int empty = 0;
 		int one = 1;
 		int two = 2;
@@ -75,5 +76,6 @@ public class SegregationSimulation extends SimulationRules {
 		myBoard.saveNeighborStates(cell, xDelta, yDelta);
 
 	}
+
 
 }

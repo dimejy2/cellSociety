@@ -11,7 +11,7 @@ public class GameOfLifePatch extends Patch {
 
 	@Override
 	public void generateNeighborMap() {
-		myNeighborMap = genericStateMap(3);
+		myNeighborMap = genericStateMap(2);
 		super.generateNeighborMap();
 	}
 
@@ -21,7 +21,7 @@ public class GameOfLifePatch extends Patch {
 			myCell = null;
 		}
 		else {
-			myCell.setState(state);
+			myCell = CellFactory.getCell("GameofLife", state);
 		}
 	}
 	

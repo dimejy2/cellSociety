@@ -18,8 +18,8 @@ public abstract class Patch {
 	protected Map<Integer, List<Patch>> myNeighborMap;
 	protected int myRow;
 	protected int myColumn;
-	protected int myProbability;
-	protected int myResources;
+	protected double myProbability;
+	protected double myResources;
 	protected CellView myPatchView;
 	protected Shape myShape;
 	private double myPatchDim;
@@ -39,11 +39,11 @@ public abstract class Patch {
 		myNumStates = numStates;
 	}
 	
-	private void setProbablity(int probability) {
+	private void setProbability(double probability) {
 		myProbability = probability;
 	}
 
-	private void setResources(int resources) {
+	private void setResources(double resources) {
 		myResources = resources;
 	}
 
@@ -53,6 +53,7 @@ public abstract class Patch {
 
 	public void setCell(Cell cell) {
 		myCell = cell;
+		myCell.setPatch(this);
 	}
 
 
@@ -124,5 +125,17 @@ public abstract class Patch {
 	
 	public void updateFill(Color color) {
 		myPatchView.setColor(color);
+	}
+	
+	public void updateResources(int delta) {
+		myResources += delta;
+	}
+	
+	public boolean isAlive() {
+		return myResources>0;
+	}
+
+	public double getProbability() {
+		return myProbability;
 	}
 }

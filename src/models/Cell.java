@@ -3,6 +3,8 @@ package models;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import javafx.scene.shape.Shape;
 import views.CellView;
@@ -21,6 +23,8 @@ public abstract class Cell extends GridObject {
 	private int decrementValue;
 	private int incrementValue;
 	private Shape shape;
+	protected Patch myPatch;
+	protected static Random rand = new Random();
 	
 
 	public Cell (int state){
@@ -30,8 +34,16 @@ public abstract class Cell extends GridObject {
 //		myCellView = new CellView(myCellDim, myCellDim, state);
 		framesAlive = 0;
 	}
+	
+	public void setPatch(Patch patch) {
+		myPatch = patch;
+	}
+	
+	public Patch getPatch() {
+		return myPatch;
+	}
 
-	public abstract int getNextState(List<Patch> neighbors);
+	public abstract int getNextState(Map<Integer, List<Patch>> neighbors);
 	
 	public CellView getCellView() {
 		return myCellView;

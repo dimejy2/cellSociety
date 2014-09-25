@@ -41,8 +41,8 @@ public abstract class SimulationRules {
 	protected PopulationGraph myPopulationGraph;
 	// protected static final int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
 	// protected static final int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
-	// protected static final int[] x4Delta = { 0, 0, 1, -1 };
-	// protected static final int[] y4Delta = { 1, -1, 0, 0 };
+//	 protected static final int[] x4Delta = { 0, 0, 1, -1 };
+//	 protected static final int[] y4Delta = { 1, -1, 0, 0 };
 	// protected static final int[] hex_x_Delta = { 1, 1, 0, -1, -1, 0 };
 	// protected static final int[] hex_y_Delta = { 0, -1, -1, 0, 1, 1 };
 
