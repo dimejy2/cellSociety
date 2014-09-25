@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
 
@@ -14,10 +15,10 @@ public abstract class Board {
 	private int numRows;
 	private int numColumns;
 	private Pane myBoardPane;
-	protected Cell[][] myCells;
-	protected List<Cell> cellGraph;
+	protected Patch[][] myPatches;
+	protected List<Patch> myGraph;
 	private static final int WINDOW_SIZE = 400;
-	private ArrayList<Cell> emptyCells;
+	protected Map<Integer, Color> stateToColorMap;
 	protected int cellDim;
 	private int numStates;
 	private double myProbability;
@@ -30,8 +31,8 @@ public abstract class Board {
 		numRows = row;
 		numColumns = column;
 		myBoardPane = boardPane;
-		myCells = new Cell[row][column];
-		cellGraph = new ArrayList<>();
+		myPatches = new Patch[row][column];
+		myGraph = new ArrayList<>();
 		numStates = states;
 		cellDim = WINDOW_SIZE / Math.max(row, column);
 	}
@@ -40,43 +41,39 @@ public abstract class Board {
 		myProbability = probability;
 	}
 
-	public void addCell (Cell cell) {
-		myCells[cell.getRow()][cell.getColumn()] = cell;
-		cellGraph.add(cell);
+
+	public void addPatch (Patch patch) {
+		myPatches[patch.getRow()][patch.getColumn()] = patch;
+		myGraph.add(patch);
 	}
 
+	protected void updatePatchViews() {
+		for(Patch patch : myGraph) {
 
-	public void putShapedCell (Shape cellShape, double x, double y) {
-		cellShape.relocate(x, y);
-		myBoardPane.getChildren().add(cellShape);
-	}
-
-	public void checkEmptyCells () {
-		emptyCells = new ArrayList<Cell>();
-		for (Cell cell : cellGraph) {
-			if (cell.getState() == 0) {
-				emptyCells.add(cell);
-			}
-
+			putShapedPatch(patch);
 		}
 	}
 
-	public ArrayList<Cell> getEmptyCells () {
-		return emptyCells;
+
+	public void putShapedPatch (Patch patch) {
+		if(patch.getCell()!=null) {
+			Cell cell = patch.getCell();
+			patch.updateFill(stateToColorMap.get(cell.getState()));
+		}
+		else {
+			patch.updateFill(stateToColorMap.get(0));
+		}
+		myBoardPane.getChildren().add(patch.getShape());
 	}
 
-	public List<Cell> getCells () {
-		return cellGraph;
-	}
-
-	public void setCells (List<Cell> newCells) {
-		cellGraph = newCells;
+	public List<Patch> getPatches () {
+		return myGraph;
 	}
 
 	public void generateMyStateMap () {
 		myStateMap = genericStateMap(numStates);
-		for (Cell cell : cellGraph) {
-			myStateMap.get(cell.getState()).add(cell);
+		for (Patch patch : myGraph) {
+			myStateMap.get(patch.getCell().getState()).add(patch.getCell());
 		}
 	}
 
@@ -98,9 +95,9 @@ public abstract class Board {
 	}
 
 	public void createNeighborhoods() {
-		for(Cell[] row : myCells) {
-			for(Cell cell : row) {
-				saveNeighborStates(cell, myXDelta, myYDelta);
+		for(Patch[] row : myPatches) {
+			for(Patch patch : row) {
+				saveNeighbors(patch, myXDelta, myYDelta);
 			}
 		}
 	}
@@ -110,25 +107,25 @@ public abstract class Board {
 		myYDelta = yDelta;
 	}
 
-	public void saveNeighborStates (Cell cell, int[] xDelta, int[] yDelta) {
+	public void saveNeighbors (Patch patch, int[] xDelta, int[] yDelta) {
 
-		HashMap<Integer, ArrayList<Cell>> neighborStateMap = genericStateMap(numStates);
+		List<Patch> neighborPatches = new ArrayList<Patch>();
 
 		for (int i = 0; i < xDelta.length; i++) {
-			if (!isOutOfBounds(cell, xDelta[i], yDelta[i])) {
-				Cell neighborCell =
-						myCells[cell.getRow() + xDelta[i]][cell.getColumn() + yDelta[i]];
-				neighborStateMap.get(neighborCell.getState()).add(neighborCell);
+			if (!isOutOfBounds(patch, xDelta[i], yDelta[i])) {
+				Patch neighborPatch =
+						myPatches[patch.getRow() + xDelta[i]][patch.getColumn() + yDelta[i]];
+				neighborPatches.add(neighborPatch);
 			}
 		}
-		cell.setNeighborMap(neighborStateMap);
+		patch.setNeighborPatches(neighborPatches);
 	}
 
-	private boolean isOutOfBounds (Cell cell, int xDelta, int yDelta) {
+	private boolean isOutOfBounds (Patch patch, int xDelta, int yDelta) {
 
-		return (cell.getRow() + xDelta < 0 || cell.getRow() + xDelta > myCells.length - 1)
+		return (patch.getRow() + xDelta < 0 || patch.getRow() + xDelta > myPatches.length - 1)
 				||
-				(cell.getColumn() + yDelta < 0 || cell.getColumn() + yDelta > myCells[0].length - 1);
+				(patch.getColumn() + yDelta < 0 || patch.getColumn() + yDelta > myPatches[0].length - 1);
 	}
 
 	public double getProbablity () {
@@ -143,4 +140,7 @@ public abstract class Board {
 		return numColumns;
 	}
 
+	public void setColorMap (Map<Integer, Color> colorMap) {
+		stateToColorMap = colorMap;
+	}
 }

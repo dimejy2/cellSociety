@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Type is the type of simulation -->
-<<<<<<< HEAD
 <cellularautomata type = "WaTorWorld">
 	<properties>
 		<!-- Parameters for gamemode -->

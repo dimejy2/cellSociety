@@ -8,6 +8,7 @@ import java.util.Random;
 
 import models.Board;
 import models.Cell;
+import models.Patch;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
@@ -27,8 +28,8 @@ import views.PopulationGraph;
 public abstract class SimulationRules {
 
 	protected Board myBoard;
-	protected List<Cell> myCells;
-	protected List<Cell> nextBoardCells;
+	protected List<Patch> myPatches;
+	protected List<Patch> nextBoardObjects;
 	protected Board nextBoard;
 	protected CellController myCellController;
 	protected Pane myBoardPane;
@@ -54,7 +55,7 @@ public abstract class SimulationRules {
 		myCellController = new DummyCellController(); // Your simulation's
 		// CellController
 		myBoard = board;
-		myCells = myBoard.getCells();
+		myPatches = myBoard.getPatches();
 		myBoardPane = boardPane;
 		myNumStates = numStates;
 		chance = new Random();
@@ -72,29 +73,29 @@ public abstract class SimulationRules {
 		}
 	};
 
-	public abstract void updateNextBoard (Cell cell);
+	public abstract void updateNextBoard (Patch patch);
 
 	public void switchBoards () {
 		myBoardPane.getChildren().clear();
-		for(Cell cell : nextBoardCells) {
-			myBoard.addCell(cell);
+		for(Patch patch : nextBoardObjects) {
+			myBoard.addPatch(patch);
 		}
-		myCells = nextBoardCells;
-		myBoard.setCells(nextBoardCells);
+		myPatches = nextBoardObjects;
+//		myBoard.setCells(nextBoardCells);
 	}
 
 	public void checkCells ()
 	{
-		nextBoardCells = new ArrayList<Cell>();
+		nextBoardObjects = new ArrayList<Patch>();
 		invalidCellChoices = new ArrayList<>();
 
 		myBoard.createNeighborhoods();
 
-		for (Cell cell : myCells) {
-			updateNextBoard(cell);
+		for (Patch patch : myPatches) {
+			updateNextBoard(patch);
 		}
 	}
-	abstract void currentCellNeighbors(Cell cell);
+//	abstract void currentCellNeighbors(Cell cell);
 
 	public void setAnimation (Animation animation) {
 		myAnimation = animation;
@@ -120,9 +121,9 @@ public abstract class SimulationRules {
 		mySpeedSlider = slider;
 	}
 
-	public void setColorMap (Map<Integer, Color> colorMap) {
-		stateToColorMap = colorMap;
-	}
+//	public void setColorMap (Map<Integer, Color> colorMap) {
+//		stateToColorMap = colorMap;
+//	}
 
 
 	protected Cell getRandomNeighbor (ArrayList<Cell> neighbors) {

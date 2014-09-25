@@ -3,13 +3,13 @@ package models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.scene.shape.Shape;
 import views.CellView;
 
-public class Cell  {
+public class Cell extends GridObject {
 
 
-	private int myRow;
-	private int myColumn;
+
 	private int myState; 
 	private CellView myCellView;
 	private int myResources;
@@ -19,6 +19,7 @@ public class Cell  {
 	private int myReproductionTime;
 	private int decrementValue;
 	private int incrementValue;
+	private Shape shape;
 	
 
 	public Cell ( int row, int column, int state, double cellDim){
@@ -95,9 +96,6 @@ public class Cell  {
 		return myNeighborStateMap; 
 	}
 	
-	public double getCellDim() {
-		return myCellDim;
-	}
 	public void setIncrementDecrementValues(int increment, int decrement) {
 		incrementValue = increment;
 		decrementValue = decrement;
@@ -118,6 +116,12 @@ public class Cell  {
 	public Cell replicateCell(Cell cell, int state) {
 		Cell newCell =  new Cell(cell.getRow(), cell.getColumn(), state, cell.getCellDim());
 		return newCell;
+	}
+
+	@Override
+	public int getCellDim() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

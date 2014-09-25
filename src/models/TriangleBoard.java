@@ -1,6 +1,7 @@
 package models;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Shape;
 
 public class TriangleBoard extends Board {
 
@@ -13,18 +14,18 @@ public class TriangleBoard extends Board {
         // adjusting the locations of hexagon cells (odd vs even columns)
         myCells[cell.getRow()][cell.getColumn()] = cell;
 
-        cellShape = cell.getCellView().getDownTriangle();
+        Shape cellShape = cell.getCellView().getDownTriangle();
 
         if ((cell.getRow() + cell.getColumn()) % 2 == 1) {
             cellShape = cell.getCellView().getUpTriangle();
         }
 
-        xCoord = cell.getColumn() * (cell.getCellDim() / 2);
-        yCoord =
+        double xCoord = cell.getColumn() * (cell.getCellDim() / 2);
+        double yCoord =
                 (cell.getCellDim() * Math.sin(Math.PI / 3) / 2) + cell.getRow() *
                         cell.getCellDim() * Math.sin(Math.PI / 3);
 
-        putShapedCell();
+        putShapedPatch(cellShape, xCoord, yCoord);
     }
     
 
