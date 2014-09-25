@@ -139,4 +139,5 @@ public abstract class Patch {
 	public double getProbability() {
 		return myProbability;
 	}
+
 }

@@ -3,59 +3,25 @@ package cellsociety_team05_controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import models.Cell;
+import models.Patch;
 
 
 public class FireSimulation extends SimulationRules {
-	private int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
-	private int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
 
-    @Override
-    public void updateNextBoard (Cell cell) {
-        // TODO Auto-generated method stub
-        int isDead = 0;
-        int isTree = 1;
-        int isBurning = 2;
 
-        if (cell.getState() == isDead) {
-            nextBoardCells.add(cell);
-            return;
-        }
+	@Override
+	public void updateNextPatch (Patch patch) {
+		// TODO Auto-generated method stub
+		int isDead = 0;
+		int isTree = 1;
+		int isBurning = 2;
 
-        if (cell.getState() == isBurning) {
-            cell.incrementResources(-1);
-
-            if (cell.getResources() == 0) {
-                cell.setState(isDead);
-                cell.getCellView().setColor(stateToColorMap.get(isDead));
-                nextBoardCells.add(cell);
-                return;
-            }
-        }
-
-        if (cell.getState() == isTree) {
-            if (!cell.getNeighborMap().get(isBurning).isEmpty()) {
-
-                if (chance.nextDouble() <= myBoard.getProbablity()) {
-                    cell.setState(isBurning);
-                    cell.getCellView().setColor(stateToColorMap.get(isBurning));
-                }
-
-            }
-
-            nextBoardCells.add(cell);
-        }
-
-        else {
-        	nextBoardCells.add(cell);
-        }
-    }
-
-    @Override
-    public void currentCellNeighbors (Cell cell) {
-        // TODO Auto-generated method stub
-        myBoard.saveNeighborStates(cell, xDelta, yDelta);
-
-    }
-
+		int nextState;
+		if(patch.getCell() != null) {
+			nextState = patch.getCell().getNextState(patch.getNeighborMap());
+			patch.updateCell(nextState);
+		}	
+	}
 }
