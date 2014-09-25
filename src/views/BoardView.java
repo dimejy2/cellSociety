@@ -2,7 +2,6 @@ package views;
 
 import java.awt.Dimension;
 import java.io.File;
-
 import models.Board;
 import cellsociety_team05_controller.SimulationController;
 import cellsociety_team05_controller.SimulationRules;
@@ -19,7 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -40,11 +39,11 @@ public class BoardView {
 	private Slider mySpeedSlider;
 	private SimulationRules mySimulation;
 	private String xmlFile;
-	private GridPane myGrid;
 	private Board myBoard;
 	private BorderPane root;
 	private SimulationController mySimulationController;
 	private XMLParser xmlParser;
+	private Pane myBoardPane;
 
 	public BoardView(Stage stage) {
 		myStage = stage;
@@ -56,10 +55,9 @@ public class BoardView {
 
 	public void xmlInit() {
 		
-		myGrid = new GridPane();
+		myBoardPane = new Pane();
 		try {
-//			xmlParser.parseXML(xmlFile, myGrid);
-			xmlParser = new XMLParser(xmlFile, myGrid);
+			xmlParser = new XMLParser(xmlFile, myBoardPane);
 			simulationInit();
 		} catch (xmlError e) {
 			// TODO Auto-generated catch block
@@ -77,12 +75,12 @@ public class BoardView {
 
 	public void simulationInit() {
 		mySimulationController = new SimulationController();
-		root.setLeft(myGrid);
+		root.setLeft(myBoardPane);
 		int numStates = xmlParser.getNumStates();
 		myBoard = xmlParser.getBoard();
 		mySimulation = xmlParser.getSimRules();
 		mySimulation.setSpeedSlider(mySpeedSlider);
-		mySimulation.init(myGrid, myBoard, numStates);
+		mySimulation.init(myBoardPane, myBoard, numStates);
 		mySimulationController.setUpSimulation(mySimulation);		
 		PopulationGraph populationGraph = new PopulationGraph(numStates);
 		mySimulation.setPopulationGraph(populationGraph);

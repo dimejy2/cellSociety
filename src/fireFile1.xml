@@ -12,7 +12,7 @@
 			<color state="2" color="orange"></color>
 		</colors>
 	</properties>
-	<grid xValue="5" yValue="5">
+	<grid xValue="5" yValue="5" gridType="HexagonBoard">
 		<!-- DEFAULT GRID -->
 		<!-- Each digit represents a cell with its value being its initial state. -->
 		<row values="11111"></row>

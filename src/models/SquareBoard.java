@@ -1,0 +1,25 @@
+package models;
+
+import javafx.scene.layout.Pane;
+
+public class SquareBoard extends Board {
+
+    public SquareBoard (int row, int column, Pane boardPane2, int states) {
+        super(row, column, boardPane2, states);
+    }
+
+    @Override
+    public void addCell (Cell cell) {
+         // adjusting the locations of hexagon cells (odd vs even columns)
+         myCells[cell.getRow()][cell.getColumn()] = cell;
+        
+         cellShape = cell.getCellView().getRectangle();
+        
+         xCoord = cellDim / 2 + cell.getColumn() * cellDim;
+         yCoord = cellDim / 2 + cell.getRow() * cellDim;
+        
+         putShapedCell();
+        
+    }
+
+}

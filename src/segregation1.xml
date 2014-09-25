@@ -5,19 +5,26 @@
 		<!-- Parameters for gamemode -->
 		<property name="resources" value="10"></property>
 		<property name ="numCellStates" value ="3"></property>
+		<property name ="probability" value ="0.7"></property>
 		<colors>
 			<color state="0" color = "white"></color>
 			<color state="1" color = "black"></color>
 			<color state="2" color = "yellow"></color>
 		</colors>
 	</properties>
-	<grid xValue="3" yValue="3">
+	<grid xValue="10" yValue="10" gridType="HexagonBoard">
 	<!-- DEFAULT GRID -->
 	<!-- Each digit represents a cell with its value being
 	its initial state. -->
-		<row values="211"></row>
-		<row values="211"></row>
-		<row values="211"></row>
-
+		<row values="1010122021"></row>
+		<row values="1112112112"></row>
+		<row values="0121121202"></row>
+		<row values="0021210121"></row>
+		<row values="0121111220"></row>
+		<row values="0110221212"></row>
+		<row values="0212121112"></row>
+		<row values="1212121221"></row>
+		<row values="2121212121"></row>
+		<row values="1212112111"></row>
 	</grid>
 </cellularautomata>

@@ -8,6 +8,8 @@ import models.Cell;
 
 // state 0 = empty, 1 = raceOne, 2 = raceTwo
 public class SegregationSimulation extends SimulationRules {
+    private int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
+    private int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
 
     @Override
     public void updateNextBoard (Cell cell) {
@@ -52,7 +54,7 @@ public class SegregationSimulation extends SimulationRules {
         if (!neighbourMap.get(cell.getState()).isEmpty()) {
             numAlike = neighbourMap.get(cell.getState()).size();
             if ((numAlike / numNeighbours) >= (myBoard.getProbablity())) {
-                System.out.println((myBoard.getProbablity()*0.01));
+                System.out.println((myBoard.getProbablity() * 0.01));
                 System.out.println(numAlike / numNeighbours);
                 return cell.getState();
             }
@@ -61,24 +63,10 @@ public class SegregationSimulation extends SimulationRules {
         return 0;
     }
 
-        @Override
-        protected void checkCells() {
-                 {
-                                nextBoardCells = new Cell[myCells.length][myCells[0].length];
-                                for (int row = 0; row < myCells.length; row++) {
-                                        for (int column = 0; column < myCells[0].length; column++) {
-                                                Cell cell = myCells[row][column];
-                                                myBoard.saveNeighborStates(cell, xDelta ,  yDelta);
-                                        }
-                                }
-                                for (int row = 0; row < myCells.length; row++) {
-                                        for (int column = 0; column < myCells[0].length; column++) {
-                                                Cell cell = myCells[row][column];
-                                                updateNextBoard(cell);                          
-                                        }
-                                }
-                        }
-                
-        }
+    @Override
+    void currentCellNeighbors (Cell cell) {
+        myBoard.saveNeighborStates(cell, xDelta, yDelta);
+
+    }
 
 }
