@@ -16,7 +16,7 @@ public class FireSimulation extends SimulationRules {
         int isBurning = 2;
 
         if (cell.getState() == isDead) {
-            nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
+            nextBoardCells.add(cell);
             return;
         }
 
@@ -26,7 +26,7 @@ public class FireSimulation extends SimulationRules {
             if (cell.getResources() == 0) {
                 cell.setState(isDead);
                 cell.getCellView().setColor(stateToColorMap.get(isDead));
-                nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
+                nextBoardCells.add(cell);
                 return;
             }
         }
@@ -41,11 +41,12 @@ public class FireSimulation extends SimulationRules {
 
             }
 
-            nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
+            nextBoardCells.add(cell);
         }
 
-        nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
-
+        else {
+        	nextBoardCells.add(cell);
+        }
     }
 
     @Override

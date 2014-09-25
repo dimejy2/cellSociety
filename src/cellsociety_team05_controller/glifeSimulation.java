@@ -5,8 +5,8 @@ import models.Cell;
 
 // state 0 = dead, 1 = alive
 public class glifeSimulation extends SimulationRules {
-    private int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
-    private int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
+	 protected static final int[] xDelta = { -1, 0, 1, -1, 0, 1 };
+	 protected static final int[] yDelta = { 1, 1, 1, 0, -1, 0 };
 
     @Override
     public void updateNextBoard (Cell cell) {
@@ -25,7 +25,7 @@ public class glifeSimulation extends SimulationRules {
         }
         cell.setState(nextState);
         cell.getCellView().setColor(stateToColorMap.get(nextState));
-        nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
+        nextBoardCells.add(cell);
     }
 
     void currentCellNeighbors (Cell cell) {

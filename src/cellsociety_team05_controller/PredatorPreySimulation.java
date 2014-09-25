@@ -34,8 +34,8 @@ public class PredatorPreySimulation extends SimulationRules {
                     newCell = cell.replicateCell(cell, 0);
                     newCell.getCellView().setColor(stateToColorMap.get(0));
                 }
-                nextBoardCells[cell.getRow()][cell.getColumn()] = newCell;
-                nextBoardCells[emptyNeighbor.getRow()][emptyNeighbor.getColumn()] = cell;
+                nextBoardCells.add(newCell);
+                nextBoardCells.add(cell);
                 invalidCellChoices.add(emptyNeighbor);
                 invalidCellChoices.add(newCell);
                 invalidCellChoices.add(cell);
@@ -43,7 +43,7 @@ public class PredatorPreySimulation extends SimulationRules {
                 cell.setColumn(emptyNeighbor.getColumn());
             }
             else {
-                nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
+                nextBoardCells.add(cell);
             }
         }
 
@@ -63,8 +63,8 @@ public class PredatorPreySimulation extends SimulationRules {
                     newCell.getCellView().setColor(stateToColorMap.get(0));
                 }
 
-                nextBoardCells[cell.getRow()][cell.getColumn()] = newCell;
-                nextBoardCells[fishNeighbor.getRow()][fishNeighbor.getColumn()] = cell;
+                nextBoardCells.add(newCell);
+                nextBoardCells.add(cell);
                 cell.setRow(fishNeighbor.getRow());
                 cell.setColumn(fishNeighbor.getColumn());
                 cell.incrementResources(2);
@@ -79,7 +79,7 @@ public class PredatorPreySimulation extends SimulationRules {
                     cell.setState(0);
                     cell.getCellView().setColor(stateToColorMap.get(cell.getState()));
                     invalidCellChoices.add(cell);
-                    nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
+                    nextBoardCells.add(cell);
                     return;
                 }
             }
@@ -102,8 +102,8 @@ public class PredatorPreySimulation extends SimulationRules {
                     newCell.getCellView().setColor(stateToColorMap.get(0));
                 }
                 Cell emptyCell = emptyNeighbor;
-                nextBoardCells[cell.getRow()][cell.getColumn()] = newCell;
-                nextBoardCells[emptyCell.getRow()][emptyCell.getColumn()] = cell;
+                nextBoardCells.add(newCell);
+                nextBoardCells.add(cell);
                 invalidCellChoices.add(emptyCell);
                 invalidCellChoices.add(cell);
                 invalidCellChoices.add(newCell);
@@ -112,13 +112,13 @@ public class PredatorPreySimulation extends SimulationRules {
 
             }
             else {
-                nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
+                nextBoardCells.add(cell);
                 invalidCellChoices.add(cell);
             }
         }
 
         else {
-            nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
+            nextBoardCells.add(cell);
         }
     }
 

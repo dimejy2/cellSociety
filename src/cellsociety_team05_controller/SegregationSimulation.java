@@ -8,64 +8,71 @@ import models.Cell;
 
 // state 0 = empty, 1 = raceOne, 2 = raceTwo
 public class SegregationSimulation extends SimulationRules {
-    private int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
-    private int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
+	private int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
+	private int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
 
-    @Override
-    public void updateNextBoard (Cell cell) {
-        Random rand = new Random();
+	@Override
+	public void updateNextBoard (Cell cell) {
+		int empty = 0;
+		int one = 1;
+		int two = 2;
+		HashMap<Integer, ArrayList<Cell>> neighbourMap = cell.getNeighborMap();
 
-        HashMap<Integer, ArrayList<Cell>> neighbourMap = cell.getNeighborMap();
+		ArrayList<Cell> emptyCells = myBoard.getStateMap().get(0);
 
-        ArrayList<Cell> emptyCells = myBoard.getStateMap().get(0);
+		int numNeighbours = 0;
+		for (int i = 1; i < neighbourMap.size(); i++) {
+			numNeighbours += neighbourMap.get(i).size();
+		}
 
-        int nextState = 0;
-        // getting the number of neighbours, very inefficient now
-        // don't count empty cells as your neighbours -> start from i = 1
-        double numNeighbours = 0;
-        for (int i = 1; i < neighbourMap.size(); i++) {
-            numNeighbours += neighbourMap.get(i).size();
-        }
 
-        nextState = getNextState(cell, neighbourMap, numNeighbours);
 
-        if (nextState == 0) {
-            int randomIndex = rand.nextInt(emptyCells.size() + 0);
-            Cell emptyCell = emptyCells.get(randomIndex);
-            setNextCell(emptyCell, cell.getState());
-            emptyCells.remove(randomIndex);
-        }
+		int nextState = getNextState(cell, neighbourMap, numNeighbours);
 
-        setNextCell(cell, nextState);
+		//		if() {
+		//			return;
+		//		}
 
-    }
+		if (nextState == empty && myBoard.getStateMap().get(0).size()>0) { //want to move, and empty spots available
+			int randomIndex = chance.nextInt(emptyCells.size()); //pick random empty cell's index
+			Cell emptyCell = emptyCells.get(randomIndex); //store empty cell
+			setNextCell(emptyCell, cell.getState()); //put in empty cell you wish to move to, stores newcell
+			emptyCells.remove(randomIndex); // spot no longer empty, so remove
+			System.out.println(emptyCells.size());
+		}
 
-    public void setNextCell (Cell cell, int nextState) {
-        cell.setState(nextState);
-        cell.getCellView().setColor(stateToColorMap.get(nextState));
-        nextBoardCells[cell.getRow()][cell.getColumn()] = cell;
-    }
+		setNextCell(cell, nextState); //add it to 
 
-    public int getNextState (Cell cell,
-                             HashMap<Integer, ArrayList<Cell>> neighbourMap,
-                             double numNeighbours) {
-        double numAlike = 0.0;
-        if (!neighbourMap.get(cell.getState()).isEmpty()) {
-            numAlike = neighbourMap.get(cell.getState()).size();
-            if ((numAlike / numNeighbours) >= (myBoard.getProbablity())) {
-                System.out.println((myBoard.getProbablity() * 0.01));
-                System.out.println(numAlike / numNeighbours);
-                return cell.getState();
-            }
-            return 0;
-        }
-        return 0;
-    }
+	}
 
-    @Override
-    void currentCellNeighbors (Cell cell) {
-        myBoard.saveNeighborStates(cell, xDelta, yDelta);
+	public void setNextCell (Cell newCell, int nextState) {
 
-    }
+		newCell.setState(nextState); //update state of empty cell
+		newCell.getCellView().setColor(stateToColorMap.get(nextState)); //change color of empty cell
+		if(!nextBoardCells.contains(newCell)){
+			nextBoardCells.add(newCell); //add empty cell to nextboard
+		}
+		//		System.out.println(nextBoardCells.size());
+	}
+
+	public int getNextState (Cell cell,
+			HashMap<Integer, ArrayList<Cell>> neighbourMap,
+			double numNeighbours) {
+		double numAlike = 0.0;
+		if (!neighbourMap.get(cell.getState()).isEmpty()) { //has neighbors of similar race
+			numAlike = neighbourMap.get(cell.getState()).size(); //number of neighbors w/ same race
+			if ((numAlike / numNeighbours) >= (myBoard.getProbablity())) { //if enough same race neighbors
+				return cell.getState(); //stay
+			}
+			return 0; //else move
+		}
+		return 0;
+	}
+
+	@Override
+	void currentCellNeighbors (Cell cell) {
+		myBoard.saveNeighborStates(cell, xDelta, yDelta);
+
+	}
 
 }
