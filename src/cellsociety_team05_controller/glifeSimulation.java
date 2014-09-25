@@ -1,41 +1,26 @@
 package cellsociety_team05_controller;
 
+import java.util.List;
 import models.Cell;
+import models.GameOfLifeCell;
+import models.Patch;
 
 
 // state 0 = dead, 1 = alive
 public class glifeSimulation extends SimulationRules {
-//         protected static final int[] xDelta = { -1, 0, 1, -1, 0, 1 };
-//         protected static final int[] yDelta = { 1, 1, 1, 0, -1, 0 };
-//    protected static final int[] xDelta = { 1, 1, 0, -1, -1, 0 };
-//    protected static final int[] yDelta = { 0, 1, -1, 0, 1, 1 };
-    private int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
-    private int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
-    
+
     @Override
-    public void updateNextBoard (Cell cell) {
+    public void updateNextPatch (Patch patch) {
         int nextState = 0;
-
-        if (!cell.getNeighborMap().get(1).isEmpty()) {
-            int numAlive = cell.getNeighborMap().get(1).size();
-            if ((cell.getState() == 1) && (numAlive < 2)) {
-                nextState = 0;
-            }
-            else if ((cell.getState() == 1) && (numAlive > 3))
-                nextState = 0;
-            else if ((cell.getState() == 0) && (numAlive == 3))
-                nextState = 1;
-            else nextState = cell.getState();
+        List<Patch> aliveNeighbors = patch.getNeighborMap().get(1);
+        int numAlive = aliveNeighbors.size();
+        if (patch.getCell() != null) {
+            nextState = patch.getCell().getNextState(aliveNeighbors);
+            patch.updateCell(nextState);
         }
-        cell.setState(nextState);
-        cell.getCellView().setColor(stateToColorMap.get(nextState));
-        nextBoardCells.add(cell);
+        else {
+            if (numAlive == 3)
+                patch.setCell(new GameOfLifeCell(1));
+        }
     }
-
-    void currentCellNeighbors (Cell cell) {
-        // TODO Auto-generated method stub
-        myBoard.saveNeighborStates(cell, xDelta, yDelta);
-
-    }
-
 }

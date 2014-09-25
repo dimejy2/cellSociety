@@ -10,7 +10,7 @@
 			<color state="1" color="black"></color>
 		</colors>
 	</properties>
-	<grid xValue="15" yValue="15" gridType="HexagonBoard">
+	<grid xValue="15" yValue="15" gridType="SquareBoard">
 		<!-- DEFAULT GRID -->
 		<!-- Each digit represents a cell with its value being its initial state. -->
 		<row values="110000000011111"></row>

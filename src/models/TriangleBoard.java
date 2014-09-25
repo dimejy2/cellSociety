@@ -20,12 +20,13 @@ public class TriangleBoard extends Board {
             cellShape = cell.getCellView().getUpTriangle();
         }
 
-        Double xCoord = cell.getColumn() * (cell.getCellDim() / 2);
-        Double yCoord =
+
+        double xCoord = cell.getColumn() * (cell.getCellDim() / 2);
+        double yCoord =
                 (cell.getCellDim() * Math.sin(Math.PI / 3) / 2) + cell.getRow() *
                         cell.getCellDim() * Math.sin(Math.PI / 3);
 
-        putShapedCell(cellShape, xCoord, yCoord);
+        putShapedPatch(cellShape, xCoord, yCoord);
     }
     
 

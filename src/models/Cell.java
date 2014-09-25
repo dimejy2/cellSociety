@@ -2,15 +2,16 @@ package models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import javafx.scene.shape.Shape;
 import views.CellView;
 
-public class Cell  {
+public abstract class Cell extends GridObject {
 
 
-	private int myRow;
-	private int myColumn;
-	private int myState; 
+
+	protected int myState; 
 	private CellView myCellView;
 	private int myResources;
 	private int framesAlive;
@@ -19,17 +20,19 @@ public class Cell  {
 	private int myReproductionTime;
 	private int decrementValue;
 	private int incrementValue;
+	private Shape shape;
 	
 
-	public Cell ( int row, int column, int state, double cellDim){
-		myRow = row; 
-		myColumn = column; 
+	public Cell (int state){
+
 		myState = state; 
-		myCellDim = cellDim;
-		myCellView = new CellView(myCellDim, myCellDim, state);
+//		myCellDim = cellDim;
+//		myCellView = new CellView(myCellDim, myCellDim, state);
 		framesAlive = 0;
 	}
 
+	public abstract int getNextState(List<Patch> neighbors);
+	
 	public CellView getCellView() {
 		return myCellView;
 	}
@@ -95,9 +98,6 @@ public class Cell  {
 		return myNeighborStateMap; 
 	}
 	
-	public double getCellDim() {
-		return myCellDim;
-	}
 	public void setIncrementDecrementValues(int increment, int decrement) {
 		incrementValue = increment;
 		decrementValue = decrement;
@@ -115,9 +115,15 @@ public class Cell  {
 		myReproductionTime = reproductionTime;
 	}
 
-	public Cell replicateCell(Cell cell, int state) {
-		Cell newCell =  new Cell(cell.getRow(), cell.getColumn(), state, cell.getCellDim());
-		return newCell;
+//	public Cell replicateCell(Cell cell, int state) {
+//		Cell newCell =  new Cell(cell.getRow(), cell.getColumn(), state, cell.getCellDim());
+//		return newCell;
+//	}
+
+	@Override
+	public int getCellDim() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

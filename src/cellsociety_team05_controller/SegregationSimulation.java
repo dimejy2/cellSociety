@@ -31,19 +31,20 @@ public class SegregationSimulation extends SimulationRules {
 
 		int nextState = getNextState(cell, neighbourMap, numNeighbours);
 
-		//		if() {
-		//			return;
-		//		}
+		if(invalidCellChoices.contains(cell)) {
+			return;
+		}
 
 		if (nextState == empty && myBoard.getStateMap().get(0).size()>0) { //want to move, and empty spots available
 			int randomIndex = chance.nextInt(emptyCells.size()); //pick random empty cell's index
 			Cell emptyCell = emptyCells.get(randomIndex); //store empty cell
 			setNextCell(emptyCell, cell.getState()); //put in empty cell you wish to move to, stores newcell
 			emptyCells.remove(randomIndex); // spot no longer empty, so remove
-			System.out.println(emptyCells.size());
+			invalidCellChoices.add(emptyCell);
 		}
 
 		setNextCell(cell, nextState); //add it to 
+		invalidCellChoices.add(cell);
 
 	}
 
@@ -51,9 +52,9 @@ public class SegregationSimulation extends SimulationRules {
 
 		newCell.setState(nextState); //update state of empty cell
 		newCell.getCellView().setColor(stateToColorMap.get(nextState)); //change color of empty cell
-		if(!nextBoardCells.contains(newCell)){
-			nextBoardCells.add(newCell); //add empty cell to nextboard
-		}
+
+		nextBoardCells.add(newCell); //add empty cell to nextboard
+		System.out.println(nextBoardCells.size());
 		//		System.out.println(nextBoardCells.size());
 	}
 
