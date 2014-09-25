@@ -8,9 +8,9 @@ import models.Cell;
 
 // 1 = fish, 2 = shark
 public class PredatorPreySimulation extends SimulationRules {
+	private int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
+	private int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
 
-    private int[] xDelta = { 0, -1, 1, 0 };
-    private int[] yDelta = { -1, -0, 0, 1 };
 
     @Override
     public void updateNextBoard (Cell cell) {

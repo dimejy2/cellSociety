@@ -11,21 +11,21 @@ public class HexagonBoard extends Board {
     }
 
     @Override
-    public void addCell (Cell cell) {
+    public void addPatch (Patch patch) {
         // adjusting the locations of hexagon cells (odd vs even columns)
-    	super.addCell(cell);
-//        myCells[cell.getRow()][cell.getColumn()] = cell;
-    	Shape cellShape = cell.getCellView().getHexagon();
+    	super.addPatch(patch);
+    	Shape shape = patch.getPatchView().getHexagon();
+    	patch.setShape(shape);
+        double xCoord = ((3 * patch.getColumn() / 2 + 1) * patch.getPatchDim()) / 2;
+        double yCoord = (cellDim * Math.sqrt(3) / 4) + patch.getRow() * (cellDim * Math.sqrt(3) / 2);
 
-        double xCoord = ((3 * cell.getColumn() / 2 + 1) * cell.getCellDim()) / 2;
-        double yCoord = (cellDim * Math.sqrt(3) / 4) + cell.getRow() * (cellDim * Math.sqrt(3) / 2);
-
-        if (cell.getColumn() % 2 == 1) {
+        if (patch.getColumn() % 2 == 1) {
             // might wanna simplify
-            xCoord = ((3 * cell.getColumn() / 2 + 1) * cell.getCellDim()) / 2 + cell.getCellDim() / 4;
-            yCoord = (cellDim * Math.sqrt(3) / 2) + cell.getRow() * (cellDim * Math.sqrt(3) / 2);
+            xCoord = ((3 * patch.getColumn() / 2 + 1) * patch.getPatchDim()) / 2 + patch.getPatchDim() / 4;
+            yCoord = (cellDim * Math.sqrt(3) / 2) + patch.getRow() * (cellDim * Math.sqrt(3) / 2);
         }
-        putShapedCell(cellShape, xCoord, yCoord);
+        shape.relocate(xCoord,yCoord);
+        putShapedPatch(patch);
 
     }
 
