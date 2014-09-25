@@ -22,47 +22,28 @@ public abstract class ValueChangers {
         return valueChangers;
     }
 
-    // protected void configureMaxResources() {
-    // maxResources.textProperty().addListener(new ChangeListener<String>() {
-    // @Override
-    // public void changed(ObservableValue<? extends String> observable,
-    // String oldValue, String newValue) {
-    // mySimulationController.changeMaxResources(maxResources);
-    // }
-    // });
-    // valueChangers.add(maxResources);
-    // }
-    //
-    // protected void configureProbability() {
-    // probability.textProperty().addListener(new ChangeListener<String>() {
-    // @Override
-    // public void changed(ObservableValue<? extends String> observable,
-    // String oldValue, String newValue) {
-    // mySimulationController.changeProbability(probability);
-    // }
-    // });
-    // valueChangers.add(probability);
-    // }
+     protected void configureMaxResources() {
+     maxResources.textProperty().addListener(new ChangeListener<String>() {
+     @Override
+     public void changed(ObservableValue<? extends String> observable,
+     String oldValue, String newValue) {
+     mySimulationController.changeMaxResources(maxResources);
+     }
+     });
+     valueChangers.add(maxResources);
+     }
+    
+     protected void configureProbability() {
+     probability.textProperty().addListener(new ChangeListener<String>() {
+     @Override
+     public void changed(ObservableValue<? extends String> observable,
+     String oldValue, String newValue) {
+     mySimulationController.changeProbability(probability);
+     }
+     });
+     valueChangers.add(probability);
+     }
 
-    protected void configureResource (TextField resource) {
-        resource.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed (ObservableValue<? extends String> observable,
-                                 String oldValue, String newValue) {
-                mySimulationController.changeProbability(resource);
-            }
-        });
-        valueChangers.add(resource);
-    }
 
-    protected void configureProbability () {
-        configureResource(probability);
-
-    }
-
-    protected void configureMaxResources () {
-        configureResource(maxResources);
-
-    }
 
 }
