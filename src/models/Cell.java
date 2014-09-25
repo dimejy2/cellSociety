@@ -2,15 +2,16 @@ package models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javafx.scene.shape.Shape;
 import views.CellView;
 
-public class Cell extends GridObject {
+public abstract class Cell extends GridObject {
 
 
 
-	private int myState; 
+	protected int myState; 
 	private CellView myCellView;
 	private int myResources;
 	private int framesAlive;
@@ -30,6 +31,8 @@ public class Cell extends GridObject {
 		framesAlive = 0;
 	}
 
+	public abstract int getNextState(List<Patch> neighbors);
+	
 	public CellView getCellView() {
 		return myCellView;
 	}

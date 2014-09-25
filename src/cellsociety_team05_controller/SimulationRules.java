@@ -81,7 +81,7 @@ public abstract class SimulationRules {
 		}
 	}
 
-	public abstract void updateNextBoard (Patch patch);
+	public abstract void updateNextPatch (Patch patch);
 
 	public void switchBoards () {
 		myBoardPane.getChildren().clear();
@@ -93,7 +93,7 @@ public abstract class SimulationRules {
 		nextBoardObjects = new ArrayList<Patch>();
 		invalidCellChoices = new ArrayList<>();
 		for (Patch patch : myPatches) {
-			updateNextBoard(patch);
+			updateNextPatch(patch);
 		}
 	}
 	//	abstract void currentCellNeighbors(Cell cell);

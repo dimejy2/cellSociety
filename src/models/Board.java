@@ -22,9 +22,9 @@ public abstract class Board {
 	protected int cellDim;
 	private int numStates;
 	private double myProbability;
-	private Map<Integer, ArrayList<Cell>> myStateMap;
-	protected int[] myXDelta = { -1, 0, 1, -1, 0, 1 };
-	protected int[] myYDelta = { 1, 1, 1, 0, -1, 0 };
+	private Map<Integer, ArrayList<Patch>> myStateMap;
+	protected int[] myXDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
+	protected int[] myYDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
 
 
 	public Board (int row, int column, Pane boardPane, int states) {
@@ -49,7 +49,6 @@ public abstract class Board {
 
 	public void updatePatchViews() {
 		for(Patch patch : myGraph) {
-
 			putShapedPatch(patch);
 		}
 	}
@@ -74,7 +73,10 @@ public abstract class Board {
 		myStateMap = genericStateMap(numStates);
 		for (Patch patch : myGraph) {
 			if(patch.getCell() != null) {
-				myStateMap.get(patch.getCell().getState()).add(patch.getCell());
+				myStateMap.get(patch.getCell().getState()).add(patch);
+			}
+			else {
+				myStateMap.get(0).add(patch);
 			}
 		}
 	}
@@ -83,15 +85,15 @@ public abstract class Board {
 		return numStates;
 	}
 
-	public Map<Integer, ArrayList<Cell>> getStateMap () {
+	public Map<Integer, ArrayList<Patch>> getStateMap () {
 		return myStateMap;
 	}
 
-	public HashMap<Integer, ArrayList<Cell>> genericStateMap (int n) {
+	public HashMap<Integer, ArrayList<Patch>> genericStateMap (int n) {
 
-		HashMap<Integer, ArrayList<Cell>> toReturn = new HashMap<>();
+		HashMap<Integer, ArrayList<Patch>> toReturn = new HashMap<>();
 		for (int i = 0; i < n; i++) {
-			toReturn.put(i, new ArrayList<Cell>());
+			toReturn.put(i, new ArrayList<Patch>());
 		}
 		return toReturn;
 	}
@@ -119,6 +121,7 @@ public abstract class Board {
 				neighborPatches.add(neighborPatch);
 			}
 		}
+		System.out.println("Final neighbor size: " + Integer.toString(neighborPatches.size()));
 		patch.setNeighborPatches(neighborPatches);
 	}
 

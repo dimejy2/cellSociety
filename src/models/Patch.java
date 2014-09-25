@@ -13,7 +13,7 @@ public abstract class Patch {
 
 
 	private Map<String, Double> staticResources; 
-	private Cell myCell;
+	protected Cell myCell;
 	private List<Patch> myNeighborPatches;
 	protected Map<Integer, List<Patch>> myNeighborMap;
 	protected int myRow;
@@ -23,6 +23,7 @@ public abstract class Patch {
 	protected CellView myPatchView;
 	protected Shape myShape;
 	private double myPatchDim;
+	private int myNumStates;
 
 
 	public Patch(int row, int col, Map <String, Double> resources, double patchDim){
@@ -34,6 +35,10 @@ public abstract class Patch {
 	
 	}
 
+	public void setNumStates(int numStates) {
+		myNumStates = numStates;
+	}
+	
 	private void setProbablity(int probability) {
 		myProbability = probability;
 	}
@@ -66,7 +71,7 @@ public abstract class Patch {
 	public List<Patch> getNeighborList() {
 		return myNeighborPatches;
 	}
-
+	
 	protected Map<Integer, List<Patch>> genericStateMap (int n) {
 
 		Map<Integer, List<Patch>> toReturn = new HashMap<>();
@@ -81,13 +86,17 @@ public abstract class Patch {
 			if(patch.getCell()!=null) {
 				myNeighborMap.get(patch.getCellsState()).add(patch);
 			}
+			else {
+				myNeighborMap.get(0).add(patch);
+			}
 		}
-
 	}
 	
 	public Map<Integer, List<Patch>> getNeighborMap() {
 		return myNeighborMap;
 	}
+	
+	public abstract void updateCell(int state);
 	
 	public int getCellsState() {
 		return myCell.getState();

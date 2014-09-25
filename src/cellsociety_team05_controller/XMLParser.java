@@ -15,6 +15,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import models.Board;
 import models.Cell;
+import models.CellFactory;
 import models.HexagonBoard;
 import models.Patch;
 import models.PatchFactory;
@@ -175,9 +176,8 @@ public class XMLParser extends DefaultHandler {
 				if(Character.getNumericValue(row.charAt(j))>0) {
 
 					Cell cell =
-							new Cell(Character.getNumericValue(row.charAt(j)));
-					cell.setResources(resources);
-					cell.setIncrementDecrementValues(incrementValue, decrementValue);
+							CellFactory.getCell(criteria, Character.getNumericValue(row.charAt(j)));
+
 					if (Character.getNumericValue(row.charAt(j)) >= numCellStates) hasError = true;
 					newPatch.setCell(cell);
 				}

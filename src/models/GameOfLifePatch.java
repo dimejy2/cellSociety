@@ -14,6 +14,16 @@ public class GameOfLifePatch extends Patch {
 		myNeighborMap = genericStateMap(3);
 		super.generateNeighborMap();
 	}
+
+	@Override
+	public void updateCell(int state) {
+		if(state ==0 ) {
+			myCell = null;
+		}
+		else {
+			myCell.setState(state);
+		}
+	}
 	
 
 }
