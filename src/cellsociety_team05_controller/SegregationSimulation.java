@@ -19,11 +19,13 @@ public class SegregationSimulation extends SimulationRules {
 		HashMap<Integer, ArrayList<Cell>> neighbourMap = cell.getNeighborMap();
 
 		ArrayList<Cell> emptyCells = myBoard.getStateMap().get(0);
+//		System.out.println(emptyCells.size());
 
 		int numNeighbours = 0;
 		for (int i = 1; i < neighbourMap.size(); i++) {
 			numNeighbours += neighbourMap.get(i).size();
 		}
+		System.out.println(neighbourMap.size());
 
 
 

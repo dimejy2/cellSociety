@@ -5,9 +5,13 @@ import models.Cell;
 
 // state 0 = dead, 1 = alive
 public class glifeSimulation extends SimulationRules {
-         protected static final int[] xDelta = { -1, 0, 1, -1, 0, 1 };
-         protected static final int[] yDelta = { 1, 1, 1, 0, -1, 0 };
-
+//         protected static final int[] xDelta = { -1, 0, 1, -1, 0, 1 };
+//         protected static final int[] yDelta = { 1, 1, 1, 0, -1, 0 };
+//    protected static final int[] xDelta = { 1, 1, 0, -1, -1, 0 };
+//    protected static final int[] yDelta = { 0, 1, -1, 0, 1, 1 };
+    private int[] xDelta = { -1, 0, 1, -1, 1, -1, 0, 1 };
+    private int[] yDelta = { -1, -1, -1, 0, 0, 1, 1, 1 };
+    
     @Override
     public void updateNextBoard (Cell cell) {
         int nextState = 0;
