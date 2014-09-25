@@ -1,6 +1,7 @@
 package models;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Shape;
 
 
 public class HexagonBoard extends Board {
@@ -12,18 +13,19 @@ public class HexagonBoard extends Board {
     @Override
     public void addCell (Cell cell) {
         // adjusting the locations of hexagon cells (odd vs even columns)
-        myCells[cell.getRow()][cell.getColumn()] = cell;
-        cellShape = cell.getCellView().getHexagon();
+    	super.addCell(cell);
+//        myCells[cell.getRow()][cell.getColumn()] = cell;
+    	Shape cellShape = cell.getCellView().getHexagon();
 
-        xCoord = ((3 * cell.getColumn() / 2 + 1) * cell.getCellDim()) / 2;
-        yCoord = (cellDim * Math.sqrt(3) / 4) + cell.getRow() * (cellDim * Math.sqrt(3) / 2);
+        double xCoord = ((3 * cell.getColumn() / 2 + 1) * cell.getCellDim()) / 2;
+        double yCoord = (cellDim * Math.sqrt(3) / 4) + cell.getRow() * (cellDim * Math.sqrt(3) / 2);
 
         if (cell.getColumn() % 2 == 1) {
             // might wanna simplify
             xCoord = ((3 * cell.getColumn() / 2 + 1) * cell.getCellDim()) / 2 + cell.getCellDim() / 4;
             yCoord = (cellDim * Math.sqrt(3) / 2) + cell.getRow() * (cellDim * Math.sqrt(3) / 2);
         }
-        putShapedCell();
+        putShapedCell(cellShape, xCoord, yCoord);
 
     }
 

@@ -1,6 +1,7 @@
 package models;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Shape;
 
 public class SquareBoard extends Board {
 
@@ -13,12 +14,12 @@ public class SquareBoard extends Board {
          // adjusting the locations of hexagon cells (odd vs even columns)
          myCells[cell.getRow()][cell.getColumn()] = cell;
         
-         cellShape = cell.getCellView().getRectangle();
+         Shape cellShape = cell.getCellView().getRectangle();
         
-         xCoord = cellDim / 2 + cell.getColumn() * cellDim;
-         yCoord = cellDim / 2 + cell.getRow() * cellDim;
+         double xCoord = cellDim / 2 + cell.getColumn() * cellDim;
+         double yCoord = cellDim / 2 + cell.getRow() * cellDim;
         
-         putShapedCell();
+         putShapedCell(cellShape, xCoord, yCoord);
         
     }
 
