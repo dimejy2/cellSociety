@@ -60,6 +60,7 @@ public abstract class SimulationRules {
     private EventHandler<ActionEvent> oneFrame = new EventHandler<ActionEvent>() {
         @Override
         public void handle (ActionEvent evt) {
+            myBoard.generateMyStateMap();
             checkCells();
             switchBoards();
             updatePopulationGraph();

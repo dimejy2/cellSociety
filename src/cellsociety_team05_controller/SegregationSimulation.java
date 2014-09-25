@@ -17,7 +17,6 @@ public class SegregationSimulation extends SimulationRules {
 
         HashMap<Integer, ArrayList<Cell>> neighbourMap = cell.getNeighborMap();
 
-        myBoard.generateMyStateMap();
         ArrayList<Cell> emptyCells = myBoard.getStateMap().get(0);
 
         int nextState = 0;
