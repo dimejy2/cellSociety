@@ -118,7 +118,6 @@ public class XMLParser extends DefaultHandler {
 		if (qName.equalsIgnoreCase("cellularautomata")) {
 			if (attributes.getValue("type").equals("GameofLife")) {
 				mySimulation = new glifeSimulation();
-				//criteria = attributes.getValue("type");
 			}
 			else if (attributes.getValue("type").equals("FireSimulation")) {
 				mySimulation = new FireSimulation();

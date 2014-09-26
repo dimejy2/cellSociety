@@ -11,7 +11,7 @@
 			<!-- <color state="2" color="yellow"></color> -->
 		</colors>
 	</properties>
-	<grid xValue="50" yValue="50" gridType="SquareBoard">
+	<grid row="50" column="50" gridType="SquareBoard">
 		<!-- DEFAULT GRID -->
 		<!-- Each digit represents a cell with its value being its initial state. -->
 		<randomWeightedFill></randomWeightedFill>

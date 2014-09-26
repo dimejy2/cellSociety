@@ -130,6 +130,7 @@ public class BoardView {
 			public void handle (ActionEvent event) {
 				mySimulation.stop();
 				myPlayButton.setDisable(true);
+				myStopButton.setDisable(true);
 				myPauseButton.setDisable(true);
 				myChooseFileButton.setDisable(false);
 				myResetButton.setDisable(false);
