@@ -3,6 +3,7 @@ package models;
 import java.util.Map;
 
 public class PatchFactory {
+
 	public static Patch getPatch(String criteria, int row, int col, 
 			Map <String, Double> resources, double cellDim) {
 		

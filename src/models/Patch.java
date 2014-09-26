@@ -140,6 +140,7 @@ public abstract class Patch {
 		return myProbability;
 	}
 
+
 	public void decrementPatch() {
 		myResources -= myDecrement;
 	}

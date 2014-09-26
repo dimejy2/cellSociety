@@ -10,6 +10,8 @@ public class SquareBoard extends Board {
 		super(row, column, boardPane2, states);
 	}
 
+
+
 	@Override
 	public void addPatch (Patch patch) {
 		// adjusting the locations of hexagon cells (odd vs even columns)

@@ -6,6 +6,7 @@ import javafx.scene.shape.Shape;
 
 public class TriangleBoard extends Board {
 
+
 	public TriangleBoard (int row, int column, Pane boardPane2, int states) {
 		super(row, column, boardPane2, states);
 	}

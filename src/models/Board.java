@@ -148,4 +148,5 @@ public abstract class Board {
 	public void setColorMap (Map<Integer, Color> colorMap) {
 		stateToColorMap = colorMap;
 	}
+
 }
