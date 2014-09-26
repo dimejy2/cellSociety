@@ -122,6 +122,9 @@ public class XMLParser extends DefaultHandler {
 			else if (attributes.getValue("type").equals("FireSimulation")) {
 				mySimulation = new FireSimulation();
 			}
+			else if (attributes.getValue("type").equals("SugarScapeSimulation")) {
+				mySimulation = new SugarScapeSimulation();
+			}
 			else if (attributes.getValue("type").equals("Segregation")) {
 				mySimulation = new SegregationSimulation();
 			}
@@ -170,6 +173,10 @@ public class XMLParser extends DefaultHandler {
 			else if (attributes.getValue("name").equals("breedTime")) {
 				breedTime = Integer.parseInt(attributes.getValue("value"));
 				cellProperties.put(attributes.getValue("name"), breedTime);
+			}
+			else if (attributes.getValue("name").equals("vision")) {
+				double vision = Integer.parseInt(attributes.getValue("value"));
+				cellProperties.put(attributes.getValue("name"), vision);
 			}
 		}
 

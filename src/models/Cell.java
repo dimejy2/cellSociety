@@ -24,7 +24,7 @@ public abstract class Cell {
 	protected double myBreedingTime;
 	protected double decrementValue;
 	protected double incrementValue;
-	protected int myVision; 
+	protected double myVision; 
 	protected Patch myPatch;
 	protected List<Patch> similarNeighbors;
 
@@ -157,7 +157,7 @@ public abstract class Cell {
 		myVision = n; 
 	}
 
-	public int getVision(){
+	public double getVision(){
 		return myVision; 
 		
 	}

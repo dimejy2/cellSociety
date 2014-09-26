@@ -18,7 +18,7 @@ public abstract class Board {
 	private Pane myBoardPane;
 	protected Patch[][] myPatches;
 	protected Map<int[], Patch> myMapGraph;
-	private static final int WINDOW_SIZE = 350;
+	private static final int WINDOW_SIZE = 400;
 	protected Map<Integer, Color> stateToColorMap;
 	protected int cellDim;
 	private int numStates;

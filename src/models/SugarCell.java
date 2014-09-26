@@ -5,25 +5,28 @@ import java.util.Map;
 
 public class SugarCell extends Cell {
 
+	private static final int METABOL = -5; 
+	private static final int DEAD = 0; 
+	private static final int ALIVE = 1;
+	
 	public SugarCell(int state, Map<String, Double> cellResources) {
 		super(state, cellResources);
-		// TODO Auto-generated constructor stub
+		myVision = cellResources.get("vision");
 	}
 
 	@Override
 	public int getNextState(Map<Integer, List<Patch>> neighbors) {
-		// TODO Auto-generated method stub
 		
-		int nextState = 0; 
+		Patch newContainer = this.getPatch();
+		this.incrementResources((int)newContainer.getResources());
+		newContainer.updateResources(-newContainer.getResources());
+		this.incrementResources(METABOL);
 		
-		
-		
-		
-		
-		return 0;
-		
-	
-	
+		if(this.getResources() <= 0 ){
+			
+			return DEAD; 
+		}
+		return this.getState(); 
 	
 	}
 

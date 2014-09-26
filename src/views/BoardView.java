@@ -26,7 +26,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class BoardView {
-	public static final Dimension DEFAULT_SIZE = new Dimension(600, 600);
+	public static final Dimension DEFAULT_SIZE = new Dimension(800, 650);
 	public static final Dimension BUTTON_SIZE = new Dimension(150, 50);
 	public static final Insets BUTTON_PADDING = new Insets(20, 20, 100, 0);
 	public static final int BUTTON_SPACING = 20;

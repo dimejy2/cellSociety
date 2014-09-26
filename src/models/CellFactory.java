@@ -12,6 +12,11 @@ public class CellFactory {
 			return new GameOfLifeCell(state);
 		}
 		
+		if(criteria.equals("SugarScapeSimulation")) {
+			return new SugarCell(state, cellResources);
+			}
+		
+		
 		if(criteria.equals("FireSimulation")) {
 			if(state == 1) {
 				return new TreeCell(state);

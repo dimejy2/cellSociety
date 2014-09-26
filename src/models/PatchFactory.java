@@ -19,9 +19,14 @@ public class PatchFactory {
 			return new SegregationPatch(row, col, resources, cellDim);
 		}
 		
-		else if(criteria.equals("WaTorWorld")) {
+		else if(criteria.equalsIgnoreCase("WaTorWorld")) {
 			return new WatorWorldPatch(row, col, resources, cellDim);
 		}
+		
+		else if(criteria.equalsIgnoreCase("SugarScapeSimulation")) {
+			return new SugarPatch(row, col, resources, cellDim);
+		}
+		
 		else{
 			return null;
 		}

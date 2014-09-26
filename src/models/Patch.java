@@ -128,7 +128,7 @@ public abstract class Patch {
 		myPatchView.setColor(color);
 	}
 
-	public void updateResources(int delta) {
+	public void updateResources(double delta) {
 		myResources += delta;
 	}
 
@@ -140,9 +140,16 @@ public abstract class Patch {
 		return myProbability;
 	}
 
+	public double getResources(){
+		return myResources; 
+	}
 
 	public void decrementPatch() {
 		myResources -= myDecrement;
+	}
+	
+	public void clearCell(){
+		myCell = null; 
 	}
 
 	public Patch checkSurroundingPatches(List<Patch> neighbors, List<Patch> invalidPatchChoices) {
