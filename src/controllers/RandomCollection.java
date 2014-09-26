@@ -1,4 +1,4 @@
-package cellsociety_team05_controller;
+package controllers;
 
 import java.util.NavigableMap;
 import java.util.Random;

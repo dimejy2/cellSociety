@@ -14,10 +14,10 @@ public class WatorWorldPatch extends Patch {
 		myNeighborMap = genericStateMap(3);
 		super.generateNeighborMap();
 	}
-	
+
 	@Override
 	public void updateCell(int state) {
-		
+
 	}
 
 }

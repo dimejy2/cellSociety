@@ -1,4 +1,4 @@
-package cellsociety_team05_controller;
+package controllers;
 
 import java.util.Random;
 
@@ -12,10 +12,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class CellAutomata extends Application {
-        SimulationRules mySimulation;
+	private SimulationRules mySimulation;
 
 
-	
+
 	@Override
 	public void start(Stage s) throws Exception {
 		s.setTitle("Cellular Automata");
@@ -24,7 +24,7 @@ public class CellAutomata extends Application {
 		s.setScene(scene);
 		s.show();
 	}
-	
+
 	/**
 	 * Start the program.
 	 */

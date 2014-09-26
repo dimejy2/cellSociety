@@ -2,11 +2,12 @@ package views;
 
 import java.awt.Dimension;
 import java.io.File;
+
+import controllers.SimulationController;
+import controllers.SimulationRules;
+import controllers.XMLParser;
+import controllers.xmlError;
 import models.Board;
-import cellsociety_team05_controller.SimulationController;
-import cellsociety_team05_controller.SimulationRules;
-import cellsociety_team05_controller.XMLParser;
-import cellsociety_team05_controller.xmlError;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -54,7 +55,7 @@ public class BoardView {
 	}
 
 	public void xmlInit() {
-		
+
 		myBoardPane = new Pane();
 		try {
 			xmlParser = new XMLParser(xmlFile, myBoardPane);
@@ -64,7 +65,7 @@ public class BoardView {
 			SimpleDialog error = new SimpleDialog("Error Notification", "Your XML file has errors.\n Please fix them or choose another file to continue.", 300,300); 
 			error.show();
 		}
-		
+
 
 	}
 

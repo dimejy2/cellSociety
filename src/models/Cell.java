@@ -19,7 +19,7 @@ public abstract class Cell {
 	protected double myResources;
 	private int framesAlive;
 	private double myCellDim;
-	private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
+	private Map<Integer, List<Cell>> myNeighborStateMap; 
 	private Map<String, Double> propertyMap;
 	protected double myBreedingTime;
 	protected double decrementValue;
@@ -52,7 +52,7 @@ public abstract class Cell {
 	
 
 	public void createCellView(int height, int state) {
-		myCellView = new PatchView(height, height, state);
+		myCellView = new PatchView(height, height);
 	}
 
 	public int getRow(){
@@ -98,8 +98,8 @@ public abstract class Cell {
 		myState = state;
 	}
 	
-	public void setNeighborMap(HashMap<Integer, ArrayList<Cell>> neighborMapToSet){
-		myNeighborStateMap = neighborMapToSet ; 
+	public void setNeighborMap(Map<Integer, List<Cell>> neighborMapToSet){
+		myNeighborStateMap = neighborMapToSet; 
 		
 	}
 	
@@ -107,7 +107,7 @@ public abstract class Cell {
 		return myResources;
 	}
 	
-	public HashMap<Integer, ArrayList<Cell>> getNeighborMap(){
+	public Map<Integer, List<Cell>> getNeighborMap(){
 		return myNeighborStateMap; 
 	}
 	

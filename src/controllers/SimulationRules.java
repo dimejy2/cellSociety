@@ -1,4 +1,4 @@
-package cellsociety_team05_controller;
+package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,6 @@ public abstract class SimulationRules {
 	protected List<Patch> myPatches;
 	protected List<Patch> nextBoardObjects;
 	protected Board nextBoard;
-	protected CellController myCellController;
 	protected Pane myBoardPane;
 	protected Animation myAnimation;
 	protected Slider mySpeedSlider;
@@ -139,6 +138,6 @@ public abstract class SimulationRules {
 		}
 
 	}
-	
+
 }
 

@@ -3,10 +3,11 @@ package models;
 import java.util.Map;
 
 public class SegregationPatch extends Patch {
+	private final static int NUMBER_OF_STATES = 3;
 
 	public SegregationPatch(int row, int col, Map<String, Double> resources,
 			double patchDim) {
-		
+
 		super(row, col, resources, patchDim);
 		myProbability = resources.get("probability");
 	}
@@ -14,7 +15,7 @@ public class SegregationPatch extends Patch {
 
 	@Override
 	public void generateNeighborMap() {
-		myNeighborMap = genericStateMap(3);
+		myNeighborMap = genericStateMap(NUMBER_OF_STATES);
 		super.generateNeighborMap();
 	}
 

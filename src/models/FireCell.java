@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FireCell extends Cell {
+	private final static int EMPTY_PATCH = 0;
 
 	public FireCell(int state) {
 		super(state, null);
@@ -14,7 +15,7 @@ public class FireCell extends Cell {
 		myPatch.decrementPatch();
 		int nextState;
 		if(!myPatch.isAlive()) {
-			nextState = 0;
+			nextState = EMPTY_PATCH;
 		}
 		else {
 			nextState = myState;

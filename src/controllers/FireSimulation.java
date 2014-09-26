@@ -1,9 +1,5 @@
-package cellsociety_team05_controller;
+package controllers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import models.Cell;
 import models.Patch;
 
 

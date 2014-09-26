@@ -27,13 +27,14 @@ public abstract class Patch {
 	protected double myIncrement;
 	protected double myDecrement;
 	protected static Random rand = new Random();
+	private static final int EMPTY_PATCH = 0;
 
 
 	public Patch(int row, int col, Map <String, Double> resources, double patchDim){
 		myRow = row; 
 		myColumn = col; 
 		staticResources = resources; 
-		myPatchView = new PatchView(patchDim, patchDim, 0);
+		myPatchView = new PatchView(patchDim, patchDim);
 		myPatchDim = patchDim;
 	}
 
@@ -88,7 +89,7 @@ public abstract class Patch {
 				myNeighborMap.get(patch.getCellsState()).add(patch);
 			}
 			else {
-				myNeighborMap.get(0).add(patch);
+				myNeighborMap.get(EMPTY_PATCH).add(patch);
 			}
 		}
 	}
