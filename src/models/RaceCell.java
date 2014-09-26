@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 public class RaceCell extends Cell{
+	private static final int RACE_ONE = 1;
+	private static final int RACE_TWO = 2;
 
 	public RaceCell(int state) {
 		super(state, null);
@@ -12,16 +14,12 @@ public class RaceCell extends Cell{
 	@Override
 	public int getNextState(Map<Integer, List<Patch>> neighbors) {
 		int nextState =0;
-		double numNeighbors =neighbors.get(1).size() + neighbors.get(2).size();
-		System.out.println("similar:");
-		System.out.println(similarNeighbors.size());
-		System.out.println("neighbors");
-		System.out.println(numNeighbors);
+		double numNeighbors =neighbors.get(RACE_ONE).size() + neighbors.get(RACE_TWO).size();
 
 		if(numNeighbors<1) {
 			return 0;
 		}
-		System.out.println(similarNeighbors.size() / numNeighbors);
+		
 		if ((similarNeighbors.size() / numNeighbors) >= (myPatch.getProbability())) {
 			nextState = myState;
 		}

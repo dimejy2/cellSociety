@@ -1,11 +1,12 @@
 package views;
 
 import java.util.List;
+
+import controllers.SimulationController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
-import cellsociety_team05_controller.SimulationController;
 
 
 public abstract class ValueChangers {

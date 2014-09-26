@@ -1,13 +1,11 @@
-package cellsociety_team05_controller;
+package controllers;
 
 import java.util.List;
 
 import models.GameOfLifeCell;
 import models.Patch;
 
-
 public class glifeSimulation extends SimulationRules {
-
 
 	@Override
 	public void updateNextPatch (Patch patch) {

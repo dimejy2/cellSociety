@@ -19,7 +19,7 @@ public class PatchView {
     private Triangle newUpTri;
     private Triangle newDownTri;
 
-    public PatchView (double width, double height, int state) {
+    public PatchView (double width, double height) {
         // might not need height at all
         myRectangle = new Rectangle(width, height);
 

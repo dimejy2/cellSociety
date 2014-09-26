@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SharkCell extends Cell {
+	private static final int FISH_CELL = 1;
 
 	public SharkCell(int state, Map<String, Double> cellResources) {
 		super(state, cellResources);
@@ -14,12 +15,12 @@ public class SharkCell extends Cell {
 
 	@Override
 	public int getNextState(Map<Integer, List<Patch>> neighbors) {
-		if(neighbors.get(1).size() > 0) {
-			
+		if(neighbors.get(FISH_CELL).size() > 0) {
+
 		}
 		return 0;
 	}
-	
+
 	@Override
 	public boolean isStarved() {
 		myResources -= decrementValue;

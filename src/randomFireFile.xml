@@ -6,15 +6,14 @@
 		<property name="patchResources" value="10"></property>
 		<property name="numCellStates" value="3"></property>
 		<property name = "probability" value ="0.2"></property>
-		<property name = "increment" value ="3"></property>
-		<property name = "decrement" value ="-3"></property>
+		<property name = "patchDecrement" value ="-3"></property>
 		<colors>
 			<color state="0" color="black"></color>
 			<color state="1" color="green"></color>
 			<color state="2" color="orange"></color>
 		</colors>
 	</properties>
-	<grid xValue="80" yValue="80" gridType="SquareBoard">
+	<grid row="80" column="80" gridType="SquareBoard">
 		<!-- DEFAULT GRID -->
 		<!-- Each digit represents a cell with its value being its initial state. -->
 		<randomWeightedFill></randomWeightedFill>

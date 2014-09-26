@@ -1,4 +1,4 @@
-package cellsociety_team05_controller;
+package controllers;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
