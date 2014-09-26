@@ -80,7 +80,7 @@ public class XMLParser extends DefaultHandler {
 			System.out.println("IO error");
 		}
 
-		if (hasError || (rowNumber != numRows) || multipleBoardInitChecker != 1) throw new xmlError();
+		if (hasError || (rowNumber != numRows)) throw new xmlError();
 
 	}
 
@@ -130,7 +130,7 @@ public class XMLParser extends DefaultHandler {
 		if (qName.equalsIgnoreCase("cellularautomata")) {
 			if (attributes.getValue("type").equals("GameofLife")) {
 				mySimulation = new glifeSimulation();
-				criteria = attributes.getValue("type");
+				//criteria = attributes.getValue("type");
 			}
 			else if (attributes.getValue("type").equals("FireSimulation")) {
 				mySimulation = new FireSimulation();
@@ -218,8 +218,8 @@ public class XMLParser extends DefaultHandler {
 		if(qName.equalsIgnoreCase("randomWeightedfill")){
 			multipleBoardInitChecker ++; 
 			randomWeightedGeneratorAdder(); 
-			for(int j = 0 ; j < numRows ; j ++){
-				for (int i = 0; i < numCols; i++){
+			for(int i = 0 ; i < numRows ; i ++){
+				for (int j = 0; j < numCols; j++){
 					int randomState = probState.next() ; 
 					Patch newPatch = PatchFactory.getPatch(criteria, i, j, patchProperties,cellDim);
 					if(randomState != 0)	{

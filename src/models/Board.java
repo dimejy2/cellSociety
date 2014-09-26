@@ -46,6 +46,7 @@ public abstract class Board {
 
 
         public void addPatch (Patch patch) {
+        	System.out.println(patch);
                 myPatches[patch.getRow()][patch.getColumn()] = patch;
                 myGraph.add(patch);
         }

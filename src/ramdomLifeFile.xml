@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Type is the type of simulation -->
-<cellularautomata type="Segregation">
+<cellularautomata type="GameofLife">
 	<properties>
 		<!-- Parameters for gamemode -->
-		<property name="patchResources" value="10"></property>
-		<property name="numCellStates" value="3"></property>
-		<property name = "probability" value ="0.8"></property>
-		<property name = "increment" value ="3"></property>
-		<property name = "decrement" value ="-3"></property>
+		<property name="numCellStates" value="2"></property>
+
 		<colors>
 			<color state="0" color="white"></color>
 			<color state="1" color="black"></color>
-			<color state="2" color="yellow"></color>
+			<!-- <color state="2" color="yellow"></color> -->
 		</colors>
 	</properties>
 	<grid xValue="50" yValue="50" gridType="SquareBoard">
