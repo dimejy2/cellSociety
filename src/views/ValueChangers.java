@@ -39,7 +39,7 @@ public abstract class ValueChangers {
 
     }
 
-    protected void configureProbablity(){
+    protected void configureProbability(){
         configureResources(probability);
     }
    

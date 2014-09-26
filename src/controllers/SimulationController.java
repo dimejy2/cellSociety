@@ -25,25 +25,20 @@ public class SimulationController {
 	}
 	
 	public void changeMaxResources(TextField maxResources) {
-		mySimulation.setMaxResources(Integer.parseInt(maxResources.getText()));//HANDLE EXCEPTION
+		mySimulation.setMaxResources(Integer.parseInt(maxResources.getText()));
 	}
 	
 	public void changeIncrementAmount(TextField incrementAmount, TextField decrementAmount) {
-//		myAnimation.setRate(incrementAmount.getValue());
 		
 	}
 	
 	public void changeDecrementAmount(TextField decrementAmount) {
-//		myAnimation.setRate(decrementAmount.getValue());
 	}	
 	
 	public void changeProbability(TextField probability) {
-//		myAnimation.setRate(probability.getValue());
-		
 	}
 	
 	public void changeBreedTime(TextField breedTime, int state) {
-//		myAnimation.setRate(breedTime.getValue());
 	}
 
 }
