@@ -16,7 +16,7 @@ public abstract class Cell {
 	protected int myColumn;
 	protected int myState; 
 	private PatchView myCellView;
-	protected double myResources;
+	protected double myResources; // sugar for sugarMap
 	private int framesAlive;
 	private double myCellDim;
 	private Map<Integer, List<Cell>> myNeighborStateMap; 
@@ -24,6 +24,7 @@ public abstract class Cell {
 	protected double myBreedingTime;
 	protected double decrementValue;
 	protected double incrementValue;
+	protected int myVision; 
 	protected Patch myPatch;
 	protected List<Patch> similarNeighbors;
 
@@ -150,5 +151,14 @@ public abstract class Cell {
 	
 	public boolean isStarved() {
 		return false;
+	}
+	
+	public void setVision(int n){
+		myVision = n; 
+	}
+
+	public int getVision(){
+		return myVision; 
+		
 	}
 }

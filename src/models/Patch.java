@@ -20,7 +20,7 @@ public abstract class Patch {
 	protected int myRow;
 	protected int myColumn;
 	protected double myProbability;
-	protected double myResources;
+	protected double myResources;// sugar
 	protected PatchView myPatchView;
 	protected Shape myShape;
 	private double myPatchDim;
