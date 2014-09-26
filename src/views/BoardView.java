@@ -142,7 +142,7 @@ public class BoardView {
 			@Override
 			public void handle (ActionEvent event) {
 				mySimulation.stop();
-				simulationInit();
+				xmlInit();
 				myPauseButton.setDisable(true);
 				myPlayButton.setDisable(false);
 				myChooseFileButton.setDisable(false);
