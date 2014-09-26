@@ -9,32 +9,31 @@ import java.util.Random;
 import javafx.scene.shape.Shape;
 import views.CellView;
 
-public abstract class Cell extends GridObject {
+public abstract class Cell {
 
 
-
+	protected int myRow;
+	protected int myColumn;
 	protected int myState; 
 	private CellView myCellView;
-	private int myResources;
+	protected double myResources;
 	private int framesAlive;
 	private double myCellDim;
 	private HashMap<Integer, ArrayList<Cell>> myNeighborStateMap; 
-	private int myReproductionTime;
-	private int decrementValue;
-	private int incrementValue;
-	private Shape shape;
+	private Map<String, Double> propertyMap;
+	protected double myBreedingTime;
+	protected double decrementValue;
+	protected double incrementValue;
 	protected Patch myPatch;
 	protected List<Patch> similarNeighbors;
 
 	protected static Random rand = new Random();
 	
 
-	public Cell (int state){
-
+	public Cell (int state, Map<String, Double> cellResources){
 		myState = state; 
-//		myCellDim = cellDim;
-//		myCellView = new CellView(myCellDim, myCellDim, state);
 		framesAlive = 0;
+		propertyMap = cellResources;
 	}
 	
 	public void setPatch(Patch patch) {
@@ -104,7 +103,7 @@ public abstract class Cell extends GridObject {
 		
 	}
 	
-	public int getResources() {
+	public double getResources() {
 		return myResources;
 	}
 	
@@ -126,18 +125,30 @@ public abstract class Cell extends GridObject {
 	}
 
 	public void setReproductionTime(int reproductionTime) {
-		myReproductionTime = reproductionTime;
+		myBreedingTime = reproductionTime;
 	}
-
-//	public Cell replicateCell(Cell cell, int state) {
-//		Cell newCell =  new Cell(cell.getRow(), cell.getColumn(), state, cell.getCellDim());
-//		return newCell;
-//	}
-
-	@Override
-	public int getCellDim() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	public boolean canConsume(Patch patch, List<Patch> patches, List<Patch> invalidCells) {
+		return false;
 	}
-
+	
+	public boolean canReplicate() {
+		return framesAlive >= myBreedingTime;
+	}
+	
+	public Cell replicateCell(String s) {
+		return CellFactory.getCell(s, myState, propertyMap);
+	}
+	
+	public void resetBreedingTime() {
+		framesAlive=0;
+	}
+	
+	public boolean canMove(Patch patch, List<Patch> neighbors,List<Patch> invalidPatchChoices) {
+		return patch.checkSurroundingPatches(neighbors, invalidPatchChoices) != null;
+	}
+	
+	public boolean isStarved() {
+		return false;
+	}
 }

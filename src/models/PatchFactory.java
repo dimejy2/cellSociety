@@ -18,6 +18,9 @@ public class PatchFactory {
 			return new SegregationPatch(row, col, resources, cellDim);
 		}
 		
+		else if(criteria.equals("WaTorWorld")) {
+			return new WatorWorldPatch(row, col, resources, cellDim);
+		}
 		else{
 			return null;
 		}

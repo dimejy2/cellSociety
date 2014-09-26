@@ -1,27 +1,22 @@
 package cellsociety_team05_controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import models.Board;
 import models.Cell;
+import models.CellFactory;
 import models.Patch;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.chart.LineChart;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-
-import java.util.Random;
-
 import views.PopulationGraph;
 
 
@@ -127,5 +122,22 @@ public abstract class SimulationRules {
 		// Will be implemented after graphs are
 	}
 
+	protected void swapWithRandomCell(Patch patch, List<Patch> patchList) {
 
+		Patch toSwitch = patch.checkSurroundingPatches(patchList, invalidPatchChoices);
+		if(toSwitch != null ) {
+			Cell temp = toSwitch.getCell();
+			toSwitch.setCell(patch.getCell());
+			if(temp != null) {
+				patch.setCell(temp);
+			}
+			else {
+				patch.setCell(CellFactory.getCell("", 0,null));
+			}
+			invalidPatchChoices.add(toSwitch);
+			invalidPatchChoices.add(patch);
+		}
+
+	}
+	
 }

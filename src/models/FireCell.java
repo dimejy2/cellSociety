@@ -6,12 +6,12 @@ import java.util.Map;
 public class FireCell extends Cell {
 
 	public FireCell(int state) {
-		super(state);
+		super(state, null);
 	}
 
 	@Override
 	public int getNextState(Map<Integer, List<Patch>> neighbors) {
-		myPatch.updateResources(-1);
+		myPatch.decrementPatch();
 		int nextState;
 		if(!myPatch.isAlive()) {
 			nextState = 0;
@@ -21,5 +21,7 @@ public class FireCell extends Cell {
 		}
 		return nextState;
 	}
+
+
 
 }

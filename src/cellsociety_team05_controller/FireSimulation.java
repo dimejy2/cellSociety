@@ -11,10 +11,6 @@ public class FireSimulation extends SimulationRules {
 
 	@Override
 	public void updateNextPatch (Patch patch) {
-		// TODO Auto-generated method stub
-		int isDead = 0;
-		int isTree = 1;
-		int isBurning = 2;
 
 		int nextState;
 		if(patch.getCell() != null) {
