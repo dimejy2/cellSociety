@@ -1,7 +1,6 @@
 package views;
 
 import java.util.List;
-
 import controllers.SimulationController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,28 +22,26 @@ public abstract class ValueChangers {
         return valueChangers;
     }
 
-     protected void configureMaxResources() {
-     maxResources.textProperty().addListener(new ChangeListener<String>() {
-     @Override
-     public void changed(ObservableValue<? extends String> observable,
-     String oldValue, String newValue) {
-     mySimulationController.changeMaxResources(maxResources);
-     }
-     });
-     valueChangers.add(maxResources);
-     }
-    
-     protected void configureProbability() {
-     probability.textProperty().addListener(new ChangeListener<String>() {
-     @Override
-     public void changed(ObservableValue<? extends String> observable,
-     String oldValue, String newValue) {
-     mySimulationController.changeProbability(probability);
-     }
-     });
-     valueChangers.add(probability);
-     }
+    protected void configureResources (TextField resources) {
+        maxResources.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed (ObservableValue<? extends String> observable,
+                                 String oldValue, String newValue) {
+                mySimulationController.changeMaxResources(resources);
+            }
+        });
+        valueChangers.add(resources);
 
+    }
 
+    protected void configureMaxResources () {
+        configureResources(maxResources);
+
+    }
+
+    protected void configureProbablity(){
+        configureResources(probability);
+    }
+   
 
 }
