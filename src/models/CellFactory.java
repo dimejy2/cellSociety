@@ -3,7 +3,7 @@ package models;
 import java.util.Map;
 
 public class CellFactory {
-	
+
 	public static Cell getCell(String criteria, int state, Map<String, Double> cellResources) {
 		if(state == 0) {
 			return null;
