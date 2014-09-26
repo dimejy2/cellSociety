@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javafx.scene.shape.Shape;
-import views.CellView;
+import views.PatchView;
 
 public abstract class Cell {
 
@@ -15,7 +15,7 @@ public abstract class Cell {
 	protected int myRow;
 	protected int myColumn;
 	protected int myState; 
-	private CellView myCellView;
+	private PatchView myCellView;
 	protected double myResources;
 	private int framesAlive;
 	private double myCellDim;
@@ -46,13 +46,13 @@ public abstract class Cell {
 
 	public abstract int getNextState(Map<Integer, List<Patch>> neighbors);
 	
-	public CellView getCellView() {
+	public PatchView getCellView() {
 		return myCellView;
 	}
 	
 
 	public void createCellView(int height, int state) {
-		myCellView = new CellView(height, height, state);
+		myCellView = new PatchView(height, height, state);
 	}
 
 	public int getRow(){

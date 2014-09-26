@@ -3,6 +3,7 @@ package models;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Shape;
 
+
 public class TriangleBoard extends Board {
 
     public TriangleBoard (int row, int column, Pane boardPane2, int states) {
@@ -10,23 +11,23 @@ public class TriangleBoard extends Board {
     }
 
     @Override
-    public void addCell (Cell cell) {
+    public void addPatch (Patch patch) {
         // adjusting the locations of hexagon cells (odd vs even columns)
-        myCells[cell.getRow()][cell.getColumn()] = cell;
+    	super.addPatch(patch);
 
-        Shape cellShape = cell.getCellView().getDownTriangle();
+        Shape cellShape = patch.getPatchView().getDownTriangle();
 
-        if ((cell.getRow() + cell.getColumn()) % 2 == 1) {
-            cellShape = cell.getCellView().getUpTriangle();
+        if ((patch.getRow() + patch.getColumn()) % 2 == 1) {
+            cellShape = patch.getPatchView().getUpTriangle();
         }
-
-        double xCoord = cell.getColumn() * (cell.getCellDim() / 2);
+        patch.setShape(cellShape);
+        double xCoord = patch.getColumn() * (patch.getPatchDim() / 2);
         double yCoord =
-                (cell.getCellDim() * Math.sin(Math.PI / 3) / 2) + cell.getRow() *
-                        cell.getCellDim() * Math.sin(Math.PI / 3);
-
-        putShapedPatch(cellShape, xCoord, yCoord);
+                (patch.getPatchDim() * Math.sin(Math.PI / 3) / 2) + patch.getRow() *
+                        patch.getPatchDim() * Math.sin(Math.PI / 3);
+        
+        cellShape.relocate(xCoord, yCoord);
+        putShapedPatch(patch);
     }
-    
 
 }

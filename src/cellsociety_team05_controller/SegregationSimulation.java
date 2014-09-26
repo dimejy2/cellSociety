@@ -20,7 +20,4 @@ public class SegregationSimulation extends SimulationRules {
 			}
 		}
 	}
-
-
-
 }

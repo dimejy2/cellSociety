@@ -17,17 +17,17 @@ public abstract class Board {
 	private Pane myBoardPane;
 	protected Patch[][] myPatches;
 	protected List<Patch> myGraph;
-	private static final int WINDOW_SIZE = 400;
+	private static final int WINDOW_SIZE = 350;
 	protected Map<Integer, Color> stateToColorMap;
 	protected int cellDim;
 	private int numStates;
 	private Map<Integer, ArrayList<Patch>> myStateMap;
 //	protected int[] myXDelta = { 1, 1, 0, -1, -1, 0 };
 //	protected int[] myYDelta = { 0, -1, -1, 0, 1, 1 };
-//	 protected int[] myXDelta = { -1, 0, 1, -1, 1, -1, 0, 1 }; //8
-//	 protected int[] myYDelta = { -1, -1, -1, 0, 0, 1, 1, 1 }; //8
-	 protected int[] myXDelta = { 0, 0, 1, -1 }; //4
-	 protected int[] myYDelta = { 1, -1, 0, 0 }; //4
+	 protected int[] myXDelta = { -1, 0, 1, -1, 1, -1, 0, 1 }; //8
+	 protected int[] myYDelta = { -1, -1, -1, 0, 0, 1, 1, 1 }; //8
+//	 protected int[] myXDelta = { 0, 0, 1, -1 }; //4
+//	 protected int[] myYDelta = { 1, -1, 0, 0 }; //4
 //	 protected int[] myXDelta = { 1, 1, 0, -1, -1, 0 }; //6
 //	 protected int[] myYDelta = { 0, -1, -1, 0, 1, 1 }; //6
 

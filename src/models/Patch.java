@@ -8,7 +8,7 @@ import java.util.Random;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
-import views.CellView;
+import views.PatchView;
 
 public abstract class Patch {
 
@@ -21,7 +21,7 @@ public abstract class Patch {
 	protected int myColumn;
 	protected double myProbability;
 	protected double myResources;
-	protected CellView myPatchView;
+	protected PatchView myPatchView;
 	protected Shape myShape;
 	private double myPatchDim;
 	protected double myIncrement;
@@ -33,7 +33,7 @@ public abstract class Patch {
 		myRow = row; 
 		myColumn = col; 
 		staticResources = resources; 
-		myPatchView = new CellView(patchDim, patchDim, 0);
+		myPatchView = new PatchView(patchDim, patchDim, 0);
 		myPatchDim = patchDim;
 	}
 
@@ -111,7 +111,7 @@ public abstract class Patch {
 		return myShape;
 	}
 
-	public CellView getPatchView() {
+	public PatchView getPatchView() {
 		return myPatchView;
 	}
 
