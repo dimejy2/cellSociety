@@ -23,7 +23,7 @@ public abstract class SimulationRules {
 
 
 	protected Board myBoard;
-	protected Map<List<Integer>, Patch> myPatchGraph;
+	protected Map<int[], Patch> myPatchGraph;
 	protected Board nextBoard;
 	protected Pane myBoardPane;
 	protected Animation myAnimation;
@@ -58,7 +58,7 @@ public abstract class SimulationRules {
 	};
 
 	private void generateNeighborMaps() {
-		for(List<Integer> coordinate : myPatchGraph.keySet()) {
+		for(int[] coordinate : myPatchGraph.keySet()) {
 			myPatchGraph.get(coordinate).generateNeighborMap();
 		}
 	}
@@ -73,7 +73,7 @@ public abstract class SimulationRules {
 	public void checkCells ()
 	{
 		invalidPatchChoices = new ArrayList<>();
-		for(List<Integer> coordinate : myPatchGraph.keySet()) {
+		for(int[] coordinate : myPatchGraph.keySet()) {
 			updateNextPatch(myPatchGraph.get(coordinate));
 		}
 	}
