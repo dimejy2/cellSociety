@@ -6,7 +6,7 @@ import java.util.Map;
 public class RaceCell extends Cell{
 
 	public RaceCell(int state) {
-		super(state);
+		super(state, null);
 	}
 
 	@Override

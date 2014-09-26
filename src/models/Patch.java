@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
-import views.CellView;
+import views.PatchView;
 
 public abstract class Patch {
 
@@ -20,22 +21,20 @@ public abstract class Patch {
 	protected int myColumn;
 	protected double myProbability;
 	protected double myResources;
-	protected CellView myPatchView;
+	protected PatchView myPatchView;
 	protected Shape myShape;
 	private double myPatchDim;
-	private int myNumStates;
+	protected double myIncrement;
+	protected double myDecrement;
+	protected static Random rand = new Random();
 
 
 	public Patch(int row, int col, Map <String, Double> resources, double patchDim){
 		myRow = row; 
 		myColumn = col; 
 		staticResources = resources; 
-		myPatchView = new CellView(patchDim, patchDim, 0);
+		myPatchView = new PatchView(patchDim, patchDim, 0);
 		myPatchDim = patchDim;
-	}
-
-	public void setNumStates(int numStates) {
-		myNumStates = numStates;
 	}
 
 	private void setProbability(double probability) {
@@ -112,7 +111,7 @@ public abstract class Patch {
 		return myShape;
 	}
 
-	public CellView getPatchView() {
+	public PatchView getPatchView() {
 		return myPatchView;
 	}
 
@@ -138,5 +137,27 @@ public abstract class Patch {
 
 	public double getProbability() {
 		return myProbability;
+	}
+
+	public void decrementPatch() {
+		myResources -= myDecrement;
+	}
+
+	public Patch checkSurroundingPatches(List<Patch> neighbors, List<Patch> invalidPatchChoices) {
+		List<Patch> copy = new ArrayList<Patch>(neighbors);
+		if(copy.size() ==0) {
+			return null;
+		}
+		int randIndex = rand.nextInt(copy.size());
+		Patch toSwitch = copy.get(randIndex);
+		while(invalidPatchChoices.contains(toSwitch)) {
+			copy.remove(randIndex);
+			if(copy.size()==0){
+				return null;
+			}
+			randIndex = rand.nextInt(copy.size());
+			toSwitch = copy.get(randIndex);
+		}
+		return toSwitch;
 	}
 }

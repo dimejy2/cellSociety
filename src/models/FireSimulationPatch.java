@@ -9,6 +9,7 @@ public class FireSimulationPatch extends Patch {
 		super(row, col, resources, patchDim);
 		myProbability = resources.get("probability");
 		myResources = resources.get("patchResources");
+		myDecrement = resources.get("patchDecrement");
 	}
 
 	@Override
@@ -20,7 +21,7 @@ public class FireSimulationPatch extends Patch {
 	@Override
 	public void updateCell(int state) {
 		if(state != myCell.getState()) {
-			myCell = CellFactory.getCell("FireSimulation", state);
+			myCell = CellFactory.getCell("FireSimulation", state, null);
 		}
 		if(myCell != null) {
 			myCell.setPatch(this);

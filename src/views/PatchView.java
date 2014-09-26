@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 
-public class CellView {
+public class PatchView {
 
     // private Rectangle myRectangle;
     private Polygon myHexagon;
@@ -19,7 +19,7 @@ public class CellView {
     private Triangle newUpTri;
     private Triangle newDownTri;
 
-    public CellView (double width, double height, int state) {
+    public PatchView (double width, double height, int state) {
         // might not need height at all
         myRectangle = new Rectangle(width, height);
 
