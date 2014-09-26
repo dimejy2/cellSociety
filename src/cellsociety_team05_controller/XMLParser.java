@@ -2,8 +2,10 @@ package cellsociety_team05_controller;
 
 import java.awt.Dimension;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -48,6 +50,10 @@ public class XMLParser extends DefaultHandler {
 	private int numRows;
 	private int numCols;
 	private String criteria;
+	private int multipleBoardInitChecker; 
+	private Random Chance = new Random(); 
+	private RandomCollection<Integer> probState = new RandomCollection<Integer>() ; 
+	
 
 	/** The main method sets things up for parsing */
 	public XMLParser (String file_path, Pane myBoardPane) {
@@ -74,7 +80,7 @@ public class XMLParser extends DefaultHandler {
 			System.out.println("IO error");
 		}
 
-		if (hasError || (rowNumber != numRows)) throw new xmlError();
+		if (hasError || (rowNumber != numRows) || multipleBoardInitChecker != 1) throw new xmlError();
 
 	}
 
@@ -169,6 +175,7 @@ public class XMLParser extends DefaultHandler {
 		}
 
 		if (qName.equalsIgnoreCase("row")) {
+			multipleBoardInitChecker ++; 
 			String row = attributes.getValue("values");
 			for (int j = 0; j < row.length(); j++) {
 				Patch newPatch = PatchFactory.getPatch(criteria, rowNumber, j, patchProperties,cellDim);
@@ -191,6 +198,41 @@ public class XMLParser extends DefaultHandler {
 			colNumber = 0;
 		}
 
+
+		if(qName.equalsIgnoreCase("randomfill")){
+			multipleBoardInitChecker ++; 
+			for(int j = 0 ; j < numRows ; j ++){
+				for (int i = 0; i < numCols; i++){
+					int randomState = randomStateGenerator(numCellStates) ; 
+					Patch newPatch = PatchFactory.getPatch(criteria, i, j, patchProperties,cellDim);
+					if(randomState != 0)	{
+						Cell cell = CellFactory.getCell(criteria, randomState);
+						newPatch.setCell(cell);
+					}
+					board.addPatch(newPatch);
+				} 
+			}
+			rowNumber = numRows ; 
+		}
+
+		if(qName.equalsIgnoreCase("randomWeightedfill")){
+			multipleBoardInitChecker ++; 
+			randomWeightedGeneratorAdder(); 
+			for(int j = 0 ; j < numRows ; j ++){
+				for (int i = 0; i < numCols; i++){
+					int randomState = probState.next() ; 
+					Patch newPatch = PatchFactory.getPatch(criteria, i, j, patchProperties,cellDim);
+					if(randomState != 0)	{
+						Cell cell = CellFactory.getCell(criteria, randomState);
+						newPatch.setCell(cell);
+					}
+					board.addPatch(newPatch);
+				} 
+			}
+			rowNumber = numRows ; 
+		}
+		
+		
 		if (qName.equalsIgnoreCase("colors")) {
 			stateToColorMap = new HashMap<Integer, Color>();
 
@@ -235,6 +277,32 @@ public class XMLParser extends DefaultHandler {
 
 	public int getNumStates () {
 		return numCellStates;
+	}
+
+	private int randomStateGenerator( int a){
+		return Chance.nextInt(numCellStates); 
+
+	}
+
+	private void randomWeightedGeneratorAdder(){
+		ArrayList<Double> numProb = weightGenerator(); 
+		for(int i = 0 ; i < numCellStates; i ++){
+			probState.add(numProb.get(i), i);	
+			System.out.println(numProb.get(i) +" BOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"); 
+		}
+		
+	}
+
+	private ArrayList<Double> weightGenerator(){
+		ArrayList<Double> numProb = new ArrayList<Double>(); 
+		double sum = 1.0 ; 
+		for(int i = 0 ; i < numCellStates -1 ; i++ ){
+			numProb.add( Math.abs(Chance.nextDouble()*sum - 0.5*sum));  
+			sum = sum - numProb.get(i); 
+		}
+		numProb.add( Math.abs(sum) ); 
+		
+		return numProb; 
 	}
 
 }

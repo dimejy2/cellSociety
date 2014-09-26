@@ -124,7 +124,7 @@ public abstract class Board {
                                 neighborPatches.add(neighborPatch);
                         }
                 }
-                System.out.println("Final neighbor size: " + Integer.toString(neighborPatches.size()));
+                //System.out.println("Final neighbor size: " + Integer.toString(neighborPatches.size()));
                 patch.setNeighborPatches(neighborPatches);
         }
 
