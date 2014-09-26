@@ -289,7 +289,6 @@ public class XMLParser extends DefaultHandler {
 		ArrayList<Double> numProb = weightGenerator(); 
 		for(int i = 0 ; i < numCellStates; i ++){
 			probState.add(numProb.get(i), i);	
-			System.out.println(numProb.get(i) +" BOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"); 
 		}
 		
 	}
