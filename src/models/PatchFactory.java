@@ -7,18 +7,21 @@ public class PatchFactory {
 	public static Patch getPatch(String criteria, int row, int col, 
 			Map <String, Double> resources, double cellDim) {
 		
-		if(criteria.equals("GameofLife")) {
+		if(criteria.equalsIgnoreCase("GameofLife")) {
 			return new GameOfLifePatch(row, col, resources, cellDim);
 		}
 		
-		else if(criteria.equals("FireSimulation")) {
+		else if(criteria.equalsIgnoreCase("FireSimulation")) {
 			return new FireSimulationPatch(row, col,resources,cellDim);
 		}
 		
-		else if(criteria.equals("Segregation")) {
+		else if(criteria.equalsIgnoreCase("Segregation")) {
 			return new SegregationPatch(row, col, resources, cellDim);
 		}
 		
+		else if(criteria.equals("WaTorWorld")) {
+			return new WatorWorldPatch(row, col, resources, cellDim);
+		}
 		else{
 			return null;
 		}

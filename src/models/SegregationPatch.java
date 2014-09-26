@@ -24,7 +24,7 @@ public class SegregationPatch extends Patch {
 			myCell = null;
 		}
 		else {
-			setCell(CellFactory.getCell("Segregation", state));
+			setCell(CellFactory.getCell("Segregation", state, null));
 		}
 	}
 

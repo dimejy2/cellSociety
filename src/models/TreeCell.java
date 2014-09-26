@@ -6,7 +6,7 @@ import java.util.Map;
 public class TreeCell extends Cell{
 
 	public TreeCell(int state) {
-		super(state);
+		super(state, null);
 	}
 
 	@Override

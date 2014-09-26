@@ -1,8 +1,10 @@
 package models;
 
+import java.util.Map;
+
 public class CellFactory {
 
-	public static Cell getCell(String criteria, int state) {
+	public static Cell getCell(String criteria, int state, Map<String, Double> cellResources) {
 		if(state == 0) {
 			return null;
 		}
@@ -24,6 +26,15 @@ public class CellFactory {
 			}
 			else{
 				return new RaceTwoCell(state);
+			}
+		}
+		
+		if(criteria.equals("WaTorWorld")) {
+			if(state == 1) {
+				return new FishCell(state, cellResources);
+			}
+			else {
+				return new SharkCell(state, cellResources);
 			}
 		}
 		

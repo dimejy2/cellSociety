@@ -19,7 +19,7 @@ public class GameOfLifePatch extends Patch {
 	@Override
 	public void updateCell(int state) {
 		if(state != myCell.getState()) {
-			myCell = CellFactory.getCell("GameofLife", state);
+			myCell = CellFactory.getCell("GameofLife", state, null);
 		}
 		if(myCell != null) {
 			myCell.setPatch(this);

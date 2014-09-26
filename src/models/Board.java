@@ -12,12 +12,13 @@ import javafx.scene.shape.Shape;
 
 public abstract class Board {
 
+
 	private int numRows;
 	private int numColumns;
 	private Pane myBoardPane;
 	protected Patch[][] myPatches;
 	protected List<Patch> myGraph;
-	private static final int WINDOW_SIZE = 400;
+	private static final int WINDOW_SIZE = 350;
 	protected Map<Integer, Color> stateToColorMap;
 	protected int cellDim;
 	private int numStates;
@@ -148,4 +149,5 @@ public abstract class Board {
 	public void setColorMap (Map<Integer, Color> colorMap) {
 		stateToColorMap = colorMap;
 	}
+
 }
