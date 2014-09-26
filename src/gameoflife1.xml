@@ -10,15 +10,8 @@
 			<color state="1" color="black"></color>
 		</colors>
 	</properties>
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<grid xValue="15" yValue="16" gridType="TriangleBoard">
-=======
-	<grid xValue="15" yValue="15" gridType="HexagonBoard">
->>>>>>> origin/master
-=======
-	<grid row="15" column="15" gridType="TriangleBoard">
->>>>>>> master
+
+	<grid row="16" column="15" gridType="TriangleBoard">
 		<!-- DEFAULT GRID -->
 		<!-- Each digit represents a cell with its value being its initial state. -->
 		<row values="110000000011111"></row>

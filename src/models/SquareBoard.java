@@ -5,6 +5,7 @@ import javafx.scene.shape.Shape;
 
 
 public class SquareBoard extends Board {
+	private final static int WIDTH_ADJUSTMENT_FACTOR = 2;
 
 	public SquareBoard (int row, int column, Pane boardPane2, int states) {
 		super(row, column, boardPane2, states);
@@ -18,8 +19,8 @@ public class SquareBoard extends Board {
 		super.addPatch(patch);
 		Shape shape = patch.getPatchView().getRectangle();
 		patch.setShape(shape);
-		double xCoord = cellDim / 2 + patch.getColumn() * cellDim;
-		double yCoord = cellDim / 2 + patch.getRow() * cellDim;
+		double xCoord = cellDim / WIDTH_ADJUSTMENT_FACTOR + patch.getColumn() * cellDim;
+		double yCoord = cellDim / WIDTH_ADJUSTMENT_FACTOR + patch.getRow() * cellDim;
 
 		shape.relocate(xCoord, yCoord);
 		putShapedPatch(patch);

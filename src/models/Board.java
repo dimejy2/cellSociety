@@ -17,7 +17,7 @@ public abstract class Board {
 	private int numColumns;
 	private Pane myBoardPane;
 	protected Patch[][] myPatches;
-	protected List<Patch> myGraph;
+	protected Map<List<Integer>, Patch> myMapGraph;
 	private static final int WINDOW_SIZE = 350;
 	protected Map<Integer, Color> stateToColorMap;
 	protected int cellDim;
@@ -39,7 +39,7 @@ public abstract class Board {
 		numColumns = column;
 		myBoardPane = boardPane;
 		myPatches = new Patch[row][column];
-		myGraph = new ArrayList<>();
+		myMapGraph = new HashMap<List<Integer>, Patch>();
 		numStates = states;
 		cellDim = WINDOW_SIZE / Math.max(row, column);
 	}
@@ -48,12 +48,15 @@ public abstract class Board {
 
 	public void addPatch (Patch patch) {
 		myPatches[patch.getRow()][patch.getColumn()] = patch;
-		myGraph.add(patch);
+		List<Integer> coordinates = new ArrayList<Integer>();
+		coordinates.add(patch.getRow());
+		coordinates.add(patch.getColumn());
+		myMapGraph.put(coordinates, patch);
 	}
 
 	public void updatePatchViews() {
-		for(Patch patch : myGraph) {
-			putShapedPatch(patch);
+		for(List<Integer> coordinate : myMapGraph.keySet()) {
+			putShapedPatch(myMapGraph.get(coordinate));
 		}
 	}
 
@@ -69,13 +72,14 @@ public abstract class Board {
 		myBoardPane.getChildren().add(patch.getShape());
 	}
 
-	public List<Patch> getPatches () {
-		return myGraph;
+	public Map<List<Integer>, Patch> getPatches () {
+		return myMapGraph;
 	}
 
 	public void generateMyStateMap () {
 		myStateMap = genericStateMap(numStates);
-		for (Patch patch : myGraph) {
+		for (List<Integer> coordinate : myMapGraph.keySet()) {
+			Patch patch = myMapGraph.get(coordinate);
 			if(patch.getCell() != null) {
 				myStateMap.get(patch.getCell().getState()).add(patch);
 			}

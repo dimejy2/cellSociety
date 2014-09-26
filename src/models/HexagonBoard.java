@@ -12,7 +12,6 @@ public class HexagonBoard extends Board {
 
     @Override
     public void addPatch (Patch patch) {
-        // adjusting the locations of hexagon cells (odd vs even columns)
     	super.addPatch(patch);
     	Shape shape = patch.getPatchView().getHexagon();
     	patch.setShape(shape);
@@ -20,7 +19,6 @@ public class HexagonBoard extends Board {
         double yCoord = (cellDim * Math.sqrt(3) / 4) + patch.getRow() * (cellDim * Math.sqrt(3) / 2);
 
         if (patch.getColumn() % 2 == 1) {
-            // might wanna simplify
             xCoord = ((3 * patch.getColumn() / 2 + 1) * patch.getPatchDim()) / 2 + patch.getPatchDim() / 4;
             yCoord = (cellDim * Math.sqrt(3) / 2) + patch.getRow() * (cellDim * Math.sqrt(3) / 2);
         }

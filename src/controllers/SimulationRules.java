@@ -23,8 +23,7 @@ public abstract class SimulationRules {
 
 
 	protected Board myBoard;
-	protected List<Patch> myPatches;
-	protected List<Patch> nextBoardObjects;
+	protected Map<List<Integer>, Patch> myPatchGraph;
 	protected Board nextBoard;
 	protected Pane myBoardPane;
 	protected Animation myAnimation;
@@ -40,7 +39,7 @@ public abstract class SimulationRules {
 
 		myBoard = board;
 		myBoard.createNeighborhoods();
-		myPatches = myBoard.getPatches();
+		myPatchGraph = myBoard.getPatches();
 		myBoardPane = boardPane;
 		myNumStates = numStates;
 		frames = 0;
@@ -59,8 +58,8 @@ public abstract class SimulationRules {
 	};
 
 	private void generateNeighborMaps() {
-		for(Patch patch : myPatches) {
-			patch.generateNeighborMap();
+		for(List<Integer> coordinate : myPatchGraph.keySet()) {
+			myPatchGraph.get(coordinate).generateNeighborMap();
 		}
 	}
 
@@ -73,10 +72,9 @@ public abstract class SimulationRules {
 
 	public void checkCells ()
 	{
-		nextBoardObjects = new ArrayList<Patch>();
 		invalidPatchChoices = new ArrayList<>();
-		for (Patch patch : myPatches) {
-			updateNextPatch(patch);
+		for(List<Integer> coordinate : myPatchGraph.keySet()) {
+			updateNextPatch(myPatchGraph.get(coordinate));
 		}
 	}
 

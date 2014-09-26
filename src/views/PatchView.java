@@ -18,12 +18,13 @@ public class PatchView {
     private Polygon myDownTriangle;
     private Triangle newUpTri;
     private Triangle newDownTri;
+    private static final int WIDTH_ADJUSTMENT_FACTOR = 2;
 
     public PatchView (double width, double height) {
         // might not need height at all
         myRectangle = new Rectangle(width, height);
 
-        newHex = new Hexagon(width / 2);
+        newHex = new Hexagon(width / WIDTH_ADJUSTMENT_FACTOR);
         newHex.setHex();
         myHexagon = newHex.getHex();
 
